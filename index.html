@@ -1,109 +1,632 @@
-import os
-import sys
-
-# Try importing Pillow to ensure it's installed
-try:
-    from PIL import Image
-except ImportError:
-    print("❌ Error: Pillow library not found.")
-    print("   Please run: pip install Pillow")
-    sys.exit(1)
-
-def compress_images(source_folder, dest_folder):
-    # Create destination folder if it doesn't exist
-    if not os.path.exists(dest_folder):
-        os.makedirs(dest_folder)
-        print(f"📁 Created output folder: {os.path.abspath(dest_folder)}")
-
-    # Valid image extensions
-    valid_extensions = {'.jpg', '.jpeg', '.png', '.webp'}
-
-    print(f"🚀 Starting compression from '{os.path.abspath(source_folder)}'...")
-
-    files_processed = 0
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB Floristry | Essex & London's Premier Mother-Daughter Florists</title>
     
-    # Get list of files
-    try:
-        files = [f for f in os.listdir(source_folder) if os.path.isfile(os.path.join(source_folder, f))]
-    except Exception as e:
-        print(f"❌ Error reading directory: {e}")
-        return
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    for filename in files:
-        file_path = os.path.join(source_folder, filename)
+    <!-- SNIPCART CSS (Uncomment when you have your API Key) -->
+    <!-- <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.css" /> -->
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sb-black': '#0a0a0a', 
+                        'sb-gold': '#E0C35D', 
+                        'sb-cream': '#F2F0EB', 
+                        'sb-dark': '#1A1A1A',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'luxury': '0.2em', 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
         
-        # Skip the script itself if it's in the folder
-        if filename == os.path.basename(__file__):
-            continue
+        .hero-zoom {
+            animation: slowZoom 20s infinite alternate;
+        }
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
 
-        # Check extension
-        ext = os.path.splitext(filename)[1].lower()
-        if ext not in valid_extensions:
-            continue
+        .text-gold-metallic {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.1); 
+        }
 
-        try:
-            with Image.open(file_path) as img:
-                # 1. Convert PNGs to JPG (except Logo) to save massive space
-                if 'logo' in filename.lower():
-                    output_filename = filename
-                    save_path = os.path.join(dest_folder, output_filename)
-                    # Resize huge logos
-                    if img.width > 800:
-                        ratio = 800 / img.width
-                        new_height = int(img.height * ratio)
-                        img = img.resize((800, int(new_height)), Image.Resampling.LANCZOS)
-                    
-                    img.save(save_path, optimize=True)
-                    print(f"✅ Optimized Logo: {filename}")
-                    files_processed += 1
-                    continue
+        @keyframes subtleShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-                # 2. For all other photos, convert to JPG and Resize
-                if img.mode in ('RGBA', 'P'):
-                    img = img.convert('RGB')
+        .bg-gold-shimmer {
+            background: linear-gradient(
+                90deg, 
+                #997b3a 0%,   
+                #b89546 25%,  
+                #E0C35D 50%,  
+                #b89546 75%,  
+                #997b3a 100%  
+            );
+            background-size: 200% auto;
+            animation: subtleShimmer 6s linear infinite;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans text-sb-dark antialiased bg-sb-cream">
 
-                # Resize if width is larger than 1920px
-                max_width = 1920
-                if img.width > max_width:
-                    ratio = max_width / img.width
-                    new_height = int(img.height * ratio)
-                    img = img.resize((max_width, int(new_height)), Image.Resampling.LANCZOS)
+    <!-- Announcement Bar -->
+    <div class="bg-gold-shimmer text-sb-black text-[10px] md:text-xs py-2 text-center tracking-[0.2em] uppercase font-bold border-b border-sb-cream/20">
+        <p>Family Run • Serving Essex & London • Same Day Delivery</p>
+    </div>
 
-                # Change extension to .jpg for web optimization
-                output_filename = os.path.splitext(filename)[0] + ".jpg"
-                save_path = os.path.join(dest_folder, output_filename)
-
-                # Save with 75% quality (Standard web practice)
-                img.save(save_path, "JPEG", quality=75, optimize=True)
+    <!-- Header / Navigation (Black) -->
+    <header class="sticky top-0 z-50 bg-sb-black/95 backdrop-blur-md shadow-lg transition-all duration-300 border-b border-sb-cream/10" id="main-header">
+        <div class="container mx-auto px-6 py-2">
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-[1fr_auto_1fr] items-center h-20 md:h-28 gap-4 lg:gap-12">
                 
-                print(f"✅ Compressed: {filename} -> {output_filename}")
-                files_processed += 1
+                <!-- Left Section -->
+                <div class="flex items-center justify-start lg:justify-end h-full">
+                    <button id="mobile-menu-btn" class="lg:hidden text-2xl text-sb-cream focus:outline-none hover:text-sb-gold transition-colors mr-auto p-2">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <nav class="hidden lg:flex space-x-6 xl:space-x-8 text-[11px] xl:text-xs font-bold tracking-luxury text-gray-300 uppercase whitespace-nowrap">
+                        <a href="#shop" class="hover:text-sb-gold transition-colors duration-300">Shop</a>
+                        <a href="#weddings" class="hover:text-sb-gold transition-colors duration-300">Weddings</a>
+                        <a href="#about" class="hover:text-sb-gold transition-colors duration-300">Our Story</a>
+                    </nav>
+                </div>
 
-        except Exception as e:
-            print(f"❌ Error processing {filename}: {e}")
+                <!-- Center Section: Logo -->
+                <div class="flex justify-center h-full items-center px-4">
+                    <a href="#" class="group block">
+                        <!-- LOGO: Points to local images folder -->
+                        <img src="images/logo.png" alt="SB Floristry" class="h-16 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                    </a>
+                </div>
 
-    if files_processed == 0:
-        print("⚠️ No images found to compress.")
-    else:
-        print(f"\n✨ Done! {files_processed} images processed.")
-        print(f"📁 Compressed files are in: {os.path.abspath(dest_folder)}")
+                <!-- Right Section -->
+                <div class="flex items-center justify-end lg:justify-between h-full w-full">
+                    <nav class="hidden lg:flex space-x-6 xl:space-x-8 text-[11px] xl:text-xs font-bold tracking-luxury text-gray-300 uppercase whitespace-nowrap">
+                        <a href="#subscriptions" class="hover:text-sb-gold transition-colors duration-300">Subscriptions</a>
+                        <a href="#contact" class="hover:text-sb-gold transition-colors duration-300">Contact</a>
+                    </nav>
 
-if __name__ == "__main__":
-    # Check if we are running INSIDE the images folder
-    # We do this by checking if there isn't an 'images' subfolder here, but there ARE image files here.
-    
-    current_files = os.listdir(".")
-    has_images_subfolder = "images" in current_files and os.path.isdir("images")
-    has_images_here = any(f.lower().endswith(('.jpg', '.png')) for f in current_files)
+                    <!-- Icons -->
+                    <div class="flex items-center space-x-6 text-sb-cream">
+                        <button class="hidden lg:block hover:text-sb-gold transition-colors"><i class="fas fa-search text-lg"></i></button>
+                        
+                        <!-- Cart Button -->
+                        <button class="relative hover:text-sb-gold transition-colors group snipcart-checkout p-2">
+                            <i class="fas fa-shopping-bag text-lg"></i>
+                            <span class="snipcart-items-count absolute -top-2 -right-2 bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    if has_images_subfolder:
-        # Standard case: script is outside, images are in subfolder
-        compress_images("images", "images_optimized")
-    elif has_images_here:
-        # User is running script INSIDE the images folder
-        print("ℹ️  Running directly inside the images folder.")
-        # Save optimized images to a folder next to this one (../images_optimized)
-        compress_images(".", "../images_optimized")
-    else:
-        print("❌ Could not find any images to compress.")
-        print("   Make sure you run this script next to your 'images' folder, or inside it.")
+    <!-- Hero Section -->
+    <section class="relative h-[75vh] overflow-hidden">
+        <div class="absolute inset-0">
+            <!-- HERO: Points to local images folder -->
+            <img src="images/hero.jpg" 
+                 alt="Luxury Bouquet" 
+                 class="w-full h-full object-cover hero-zoom"
+                 style="object-position: center 60%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream pt-24 pb-24">
+            <h2 class="text-xs md:text-sm tracking-luxury uppercase mb-6 font-bold text-sb-cream reveal">Hand-Tied in Essex • Delivered to London</h2>
+            <h1 class="font-serif text-4xl md:text-7xl lg:text-8xl mb-10 leading-none drop-shadow-2xl reveal">
+                Artistry in <br/><span class="italic font-light text-gold-metallic">Every Bloom</span>
+            </h1>
+            <a href="#shop" class="reveal bg-transparent border border-sb-cream text-sb-cream hover:bg-sb-cream hover:text-sb-black transition-all duration-500 px-12 py-4 uppercase tracking-luxury text-xs font-bold mb-8">
+                Shop The Collection
+            </a>
+        </div>
+    </section>
+
+    <!-- Introduction / USP (Black) -->
+    <section class="py-16 md:py-24 bg-sb-black text-sb-cream relative">
+        <div class="container mx-auto px-6 text-center max-w-3xl">
+            <span class="text-gold-metallic text-4xl mb-6 block reveal"><i class="fas fa-leaf"></i></span>
+            <h2 class="font-serif text-3xl md:text-4xl text-sb-cream mb-8 reveal">A Family Affair</h2>
+            <p class="text-gray-400 leading-relaxed text-lg font-light mb-12 reveal">
+                Welcome to SB Floristry. We are a mother and daughter team bringing bespoke, luxury floral design to weddings, events, and homes across Essex and London. Every arrangement is hand-selected and styled with the care only family can provide.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-10 text-xs font-bold tracking-luxury text-sb-cream uppercase reveal">
+                <div class="flex items-center justify-center"><i class="fas fa-truck mr-4 text-sb-gold"></i> London & Essex Delivery</div>
+                <div class="flex items-center justify-center"><i class="fas fa-heart mr-4 text-sb-gold"></i> Family Owned</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop by Category Grid -->
+    <section class="py-16 md:py-24 bg-sb-cream" id="shop">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h3 class="font-serif text-3xl md:text-4xl text-sb-black mb-4">Shop Our Collections</h3>
+                <div class="w-24 h-0.5 bg-sb-gold mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Card 1 -->
+                <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <!-- COLLECTION 1 -->
+                    <img src="images/collection-signature.jpg" alt="Signature Bouquets" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute bottom-10 left-0 right-0 text-center">
+                        <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
+                            Signature Bouquets
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <!-- COLLECTION 2 -->
+                    <img src="images/collection-seasonal.jpg" alt="Seasonal Edit" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute bottom-10 left-0 right-0 text-center">
+                        <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
+                            Seasonal Releases
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <!-- COLLECTION 3 -->
+                    <img src="images/collection-weddings.jpg" alt="Weddings" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute bottom-10 left-0 right-0 text-center">
+                        <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
+                            Weddings & Events
+                        </span>
+                    </div>
+                </a>
+                
+                 <!-- Card 4 (Full Width) -->
+                 <a href="#" class="group relative block h-[350px] overflow-hidden cursor-pointer lg:col-span-3 reveal shadow-lg hover:shadow-2xl transition-shadow duration-300 mt-6">
+                    <!-- COLLECTION 4 -->
+                    <img src="images/collection-sympathy.jpg" alt="Sympathy" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="object-position: center 40%;">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Sympathy & Tributes</h4>
+                        <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers Slider / Grid -->
+    <section class="py-16 md:py-24 bg-sb-cream" id="bestsellers">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-10 reveal">
+                <h3 class="font-serif text-3xl md:text-4xl text-sb-black">Current Favorites</h3>
+                <a href="#" class="hidden md:inline-block text-xs font-bold tracking-luxury border-b border-black pb-1 hover:text-sb-gold hover:border-sb-gold transition-colors">VIEW ALL</a>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="group reveal delay-100">
+                    <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5]">
+                        <!-- PRODUCT 1 -->
+                        <img src="images/product-chelsea.jpg" alt="The Chelsea" class="w-full h-full object-cover">
+                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800"
+                            data-item-id="chelsea-bouquet"
+                            data-item-price="65.00"
+                            data-item-url="/"
+                            data-item-description="White Hydrangeas & Roses"
+                            data-item-image="images/product-chelsea.jpg"
+                            data-item-name="The Chelsea">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-xl text-sb-black mb-1">The Chelsea</h4>
+                        <p class="text-gray-500 text-xs tracking-wide uppercase mb-2">White Hydrangeas</p>
+                        <p class="font-bold text-sb-gold text-lg">£65.00</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group reveal delay-200">
+                    <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5]">
+                        <!-- PRODUCT 2 -->
+                        <img src="images/product-essex-rose.jpg" alt="The Essex Rose" class="w-full h-full object-cover">
+                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800"
+                            data-item-id="essex-rose"
+                            data-item-price="85.00"
+                            data-item-url="/"
+                            data-item-description="Luxury Pink Roses"
+                            data-item-image="images/product-essex-rose.jpg"
+                            data-item-name="The Essex Rose">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-xl text-sb-black mb-1">The Essex Rose</h4>
+                        <p class="text-gray-500 text-xs tracking-wide uppercase mb-2">Luxury Pink Roses</p>
+                        <p class="font-bold text-sb-gold text-lg">£85.00</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group reveal delay-300">
+                    <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5]">
+                        <!-- PRODUCT 3 -->
+                        <img src="images/product-wild-meadow.jpg" alt="Wild Meadow" class="w-full h-full object-cover">
+                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800"
+                            data-item-id="wild-meadow"
+                            data-item-price="55.00"
+                            data-item-url="/"
+                            data-item-description="Seasonal Wildflowers"
+                            data-item-image="images/product-wild-meadow.jpg"
+                            data-item-name="Wild Meadow">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-xl text-sb-black mb-1">Wild Meadow</h4>
+                        <p class="text-gray-500 text-xs tracking-wide uppercase mb-2">Seasonal Wildflowers</p>
+                        <p class="font-bold text-sb-gold text-lg">£55.00</p>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group reveal delay-400">
+                    <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5]">
+                        <!-- PRODUCT 4 -->
+                        <img src="images/product-pure-elegance.jpg" alt="Pure Elegance" class="w-full h-full object-cover">
+                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800"
+                            data-item-id="pure-elegance"
+                            data-item-price="95.00"
+                            data-item-url="/"
+                            data-item-description="Orchids & Lilies"
+                            data-item-image="images/product-pure-elegance.jpg"
+                            data-item-name="Pure Elegance">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-serif text-xl text-sb-black mb-1">Pure Elegance</h4>
+                        <p class="text-gray-500 text-xs tracking-wide uppercase mb-2">Orchids & Lilies</p>
+                        <p class="font-bold text-sb-gold text-lg">£95.00</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center md:hidden">
+                 <a href="#" class="inline-block text-xs font-bold tracking-luxury border-b border-black pb-1">VIEW ALL</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Mother Daughter Story -->
+    <section class="py-16 md:py-24 overflow-hidden" id="about">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <!-- Image Grid -->
+                <div class="w-full md:w-1/2 relative reveal">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- STORY 1 -->
+                        <img src="images/story-arranging.jpg" class="w-full h-64 lg:h-80 object-cover shadow-md grayscale hover:grayscale-0 transition-all duration-700" alt="Florist arranging">
+                        <!-- STORY 2 -->
+                        <img src="images/story-mother-daughter.jpg" class="w-full h-64 lg:h-80 object-cover mt-8 shadow-md grayscale hover:grayscale-0 transition-all duration-700" alt="Mother Daughter Florists">
+                    </div>
+                    <div class="absolute -z-10 top-0 left-0 w-full h-full border border-sb-gold/20 transform -translate-x-6 translate-y-6"></div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="w-full md:w-1/2 md:pl-10 reveal">
+                    <h5 class="text-gold-metallic font-bold tracking-luxury text-xs uppercase mb-4">About SB Floristry</h5>
+                    <h2 class="font-serif text-3xl md:text-5xl text-sb-black mb-6 leading-tight">Rooted in Family, <br>Bloomed in Passion.</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed font-light text-base">
+                        SB Floristry was born from a shared love of nature between mother and daughter. What started as arranging flowers for family weddings in our Essex kitchen has grown into a full-service floral studio serving the heart of London and our home county.
+                    </p>
+                    <p class="text-gray-600 mb-10 leading-relaxed font-light text-base">
+                        We believe that flowers are more than just decoration; they are a language of their own. Whether it's a grand wedding installation or a simple "thinking of you" bouquet, we pour our heart into every stem we select.
+                    </p>
+                    <a href="#about" class="inline-block bg-sb-black text-sb-cream px-10 py-4 uppercase tracking-luxury text-[10px] font-bold hover:bg-zinc-800 transition-colors">
+                        Read Our Full Story
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weddings Parallax Section -->
+    <!-- WEDDINGS BG: Changed bg-fixed to bg-scroll for mobile, md:bg-fixed for desktop -->
+    <section class="relative py-32 md:py-40 bg-scroll md:bg-fixed bg-center bg-cover" id="weddings" style="background-image: url('images/weddings-bg.jpg');">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal">
+            <h2 class="font-serif text-4xl md:text-6xl text-sb-cream mb-8">Weddings & Events</h2>
+            <p class="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                From intimate ceremonies in Essex countryside chapels to grand London ballroom receptions, let us create the floral backdrop for your love story.
+            </p>
+            <a href="#" class="inline-block border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-[10px] font-bold hover:bg-sb-cream hover:text-sb-black transition-colors duration-300">
+                Enquire Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Services / Info Strip (Black) -->
+    <section class="py-16 md:py-24 bg-sb-black text-sb-cream border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-white/10 reveal">
+                <div class="p-6">
+                    <i class="fas fa-shipping-fast text-2xl text-gold-metallic mb-4"></i>
+                    <h4 class="font-serif text-xl mb-3">Delivery Areas</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Proudly serving all of Essex and Greater London postcodes.</p>
+                </div>
+                <div class="p-6">
+                    <i class="fas fa-calendar-check text-2xl text-gold-metallic mb-4"></i>
+                    <h4 class="font-serif text-xl mb-3">Subscriptions</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Fresh seasonal blooms delivered to your door weekly or monthly.</p>
+                </div>
+                <div class="p-6">
+                    <i class="fas fa-comments text-2xl text-gold-metallic mb-4"></i>
+                    <h4 class="font-serif text-xl mb-3">Bespoke Requests</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Have a specific vision? Contact us for custom arrangements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram / Gallery Feed -->
+    <section class="py-0">
+        <div class="flex flex-wrap">
+            <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
+                <!-- GALLERY 1 -->
+                <img src="images/gallery-1.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 1">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
+            </div>
+            <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
+                <!-- GALLERY 2 -->
+                <img src="images/gallery-2.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 2">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
+            </div>
+            <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
+                <!-- GALLERY 3 -->
+                <img src="images/gallery-3.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 3">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
+            </div>
+            <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
+                <!-- GALLERY 4 -->
+                <img src="images/gallery-4.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 4">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
+            </div>
+            <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
+                <!-- GALLERY 5 -->
+                <img src="images/gallery-5.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 5">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
+            </div>
+            <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
+                <!-- GALLERY 6 -->
+                <img src="images/gallery-6.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 6">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
+            </div>
+        </div>
+        <div class="text-center bg-sb-black py-6 border-t border-white/10">
+             <a href="#" class="font-serif italic text-sb-cream hover:text-sb-gold transition-colors text-lg">Follow us @SBFloristry</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sb-black text-sb-cream pt-20 pb-10" id="contact">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                    <h3 class="font-serif text-3xl mb-6">SB <span class="text-gold-metallic italic">Floristry</span></h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 font-light">
+                        Exquisite floral arrangements for the modern home and events. Handcrafted with love by a mother & daughter team in Essex.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-sb-gold transition-colors"><i class="fab fa-facebook-f text-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-sb-gold transition-colors"><i class="fab fa-instagram text-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-sb-gold transition-colors"><i class="fab fa-pinterest-p text-lg"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold tracking-luxury uppercase mb-8 text-xs text-gold-metallic">Shop</h4>
+                    <ul class="space-y-4 text-sm text-gray-400 font-light">
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Fresh Flowers</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Wedding Collection</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Subscriptions</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Workshops</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <!-- Info -->
+                <div>
+                    <h4 class="font-bold tracking-luxury uppercase mb-8 text-xs text-gold-metallic">Information</h4>
+                    <ul class="space-y-4 text-sm text-gray-400 font-light">
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Delivery Policy</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Flower Care</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">About Us</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Contact</a></li>
+                        <li><a href="#" class="hover:text-sb-cream hover:underline decoration-sb-gold underline-offset-4 transition-all">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold tracking-luxury uppercase mb-8 text-xs text-gold-metallic">Stay in Bloom</h4>
+                    <p class="text-gray-400 text-sm mb-6 font-light">Subscribe for updates on workshops and seasonal offers.</p>
+                    <form class="flex border-b border-white/20 pb-2" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                        <input type="email" placeholder="Your email address" class="bg-transparent w-full outline-none text-sb-cream placeholder-gray-500 font-light text-sm">
+                        <button type="submit" class="text-sb-cream uppercase font-bold text-[10px] tracking-luxury hover:text-sb-gold transition-colors">Join</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 tracking-widest uppercase">
+                <p>&copy; 2024 SB Floristry. All rights reserved.</p>
+                <p class="mt-4 md:mt-0">Made with <i class="fas fa-heart text-sb-gold mx-1"></i> in Essex</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Snipcart Script (Uncomment when you have your API Key) -->
+    <!-- 
+    <div hidden id="snipcart" data-api-key="YOUR_PUBLIC_API_KEY" data-config-modal-style="side"></div>
+    <script async src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js"></script> 
+    -->
+
+    <!-- Mobile Menu Container (Moved Outside Header) -->
+    <!-- Added: bg-black for solid background, z-[100] for stacking -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[100] transform -translate-x-full transition-transform duration-500 ease-in-out lg:hidden flex flex-col pt-20 px-8">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-3xl text-sb-cream hover:text-sb-gold transition-colors p-2">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col space-y-8 text-2xl font-serif text-sb-cream text-center mt-10">
+            <a href="#shop" class="border-b border-sb-cream/10 pb-4 hover:text-sb-gold transition-colors">Shop Flowers</a>
+            <a href="#weddings" class="border-b border-sb-cream/10 pb-4 hover:text-sb-gold transition-colors">Weddings & Events</a>
+            <a href="#about" class="border-b border-sb-cream/10 pb-4 hover:text-sb-gold transition-colors">About Us</a>
+            <a href="#subscriptions" class="border-b border-sb-cream/10 pb-4 hover:text-sb-gold transition-colors">Subscriptions</a>
+            <a href="#contact" class="border-b border-sb-cream/10 pb-4 hover:text-sb-gold transition-colors">Contact</a>
+        </nav>
+        <div class="mt-auto mb-10 text-center text-gray-400 text-sm tracking-widest uppercase">
+            <p class="mb-2">Mother & Daughter Team</p>
+            <p class="text-sb-gold">Essex & London</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = mobileMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+            const isClosed = mobileMenu.classList.contains('-translate-x-full');
+            if (isClosed) {
+                mobileMenu.classList.remove('-translate-x-full');
+                document.body.style.overflow = 'hidden'; 
+            } else {
+                mobileMenu.classList.add('-translate-x-full');
+                document.body.style.overflow = 'auto'; 
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        
+        menuLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Simple Cart Logic with Snipcart Alert
+        let count = 0;
+        const cartBadge = document.getElementById('cart-count');
+
+        // Add event listeners to all cart buttons (both Snipcart and regular)
+        // Note: The snipcart-add-item class is used by Snipcart when the script is active.
+        // For now, we will intercept clicks to show a helper message.
+        document.querySelectorAll('.snipcart-add-item').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // If Snipcart script isn't loaded (element #snipcart doesn't exist or is hidden without key)
+                if (!document.getElementById('snipcart') || document.getElementById('snipcart').getAttribute('data-api-key') === "YOUR_PUBLIC_API_KEY") {
+                    e.preventDefault(); // Stop any default link behavior
+                    
+                    // Show a helpful message for the user in this preview
+                    alert("To enable real payments:\n1. Sign up for a free account at Snipcart.com\n2. Get your Public API Key\n3. Uncomment the Snipcart script at the bottom of this file\n4. Replace 'YOUR_PUBLIC_API_KEY' with your actual key.");
+                    
+                    // Run the visual animation anyway so it looks nice
+                    count++;
+                    const badge = document.querySelector('.snipcart-items-count');
+                    if(badge) {
+                        badge.innerText = count;
+                        badge.classList.remove('opacity-0');
+                        badge.classList.add('scale-150');
+                        setTimeout(() => badge.classList.remove('scale-150'), 200);
+                    }
+                    
+                    const originalText = button.innerText;
+                    button.innerText = "Added";
+                    button.classList.add('bg-sb-gold');
+                    button.classList.remove('bg-sb-black');
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.classList.remove('bg-sb-gold');
+                        button.classList.add('bg-sb-black');
+                    }, 1000);
+                }
+            });
+        });
+
+        // Scroll Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
