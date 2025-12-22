@@ -66,56 +66,9 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        .hero-zoom {
-            animation: slowZoom 20s infinite alternate;
-        }
-        @keyframes slowZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
-
-        .text-gold-metallic {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0px 1px 2px rgba(0,0,0,0.1); 
-        }
-
-        @keyframes subtleShimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .bg-gold-shimmer {
-            background: linear-gradient(
-                90deg, 
-                #997b3a 0%,   
-                #b89546 25%,  
-                #E0C35D 50%,  
-                #b89546 75%,  
-                #997b3a 100%  
-            );
-            background-size: 200% auto;
-            animation: subtleShimmer 6s linear infinite;
-        }
-        
-        /* Staggered Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 2. CUSTOM TEXT SELECTION COLOR */
-        ::selection {
-            background: #E0C35D; /* sb-gold */
-            color: #0a0a0a; /* sb-black */
+        /* Image Loading State - Removed specific lazy load transition to allow immediate render */
+        img {
+            transition: opacity 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -237,8 +190,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Card 1 -->
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <!-- 3. LAZY LOADING ADDED -->
-                    <img src="images/collection-signature.jpg" loading="lazy" alt="Signature Bouquets" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <!-- REMOVED loading="lazy" -->
+                    <img src="images/collection-signature.jpg" alt="Signature Bouquets" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
                     <div class="absolute bottom-10 left-0 right-0 text-center">
                         <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
@@ -249,7 +202,7 @@
 
                 <!-- Card 2 -->
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <img src="images/collection-seasonal.jpg" loading="lazy" alt="Seasonal Edit" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <img src="images/collection-seasonal.jpg" alt="Seasonal Edit" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
                     <div class="absolute bottom-10 left-0 right-0 text-center">
                         <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
@@ -260,7 +213,7 @@
 
                 <!-- Card 3 -->
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <img src="images/collection-weddings.jpg" loading="lazy" alt="Weddings" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <img src="images/collection-weddings.jpg" alt="Weddings" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
                     <div class="absolute bottom-10 left-0 right-0 text-center">
                         <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
@@ -271,9 +224,7 @@
                 
                  <!-- Card 4 (Full Width) -->
                  <a href="#" class="group relative block h-[350px] overflow-hidden cursor-pointer lg:col-span-3 reveal shadow-lg hover:shadow-2xl transition-shadow duration-300 mt-6">
-                    <img src="https://images.collection-sympathy.jpg" loading="lazy" alt="Sympathy" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="object-position: center 40%;">
-                    <!-- Corrected src fallback if user hasn't renamed -->
-                    <img src="images/collection-sympathy.jpg" loading="lazy" alt="Sympathy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="object-position: center 40%;">
+                    <img src="images/collection-sympathy.jpg" alt="Sympathy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="object-position: center 40%;">
                     
                     <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500"></div>
                     <div class="absolute inset-0 flex flex-col items-center justify-center">
@@ -297,12 +248,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Product 1 -->
                 <div class="group reveal delay-100 relative">
-                    <!-- 5. HOVER REVEAL EFFECT -->
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
-                        <!-- Primary Image -->
-                        <img src="images/product-chelsea.jpg" loading="lazy" alt="The Chelsea" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
-                        <!-- Secondary Image (Hover) - Uses same image for now, user to replace source -->
-                        <img src="images/product-chelsea.jpg" loading="lazy" alt="The Chelsea Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
+                        <!-- Primary Image - REMOVED loading="lazy" -->
+                        <img src="images/product-chelsea.jpg" alt="The Chelsea" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
+                        <!-- Secondary Image (Hover) -->
+                        <img src="images/product-chelsea.jpg" alt="The Chelsea Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
                             data-item-id="chelsea-bouquet"
@@ -324,9 +274,9 @@
                 <!-- Product 2 -->
                 <div class="group reveal delay-200">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
-                        <img src="images/product-essex-rose.jpg" loading="lazy" alt="The Essex Rose" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
+                        <img src="images/product-essex-rose.jpg" alt="The Essex Rose" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
                         <!-- Replace src below with 'images/product-essex-rose-2.jpg' later -->
-                        <img src="images/product-essex-rose.jpg" loading="lazy" alt="The Essex Rose Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
+                        <img src="images/product-essex-rose.jpg" alt="The Essex Rose Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
                             data-item-id="essex-rose"
@@ -348,9 +298,9 @@
                 <!-- Product 3 -->
                 <div class="group reveal delay-300">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
-                        <img src="images/product-wild-meadow.jpg" loading="lazy" alt="Wild Meadow" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
+                        <img src="images/product-wild-meadow.jpg" alt="Wild Meadow" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
                         <!-- Replace src below with 'images/product-wild-meadow-2.jpg' later -->
-                        <img src="images/product-wild-meadow.jpg" loading="lazy" alt="Wild Meadow Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
+                        <img src="images/product-wild-meadow.jpg" alt="Wild Meadow Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
                             data-item-id="wild-meadow"
@@ -372,9 +322,9 @@
                 <!-- Product 4 -->
                 <div class="group reveal delay-400">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
-                        <img src="images/product-pure-elegance.jpg" loading="lazy" alt="Pure Elegance" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
+                        <img src="images/product-pure-elegance.jpg" alt="Pure Elegance" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
                         <!-- Replace src below with 'images/product-pure-elegance-2.jpg' later -->
-                        <img src="images/product-pure-elegance.jpg" loading="lazy" alt="Pure Elegance Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
+                        <img src="images/product-pure-elegance.jpg" alt="Pure Elegance Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
                             data-item-id="pure-elegance"
@@ -407,8 +357,8 @@
                 <!-- Image Grid -->
                 <div class="w-full md:w-1/2 relative reveal">
                     <div class="grid grid-cols-2 gap-4">
-                        <img src="images/story-arranging.jpg" loading="lazy" class="w-full h-64 lg:h-80 object-cover shadow-md grayscale hover:grayscale-0 transition-all duration-700" alt="Florist arranging">
-                        <img src="images/story-mother-daughter.jpg" loading="lazy" class="w-full h-64 lg:h-80 object-cover mt-8 shadow-md grayscale hover:grayscale-0 transition-all duration-700" alt="Mother Daughter Florists">
+                        <img src="images/story-arranging.jpg" class="w-full h-64 lg:h-80 object-cover shadow-md grayscale hover:grayscale-0 transition-all duration-700" alt="Florist arranging">
+                        <img src="images/story-mother-daughter.jpg" class="w-full h-64 lg:h-80 object-cover mt-8 shadow-md grayscale hover:grayscale-0 transition-all duration-700" alt="Mother Daughter Florists">
                     </div>
                     <div class="absolute -z-10 top-0 left-0 w-full h-full border border-sb-gold/20 transform -translate-x-6 translate-y-6"></div>
                 </div>
@@ -542,27 +492,27 @@
     <section class="py-0">
         <div class="flex flex-wrap">
             <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
-                <img src="images/gallery-1.jpg" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 1">
+                <img src="images/gallery-1.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 1">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
             </div>
             <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
-                <img src="images/gallery-2.jpg" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 2">
+                <img src="images/gallery-2.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 2">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
             </div>
             <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
-                <img src="images/gallery-3.jpg" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 3">
+                <img src="images/gallery-3.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 3">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
             </div>
             <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
-                <img src="images/gallery-4.jpg" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 4">
+                <img src="images/gallery-4.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 4">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
             </div>
             <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
-                <img src="images/gallery-5.jpg" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 5">
+                <img src="images/gallery-5.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 5">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
             </div>
             <div class="w-1/2 md:w-1/4 lg:w-1/6 relative group overflow-hidden">
-                <img src="images/gallery-6.jpg" loading="lazy" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 6">
+                <img src="images/gallery-6.jpg" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" alt="Insta 6">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-sb-cream"><i class="fab fa-instagram text-2xl"></i></div>
             </div>
         </div>
@@ -712,10 +662,10 @@
             });
         });
 
-        // Scroll Animation Observer
+        // Scroll Animation Observer (Adjusted threshold for earlier triggering)
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
+            rootMargin: '100px', // Trigger animation 100px before the element enters the viewport
             threshold: 0.1
         };
 
