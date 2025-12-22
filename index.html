@@ -48,6 +48,7 @@
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'bounce-slow': 'bounce 2s infinite',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -113,7 +114,6 @@
         }
 
         /* IMAGE FADE IN LOGIC */
-        /* All images start with opacity 0 (invisible) */
         img {
             opacity: 0; 
             transition: opacity 1.2s ease-out; /* Slower, luxurious fade */
@@ -127,6 +127,34 @@
         ::selection {
             background: #E0C35D; /* sb-gold */
             color: #0a0a0a; /* sb-black */
+        }
+
+        /* NEW: Luxury Button Hover Effect */
+        .btn-luxury {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s;
+            z-index: 1;
+        }
+        .btn-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #E0C35D; /* sb-gold */
+            z-index: -1;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease-out;
+        }
+        .btn-luxury:hover::before {
+            transform: scaleY(1);
+        }
+        .btn-luxury:hover {
+            color: #0a0a0a !important; /* sb-black */
+            border-color: #E0C35D;
         }
     </style>
 </head>
@@ -202,7 +230,7 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="relative h-[75vh] overflow-hidden">
+    <section class="relative h-[85vh] overflow-hidden">
         <div class="absolute inset-0">
             <img src="images/hero.jpg" 
                  alt="Luxury Bouquet" 
@@ -213,12 +241,17 @@
 
         <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream pt-24 pb-24">
             <h2 class="text-xs md:text-sm tracking-luxury uppercase mb-6 font-bold text-sb-cream reveal">Hand-Tied in Essex • Delivered to London</h2>
-            <h1 class="font-serif text-4xl md:text-7xl lg:text-8xl mb-10 leading-none drop-shadow-2xl reveal">
+            <h1 class="font-serif text-4xl md:text-7xl lg:text-8xl mb-12 leading-none drop-shadow-2xl reveal">
                 Artistry in <br/><span class="italic font-light text-gold-metallic">Every Bloom</span>
             </h1>
-            <a href="#shop" class="reveal bg-transparent border border-sb-cream text-sb-cream hover:bg-sb-cream hover:text-sb-black transition-all duration-500 px-12 py-4 uppercase tracking-luxury text-xs font-bold mb-8">
+            <a href="#shop" class="reveal btn-luxury border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-xs font-bold mb-8">
                 Shop The Collection
             </a>
+            
+            <!-- NEW: Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow opacity-80">
+                <i class="fas fa-chevron-down text-sb-gold text-2xl"></i>
+            </div>
         </div>
     </section>
 
@@ -248,7 +281,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Card 1 -->
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <img src="images/collection-signature.jpg" alt="Signature Bouquets" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <img src="images/collection-signature.jpg" alt="Signature Bouquets" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
                     <div class="absolute bottom-10 left-0 right-0 text-center">
                         <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
@@ -259,7 +292,7 @@
 
                 <!-- Card 2 -->
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <img src="images/collection-seasonal.jpg" alt="Seasonal Edit" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <img src="images/collection-seasonal.jpg" alt="Seasonal Edit" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
                     <div class="absolute bottom-10 left-0 right-0 text-center">
                         <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
@@ -270,7 +303,7 @@
 
                 <!-- Card 3 -->
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <img src="images/collection-weddings.jpg" alt="Weddings" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <img src="images/collection-weddings.jpg" alt="Weddings" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
                     <div class="absolute bottom-10 left-0 right-0 text-center">
                         <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
@@ -281,8 +314,7 @@
                 
                  <!-- Card 4 (Full Width) -->
                  <a href="#" class="group relative block h-[350px] overflow-hidden cursor-pointer lg:col-span-3 reveal shadow-lg hover:shadow-2xl transition-shadow duration-300 mt-6">
-                    <!-- FIXED IMAGE LINK AND REMOVED LAZY -->
-                    <img src="images/collection-sympathy.jpg" alt="Sympathy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="object-position: center 40%;">
+                    <img src="images/collection-sympathy.jpg" alt="Sympathy" class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" style="object-position: center 40%;">
                     
                     <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500"></div>
                     <div class="absolute inset-0 flex flex-col items-center justify-center">
@@ -290,6 +322,39 @@
                         <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
                     </div>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Florist's Choice Feature Section -->
+    <section class="py-20 bg-sb-black text-sb-cream border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
+                <!-- Text -->
+                <div class="w-full md:w-1/2 text-center md:text-left reveal">
+                    <span class="text-sb-gold text-xs tracking-luxury uppercase font-bold mb-4 block">Florist's Choice</span>
+                    <h3 class="font-serif text-4xl md:text-5xl mb-6 leading-tight">The Midnight Rose</h3>
+                    <p class="text-gray-400 leading-relaxed text-lg font-light mb-8">
+                        Our signature bouquet for the season. A dramatic arrangement of deep velvety roses, accented with seasonal foliage and wrapped in our signature black kraft paper. Perfect for making a statement.
+                    </p>
+                    <button onclick="addToCart()" class="snipcart-add-item btn-luxury inline-block border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-[10px] font-bold"
+                        data-item-id="midnight-rose"
+                        data-item-price="95.00"
+                        data-item-url="/"
+                        data-item-description="Luxury deep red roses"
+                        data-item-image="images/product-essex-rose.jpg"
+                        data-item-name="The Midnight Rose">
+                        Order Now
+                    </button>
+                </div>
+                <!-- Image -->
+                <div class="w-full md:w-1/2 reveal delay-200">
+                    <div class="relative h-[500px] overflow-hidden shadow-2xl">
+                        <!-- Reusing Essex Rose image for demo - looks like a hero product -->
+                        <img src="images/product-essex-rose.jpg" alt="Florist Choice" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105">
+                        <div class="absolute inset-0 border border-sb-gold/20 pointer-events-none m-4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -307,9 +372,7 @@
                 <!-- Product 1 -->
                 <div class="group reveal delay-100 relative">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
-                        <!-- Primary Image -->
                         <img src="images/product-chelsea.jpg" alt="The Chelsea" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
-                        <!-- Secondary Image (Hover) -->
                         <img src="images/product-chelsea.jpg" alt="The Chelsea Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
@@ -428,7 +491,7 @@
                     <p class="text-gray-600 mb-10 leading-relaxed font-light text-base">
                         We believe that flowers are more than just decoration; they are a language of their own. Whether it's a grand wedding installation or a simple "thinking of you" bouquet, we pour our heart into every stem we select.
                     </p>
-                    <a href="#about" class="inline-block bg-sb-black text-sb-cream px-10 py-4 uppercase tracking-luxury text-[10px] font-bold hover:bg-zinc-800 transition-colors">
+                    <a href="#about" class="btn-luxury border border-sb-black text-sb-black px-10 py-4 uppercase tracking-luxury text-[10px] font-bold inline-block">
                         Read Our Full Story
                     </a>
                 </div>
@@ -444,7 +507,7 @@
             <p class="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
                 From intimate ceremonies in Essex countryside chapels to grand London ballroom receptions, let us create the floral backdrop for your love story.
             </p>
-            <a href="#" class="inline-block border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-[10px] font-bold hover:bg-sb-cream hover:text-sb-black transition-colors duration-300">
+            <a href="#" class="btn-luxury border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-[10px] font-bold inline-block">
                 Enquire Now
             </a>
         </div>
@@ -535,7 +598,7 @@
                     <textarea rows="4" class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 transition-colors text-sb-cream placeholder-gray-600"></textarea>
                 </div>
                 <div class="text-center pt-8">
-                    <button type="submit" class="border border-sb-cream text-sb-cream px-16 py-4 uppercase tracking-luxury text-[10px] font-bold hover:bg-sb-cream hover:text-sb-black transition-colors duration-300">
+                    <button type="submit" class="btn-luxury border border-sb-cream text-sb-cream px-16 py-4 uppercase tracking-luxury text-[10px] font-bold inline-block">
                         Send Inquiry
                     </button>
                 </div>
