@@ -283,10 +283,10 @@
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <img src="images/collection-signature.jpg" alt="Signature Bouquets" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <div class="absolute bottom-10 left-0 right-0 text-center">
-                        <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-2xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
-                            Signature Bouquets
-                        </span>
+                    <!-- UPDATED: Vertically centered text -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Signature Bouquets</h4>
+                        <span class="text-sb-cream text-sm tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
                     </div>
                 </a>
 
@@ -294,10 +294,10 @@
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <img src="images/collection-seasonal.jpg" alt="Seasonal Edit" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <div class="absolute bottom-10 left-0 right-0 text-center">
-                        <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-2xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
-                            Seasonal Releases
-                        </span>
+                    <!-- UPDATED: Vertically centered text -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Seasonal Releases</h4>
+                        <span class="text-sb-cream text-sm tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
                     </div>
                 </a>
 
@@ -305,10 +305,10 @@
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <img src="images/collection-weddings.jpg" alt="Weddings" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <div class="absolute bottom-10 left-0 right-0 text-center">
-                        <span class="bg-sb-black text-sb-cream px-10 py-4 font-serif text-2xl group-hover:bg-sb-cream group-hover:text-sb-black transition-colors duration-500 shadow-xl border border-sb-black/10">
-                            Weddings & Events
-                        </span>
+                    <!-- UPDATED: Vertically centered text -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Weddings & Events</h4>
+                        <span class="text-sb-cream text-sm tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
                     </div>
                 </a>
                 
@@ -331,7 +331,8 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
                 <!-- Text -->
-                <div class="w-full md:w-1/2 text-center md:text-left reveal">
+                <!-- UPDATED: Added text-center on mobile AND desktop (md:text-center), effectively centering everything -->
+                <div class="w-full md:w-1/2 text-center reveal">
                     <span class="text-sb-gold text-sm tracking-luxury uppercase font-bold mb-4 block">Florist's Choice</span>
                     <h3 class="font-serif text-5xl md:text-6xl mb-6 leading-tight">The Midnight Rose</h3>
                     <p class="text-gray-400 leading-relaxed text-xl font-light mb-8">
@@ -371,7 +372,9 @@
                 <!-- Product 1 -->
                 <div class="group reveal delay-100 relative">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
+                        <!-- Primary Image -->
                         <img src="images/product-chelsea.jpg" alt="The Chelsea" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0">
+                        <!-- Secondary Image (Hover) -->
                         <img src="images/product-chelsea.jpg" alt="The Chelsea Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
@@ -516,21 +519,22 @@
     <!-- UPDATED: Added id="subscriptions" for navigation anchor -->
     <section class="py-16 md:py-24 bg-sb-black text-sb-cream border-t border-gray-900" id="subscriptions">
         <div class="container mx-auto px-6">
+            <!-- UPDATED: Added text-center to the grid as well -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-white/10 reveal">
-                <!-- UPDATED: Added flex flex-col items-center to enforce centering of icons -->
-                <div class="p-6 flex flex-col items-center">
+                <!-- UPDATED: Added text-center to individual column content -->
+                <div class="p-6 flex flex-col items-center text-center">
                     <i class="fas fa-shipping-fast text-2xl text-gold-metallic mb-4"></i>
                     <h4 class="font-serif text-2xl mb-3">Delivery Areas</h4>
                     <p class="text-gray-400 text-base font-light leading-relaxed">Proudly serving all of Essex and Greater London postcodes.</p>
                 </div>
-                <!-- UPDATED: Added flex flex-col items-center to enforce centering of icons -->
-                <div class="p-6 flex flex-col items-center">
+                <!-- UPDATED: Added text-center to individual column content -->
+                <div class="p-6 flex flex-col items-center text-center">
                     <i class="fas fa-calendar-check text-2xl text-gold-metallic mb-4"></i>
                     <h4 class="font-serif text-2xl mb-3">Subscriptions</h4>
                     <p class="text-gray-400 text-base font-light leading-relaxed">Fresh seasonal blooms delivered to your door weekly or monthly.</p>
                 </div>
-                <!-- UPDATED: Added flex flex-col items-center to enforce centering of icons -->
-                <div class="p-6 flex flex-col items-center">
+                <!-- UPDATED: Added text-center to individual column content -->
+                <div class="p-6 flex flex-col items-center text-center">
                     <i class="fas fa-comments text-2xl text-gold-metallic mb-4"></i>
                     <h4 class="font-serif text-2xl mb-3">Bespoke Requests</h4>
                     <p class="text-gray-400 text-base font-light leading-relaxed">Have a specific vision? Contact us for custom arrangements.</p>
