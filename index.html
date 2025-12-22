@@ -25,6 +25,9 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- SNIPCART CSS (Uncomment when you have your API Key) -->
+    <!-- <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.css" /> -->
+
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -63,7 +66,6 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        /* Slow Zoom Animation for Hero */
         .hero-zoom {
             animation: slowZoom 20s infinite alternate;
         }
@@ -114,7 +116,7 @@
         /* All images start with opacity 0 (invisible) */
         img {
             opacity: 0; 
-            transition: opacity 1s ease-in-out; /* Slower, luxurious fade */
+            transition: opacity 1.2s ease-out; /* Slower, luxurious fade */
         }
         /* Class added by JS when image is fully loaded */
         img.loaded {
@@ -279,6 +281,7 @@
                 
                  <!-- Card 4 (Full Width) -->
                  <a href="#" class="group relative block h-[350px] overflow-hidden cursor-pointer lg:col-span-3 reveal shadow-lg hover:shadow-2xl transition-shadow duration-300 mt-6">
+                    <!-- FIXED IMAGE LINK AND REMOVED LAZY -->
                     <img src="images/collection-sympathy.jpg" alt="Sympathy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="object-position: center 40%;">
                     
                     <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500"></div>
@@ -330,7 +333,6 @@
                 <div class="group reveal delay-200">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
                         <img src="images/product-essex-rose.jpg" alt="The Essex Rose" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
-                        <!-- Replace src below with 'images/product-essex-rose-2.jpg' later -->
                         <img src="images/product-essex-rose.jpg" alt="The Essex Rose Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
@@ -354,7 +356,6 @@
                 <div class="group reveal delay-300">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
                         <img src="images/product-wild-meadow.jpg" alt="Wild Meadow" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
-                        <!-- Replace src below with 'images/product-wild-meadow-2.jpg' later -->
                         <img src="images/product-wild-meadow.jpg" alt="Wild Meadow Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
@@ -378,7 +379,6 @@
                 <div class="group reveal delay-400">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
                         <img src="images/product-pure-elegance.jpg" alt="Pure Elegance" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0">
-                        <!-- Replace src below with 'images/product-pure-elegance-2.jpg' later -->
                         <img src="images/product-pure-elegance.jpg" alt="Pure Elegance Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 scale-110">
                         
                         <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-zinc-800 z-10"
