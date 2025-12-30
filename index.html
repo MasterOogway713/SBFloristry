@@ -189,7 +189,6 @@
 <body class="font-sans text-sb-dark antialiased bg-sb-cream">
 
     <!-- Announcement Bar -->
-    <!-- UPDATED: Increased padding from py-2 to py-3.5 and added px-4 for breathing room -->
     <div class="bg-gold-shimmer text-sb-black text-xs md:text-sm py-3.5 px-4 text-center tracking-[0.2em] uppercase font-bold border-b border-sb-cream/20">
         <p>Family Run • Serving Essex & London • Same Day Delivery</p>
     </div>
@@ -259,18 +258,20 @@
     </div>
 
     <!-- SIDE CART DRAWER -->
+    <!-- UPDATED STRUCTURE FOR MOBILE SCROLLING -->
     <div id="side-cart-overlay" class="fixed inset-0 cart-overlay z-[150] hidden opacity-0 transition-opacity duration-300"></div>
     <div id="side-cart" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[160] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
-        <!-- Cart Header -->
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-sb-black text-sb-cream">
+        
+        <!-- 1. Cart Header (Fixed Top) -->
+        <div class="shrink-0 p-6 border-b border-gray-100 flex justify-between items-center bg-sb-black text-sb-cream">
             <h2 class="font-serif text-2xl">Your Selection</h2>
             <button id="close-cart-btn" class="text-sb-gold hover:text-white transition-colors text-2xl">
                 <i class="fas fa-times"></i>
             </button>
         </div>
 
-        <!-- NEW: Free Delivery Progress Bar -->
-        <div class="px-6 py-4 bg-gray-50 border-b border-gray-100">
+        <!-- 2. Free Delivery Bar (Fixed Top) -->
+        <div class="shrink-0 px-6 py-4 bg-gray-50 border-b border-gray-100">
              <p id="shipping-message" class="text-xs font-bold text-center text-sb-black mb-2">
                  Spend <span class="text-sb-gold">£60.00</span> more for Free Delivery
              </p>
@@ -279,50 +280,54 @@
              </div>
         </div>
         
-        <!-- Cart Items Area -->
-        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 cart-scroll bg-white">
-            <!-- Loading State -->
-            <div class="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
-                <i class="fas fa-spinner fa-spin text-3xl text-sb-gold"></i>
-                <p>Loading your blooms...</p>
+        <!-- 3. SCROLLABLE MIDDLE SECTION -->
+        <div class="flex-1 overflow-y-auto cart-scroll bg-white">
+            <!-- Cart Items -->
+            <div id="cart-items-container" class="p-6 pb-2">
+                <!-- Loading State -->
+                <div class="flex flex-col items-center justify-center h-32 text-gray-400 space-y-4">
+                    <i class="fas fa-spinner fa-spin text-3xl text-sb-gold"></i>
+                    <p>Loading your blooms...</p>
+                </div>
+            </div>
+
+            <!-- Upsell Section (Scrolls with items) -->
+            <div id="upsell-section" class="px-6 py-4 bg-sb-cream/50 border-t border-gray-100 hidden">
+                <h5 class="text-xs font-bold uppercase tracking-luxury text-gray-500 mb-3">Don't Forget</h5>
+                <div class="flex items-center gap-3 bg-white p-2 rounded shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-gray-100 flex-shrink-0">
+                         <img src="images/product-pure-elegance.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-serif text-sb-black">Luxury Glass Vase</p>
+                        <p class="text-xs text-sb-gold font-bold">£15.00</p>
+                    </div>
+                    <button class="shopify-add-btn text-xs bg-sb-black text-white px-3 py-1.5 hover:bg-sb-gold transition-colors" data-shopify-id="YOUR_VASE_PRODUCT_ID">Add</button>
+                </div>
+            </div>
+
+            <!-- Inputs (Scrolls with items) -->
+            <div id="cart-extras" class="px-6 py-6 bg-sb-cream border-t border-gray-100 hidden">
+                <div class="mb-4">
+                    <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Gift Message / Note</label>
+                    <textarea id="cart-note" rows="2" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black placeholder-gray-400 focus:border-sb-gold outline-none resize-none" placeholder="Write a message for the card..."></textarea>
+                </div>
+
+                <div class="mb-0">
+                    <label for="delivery-date" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Requested Delivery Date</label>
+                    <input type="date" id="delivery-date" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black focus:border-sb-gold outline-none">
+                    <p id="date-error" class="text-[10px] text-red-500 mt-1 hidden">We do not deliver on Sundays. Please select another date.</p>
+                </div>
             </div>
         </div>
 
-        <!-- NEW: Upsell Section -->
-        <div id="upsell-section" class="px-6 py-4 bg-sb-cream/50 border-t border-gray-100 hidden">
-            <h5 class="text-xs font-bold uppercase tracking-luxury text-gray-500 mb-3">Don't Forget</h5>
-            <div class="flex items-center gap-3 bg-white p-2 rounded shadow-sm border border-gray-100">
-                <div class="w-12 h-12 bg-gray-100 flex-shrink-0">
-                     <!-- Replace with Vase Image -->
-                     <img src="images/product-pure-elegance.jpg" class="w-full h-full object-cover">
-                </div>
-                <div class="flex-1">
-                    <p class="text-sm font-serif text-sb-black">Luxury Glass Vase</p>
-                    <p class="text-xs text-sb-gold font-bold">£15.00</p>
-                </div>
-                <!-- VASE PRODUCT ID PLACEHOLDER -->
-                <button class="shopify-add-btn text-xs bg-sb-black text-white px-3 py-1.5 hover:bg-sb-gold transition-colors" data-shopify-id="YOUR_VASE_PRODUCT_ID">Add</button>
-            </div>
-        </div>
-
-        <!-- Cart Footer -->
-        <div class="p-6 border-t border-gray-100 bg-sb-cream">
-            <div class="mb-4">
-                <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Gift Message / Note</label>
-                <textarea id="cart-note" rows="2" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black placeholder-gray-400 focus:border-sb-gold outline-none resize-none" placeholder="Write a message for the card..."></textarea>
-            </div>
-
-            <div class="mb-6">
-                <label for="delivery-date" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Requested Delivery Date</label>
-                <input type="date" id="delivery-date" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black focus:border-sb-gold outline-none">
-                <p id="date-error" class="text-[10px] text-red-500 mt-1 hidden">We do not deliver on Sundays. Please select another date.</p>
-            </div>
-
+        <!-- 4. Sticky Footer (Fixed Bottom) -->
+        <div class="shrink-0 p-6 border-t border-gray-100 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
             <div class="flex justify-between items-center mb-4">
                 <span class="text-sm font-bold tracking-luxury uppercase text-gray-500">Subtotal</span>
                 <span id="cart-subtotal" class="font-serif text-2xl text-sb-black">£0.00</span>
             </div>
-            <p class="text-xs text-gray-400 mb-6 text-center">Shipping & taxes calculated at checkout.</p>
+            <p class="text-xs text-gray-400 mb-4 text-center">Shipping & taxes calculated at checkout.</p>
             <button id="checkout-btn" class="w-full btn-luxury bg-sb-black text-sb-cream py-4 uppercase tracking-luxury text-xs font-bold border border-sb-black">
                 Proceed to Checkout
             </button>
@@ -601,48 +606,6 @@
                     <h4 class="font-serif text-2xl mb-3">Bespoke Requests</h4>
                     <p class="text-gray-400 text-base font-light leading-relaxed">Have a specific vision? Contact us for custom arrangements.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW: LUXURY ACCORDION FAQ SECTION -->
-    <section class="py-20 bg-sb-cream border-t border-gray-200">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <h3 class="font-serif text-4xl text-sb-black mb-12 text-center reveal">Frequently Asked Questions</h3>
-            
-            <div class="space-y-4 reveal">
-                <!-- FAQ Item 1 -->
-                <details class="group border-b border-gray-300 pb-4 cursor-pointer">
-                    <summary class="flex justify-between items-center font-bold text-sb-black text-lg tracking-wide uppercase">
-                        Where do you deliver?
-                        <span class="text-sb-gold text-2xl transition-transform group-open:rotate-45">+</span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 font-light text-base leading-relaxed">
-                        We currently deliver to all postcodes in Essex and Greater London. If you have a special request for a location just outside these areas, please contact us directly.
-                    </div>
-                </details>
-
-                <!-- FAQ Item 2 -->
-                <details class="group border-b border-gray-300 pb-4 cursor-pointer">
-                    <summary class="flex justify-between items-center font-bold text-sb-black text-lg tracking-wide uppercase">
-                        What is your order cutoff time?
-                        <span class="text-sb-gold text-2xl transition-transform group-open:rotate-45">+</span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 font-light text-base leading-relaxed">
-                        For same-day delivery in Essex, please order by 1 PM. For London deliveries, we require orders by 11 AM. Orders placed after these times will be delivered the following day.
-                    </div>
-                </details>
-
-                <!-- FAQ Item 3 -->
-                <details class="group border-b border-gray-300 pb-4 cursor-pointer">
-                    <summary class="flex justify-between items-center font-bold text-sb-black text-lg tracking-wide uppercase">
-                        How do I care for my flowers?
-                        <span class="text-sb-gold text-2xl transition-transform group-open:rotate-45">+</span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 font-light text-base leading-relaxed">
-                        Trim the stems at a 45-degree angle upon arrival and place them in cool, fresh water. Change the water every 2 days and keep the bouquet away from direct heat or drafts to prolong its life.
-                    </div>
-                </details>
             </div>
         </div>
     </section>
@@ -1191,16 +1154,25 @@
             const upsellSection = document.getElementById('upsell-section');
             const shippingBar = document.getElementById('shipping-bar');
             const shippingMessage = document.getElementById('shipping-message');
+            const cartExtras = document.getElementById('cart-extras'); // NEW
 
             if (cartContainer && cart.cost) {
                  const amount = parseFloat(cart.cost.subtotalAmount.amount);
                  if (subtotalEl) subtotalEl.innerText = `£${amount.toFixed(2)}`;
                  
-                 // Show Upsell if cart has items
-                 if (cart.lines.edges.length > 0 && upsellSection) {
+                 // Show/Hide Upsell and Extras based on items
+                 const hasItems = cart.lines.edges.length > 0;
+
+                 if (hasItems && upsellSection) {
                      upsellSection.classList.remove('hidden');
                  } else if (upsellSection) {
                      upsellSection.classList.add('hidden');
+                 }
+
+                 if (hasItems && cartExtras) {
+                    cartExtras.classList.remove('hidden');
+                 } else if (cartExtras) {
+                    cartExtras.classList.add('hidden');
                  }
 
                  // Update Free Delivery Bar
