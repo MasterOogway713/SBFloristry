@@ -25,9 +25,6 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- SNIPCART CSS (Uncomment when you have your API Key) -->
-    <!-- <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.css" /> -->
-
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -202,9 +199,9 @@
                     <div class="flex items-center space-x-6 text-sb-cream">
                         <button class="hidden lg:block hover:text-sb-gold transition-colors"><i class="fas fa-search text-xl"></i></button>
                         
-                        <button class="relative hover:text-sb-gold transition-colors group snipcart-checkout p-2">
+                        <button id="cart-icon-btn" class="relative hover:text-sb-gold transition-colors group p-2">
                             <i class="fas fa-shopping-bag text-xl"></i>
-                            <span class="snipcart-items-count absolute -top-2 -right-2 bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity duration-300">0</span>
                         </button>
                     </div>
                 </div>
@@ -283,7 +280,6 @@
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <img src="images/collection-signature.jpg" alt="Signature Bouquets" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <!-- UPDATED: Vertically centered text -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                         <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Signature Bouquets</h4>
                         <span class="text-sb-cream text-sm tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
@@ -294,7 +290,6 @@
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <img src="images/collection-seasonal.jpg" alt="Seasonal Edit" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <!-- UPDATED: Vertically centered text -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                         <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Seasonal Releases</h4>
                         <span class="text-sb-cream text-sm tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
@@ -305,7 +300,6 @@
                 <a href="#" class="group relative block h-[450px] overflow-hidden cursor-pointer reveal shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <img src="images/collection-weddings.jpg" alt="Weddings" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <!-- UPDATED: Vertically centered text -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                         <h4 class="font-serif text-4xl text-sb-cream mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Weddings & Events</h4>
                         <span class="text-sb-cream text-sm tracking-luxury uppercase border-b border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">View Collection</span>
@@ -331,20 +325,13 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
                 <!-- Text -->
-                <!-- UPDATED: Added text-center on mobile AND desktop (md:text-center), effectively centering everything -->
                 <div class="w-full md:w-1/2 text-center reveal">
                     <span class="text-sb-gold text-sm tracking-luxury uppercase font-bold mb-4 block">Florist's Choice</span>
                     <h3 class="font-serif text-5xl md:text-6xl mb-6 leading-tight">The Midnight Rose</h3>
                     <p class="text-gray-400 leading-relaxed text-xl font-light mb-8">
                         Our signature bouquet for the season. A dramatic arrangement of deep velvety roses, accented with seasonal foliage and wrapped in our signature black kraft paper. Perfect for making a statement.
                     </p>
-                    <button onclick="addToCart()" class="snipcart-add-item btn-luxury inline-block border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-xs font-bold"
-                        data-item-id="midnight-rose"
-                        data-item-price="95.00"
-                        data-item-url="/"
-                        data-item-description="Luxury deep red roses"
-                        data-item-image="images/product-essex-rose.jpg"
-                        data-item-name="The Midnight Rose">
+                    <button class="shopify-add-btn btn-luxury inline-block border border-sb-cream text-sb-cream px-12 py-4 uppercase tracking-luxury text-xs font-bold" data-shopify-id="10685344973064">
                         Order Now
                     </button>
                 </div>
@@ -372,18 +359,11 @@
                 <!-- Product 1 -->
                 <div class="group reveal delay-100 relative">
                     <div class="relative overflow-hidden mb-6 bg-sb-cream shadow-sm aspect-[4/5] cursor-pointer">
-                        <!-- Primary Image -->
                         <img src="images/product-chelsea.jpg" alt="The Chelsea" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0">
-                        <!-- Secondary Image (Hover) -->
                         <img src="images/product-chelsea.jpg" alt="The Chelsea Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110">
                         
-                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
-                            data-item-id="chelsea-bouquet"
-                            data-item-price="65.00"
-                            data-item-url="/"
-                            data-item-description="White Hydrangeas & Roses"
-                            data-item-image="images/product-chelsea.jpg"
-                            data-item-name="The Chelsea">
+                        <button class="shopify-add-btn absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
+                            data-shopify-id="10685334683912">
                             Add to Cart
                         </button>
                     </div>
@@ -400,13 +380,8 @@
                         <img src="images/product-essex-rose.jpg" alt="The Essex Rose" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0">
                         <img src="images/product-essex-rose.jpg" alt="The Essex Rose Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110">
                         
-                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
-                            data-item-id="essex-rose"
-                            data-item-price="85.00"
-                            data-item-url="/"
-                            data-item-description="Luxury Pink Roses"
-                            data-item-image="images/product-essex-rose.jpg"
-                            data-item-name="The Essex Rose">
+                        <button class="shopify-add-btn absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
+                            data-shopify-id="10685335339272">
                             Add to Cart
                         </button>
                     </div>
@@ -423,13 +398,8 @@
                         <img src="images/product-wild-meadow.jpg" alt="Wild Meadow" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0">
                         <img src="images/product-wild-meadow.jpg" alt="Wild Meadow Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110">
                         
-                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
-                            data-item-id="wild-meadow"
-                            data-item-price="55.00"
-                            data-item-url="/"
-                            data-item-description="Seasonal Wildflowers"
-                            data-item-image="images/product-wild-meadow.jpg"
-                            data-item-name="Wild Meadow">
+                        <button class="shopify-add-btn absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
+                            data-shopify-id="10685338091784">
                             Add to Cart
                         </button>
                     </div>
@@ -446,13 +416,8 @@
                         <img src="images/product-pure-elegance.jpg" alt="Pure Elegance" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0">
                         <img src="images/product-pure-elegance.jpg" alt="Pure Elegance Detail" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110">
                         
-                        <button onclick="addToCart()" class="snipcart-add-item absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
-                            data-item-id="pure-elegance"
-                            data-item-price="95.00"
-                            data-item-url="/"
-                            data-item-description="Orchids & Lilies"
-                            data-item-image="images/product-pure-elegance.jpg"
-                            data-item-name="Pure Elegance">
+                        <button class="shopify-add-btn absolute bottom-0 left-0 right-0 bg-sb-black text-sb-cream py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase hover:bg-zinc-800 z-10"
+                            data-shopify-id="10685343760648">
                             Add to Cart
                         </button>
                     </div>
@@ -516,24 +481,19 @@
     </section>
 
     <!-- Services / Info Strip (Black) -->
-    <!-- UPDATED: Added id="subscriptions" for navigation anchor -->
     <section class="py-16 md:py-24 bg-sb-black text-sb-cream border-t border-gray-900" id="subscriptions">
         <div class="container mx-auto px-6">
-            <!-- UPDATED: Added text-center to the grid as well -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-white/10 reveal">
-                <!-- UPDATED: Added text-center to individual column content -->
                 <div class="p-6 flex flex-col items-center text-center">
                     <i class="fas fa-shipping-fast text-2xl text-gold-metallic mb-4"></i>
                     <h4 class="font-serif text-2xl mb-3">Delivery Areas</h4>
                     <p class="text-gray-400 text-base font-light leading-relaxed">Proudly serving all of Essex and Greater London postcodes.</p>
                 </div>
-                <!-- UPDATED: Added text-center to individual column content -->
                 <div class="p-6 flex flex-col items-center text-center">
                     <i class="fas fa-calendar-check text-2xl text-gold-metallic mb-4"></i>
                     <h4 class="font-serif text-2xl mb-3">Subscriptions</h4>
                     <p class="text-gray-400 text-base font-light leading-relaxed">Fresh seasonal blooms delivered to your door weekly or monthly.</p>
                 </div>
-                <!-- UPDATED: Added text-center to individual column content -->
                 <div class="p-6 flex flex-col items-center text-center">
                     <i class="fas fa-comments text-2xl text-gold-metallic mb-4"></i>
                     <h4 class="font-serif text-2xl mb-3">Bespoke Requests</h4>
@@ -649,7 +609,6 @@
     <!-- Footer -->
     <footer class="bg-sb-black text-sb-cream pt-20 pb-10" id="contact">
         <div class="container mx-auto px-6">
-            <!-- UPDATED: text-center md:text-left added -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 text-center md:text-left">
                 <!-- Brand -->
                 <div class="col-span-1 md:col-span-1">
@@ -657,7 +616,6 @@
                     <p class="text-gray-400 text-base leading-relaxed mb-6 font-light">
                         Exquisite floral arrangements for the modern home and events. Handcrafted with love by a mother & daughter team in Essex.
                     </p>
-                    <!-- UPDATED: justify-center md:justify-start added -->
                     <div class="flex justify-center md:justify-start space-x-6">
                         <a href="#" class="text-gray-400 hover:text-sb-gold transition-colors"><i class="fab fa-facebook-f text-lg"></i></a>
                         <a href="#" class="text-gray-400 hover:text-sb-gold transition-colors"><i class="fab fa-instagram text-lg"></i></a>
@@ -724,14 +682,250 @@
         </div>
     </div>
 
-    <!-- Snipcart Script (Uncomment when you have your API Key) -->
-    <!-- 
-    <div hidden id="snipcart" data-api-key="YOUR_PUBLIC_API_KEY" data-config-modal-style="side"></div>
-    <script async src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js"></script> 
-    -->
-
     <!-- Scripts -->
     <script>
+        // SHOPIFY BUY SDK LOGIC
+        // -------------------------------------------------------------
+        // IMPORTANT: Replace the values below with your actual Shopify credentials.
+        // -------------------------------------------------------------
+        
+        const shopifyConfig = {
+            domain: 'sb-floristry.myshopify.com', // Replace with your actual domain
+            storefrontAccessToken: '35527e42586bf1abcce2dda69206eec9' // Replace with your actual token
+        };
+        
+        // Helper to fetch directly from Storefront API
+        async function shopifyFetch(query, variables = {}) {
+            try {
+                const response = await fetch(`https://${shopifyConfig.domain}/api/2024-01/graphql.json`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Shopify-Storefront-Access-Token': shopifyConfig.storefrontAccessToken
+                    },
+                    body: JSON.stringify({ query, variables })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error("Shopify Fetch Error:", error);
+                throw error;
+            }
+        }
+
+        // Initialize Cart
+        async function initCart() {
+            let cartId = localStorage.getItem('shopify_cart_id');
+            if (!cartId) {
+                // We'll create cart on first add to avoid empty carts
+                return null;
+            }
+            
+            // If we have a cart ID, check if it's still valid/completed
+            const query = `
+                query($id: ID!) {
+                  cart(id: $id) {
+                    id
+                    checkoutUrl
+                    totalQuantity
+                  }
+                }
+            `;
+            
+            const result = await shopifyFetch(query, { id: cartId });
+            
+            if (result.data && result.data.cart) {
+                updateCartCount(result.data.cart.totalQuantity);
+                return result.data.cart;
+            } else {
+                // Cart invalid or completed, clear it
+                localStorage.removeItem('shopify_cart_id');
+                return null;
+            }
+        }
+        
+        // Create a new cart
+        async function createCart() {
+            const query = `
+                mutation {
+                  cartCreate {
+                    cart {
+                      id
+                      checkoutUrl
+                    }
+                  }
+                }
+            `;
+            
+            const result = await shopifyFetch(query);
+            if (result.data && result.data.cartCreate && result.data.cartCreate.cart) {
+                const cart = result.data.cartCreate.cart;
+                localStorage.setItem('shopify_cart_id', cart.id);
+                return cart;
+            }
+            throw new Error("Failed to create cart");
+        }
+
+        // SMART ADD TO CART: Converts Product ID -> Variant ID -> Add to Cart
+        async function addToCart(rawProductId) {
+            try {
+                // 1. Convert raw ID (12345) to Shopify Global ID if not already
+                let globalProductId = rawProductId;
+                if (!rawProductId.startsWith('gid://')) {
+                    globalProductId = `gid://shopify/Product/${rawProductId}`;
+                    // Some browsers/contexts might need btoa, but standard GID string usually works 
+                    // or we can use base64 if needed. Let's try raw GID string first as modern API often accepts it
+                    // actually Storefront API expects base64 encoded ID often, let's ensure:
+                    // If we need to, we can use btoa, but let's first try just querying.
+                }
+
+                // 2. Fetch Product to get Variant
+                // We need to support both legacy IDs and GIDs. 
+                // Best way: use a search query or just try to fetch node.
+                
+                // Let's assume we need to encode it if it's just a number
+                // Actually, the simplest robust way is to use the `product` query with a GID.
+                // If it fails, we catch it.
+                // NOTE: `btoa` on `gid://shopify/Product/12345` is safe.
+                
+                // Let's try to just assume the user put the number.
+                const b64Id = btoa(`gid://shopify/Product/${rawProductId}`);
+                
+                const productQuery = `
+                    query($id: ID!) {
+                      product(id: $id) {
+                        variants(first: 1) {
+                          nodes {
+                            id
+                          }
+                        }
+                      }
+                    }
+                `;
+                
+                let productResult = await shopifyFetch(productQuery, { id: b64Id });
+                
+                // If null, maybe try without base64 (sometimes IDs change format)
+                if (!productResult.data || !productResult.data.product) {
+                     console.warn("Retrying with raw ID...");
+                     // Some setups might work differently, but typically b64 GID is standard.
+                     throw new Error("Product not found");
+                }
+                
+                const variantId = productResult.data.product.variants.nodes[0].id;
+                
+                // 3. Get or Create Cart
+                let cart = await initCart();
+                if (!cart) {
+                    cart = await createCart();
+                }
+                
+                // 4. Add Line Item
+                const addLineQuery = `
+                    mutation($cartId: ID!, $lines: [CartLineInput!]!) {
+                      cartLinesAdd(cartId: $cartId, lines: $lines) {
+                        cart {
+                          id
+                          totalQuantity
+                          checkoutUrl
+                        }
+                      }
+                    }
+                `;
+                
+                const addResult = await shopifyFetch(addLineQuery, {
+                    cartId: cart.id,
+                    lines: [{ merchandiseId: variantId, quantity: 1 }]
+                });
+                
+                if (addResult.data && addResult.data.cartLinesAdd && addResult.data.cartLinesAdd.cart) {
+                    const updatedCart = addResult.data.cartLinesAdd.cart;
+                    updateCartCount(updatedCart.totalQuantity);
+                    // Update stored URL just in case
+                    // We don't need to store URL if we just fetch cart by ID later, but good for redirect
+                    return true;
+                }
+                
+                return false;
+
+            } catch (e) {
+                console.error("Error adding to cart:", e);
+                alert("Could not add item. Please check the Product ID in your code.");
+                return false;
+            }
+        }
+
+        function updateCartCount(count) {
+            const badge = document.getElementById('cart-count');
+            
+            if (badge) {
+                badge.innerText = count;
+                badge.classList.remove('opacity-0');
+                badge.classList.add('scale-150');
+                setTimeout(() => badge.classList.remove('scale-150'), 200);
+            }
+        }
+        
+        // Event Listeners for Buttons
+        document.querySelectorAll('.shopify-add-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const id = btn.getAttribute('data-shopify-id');
+                
+                // Visual Feedback Immediately
+                const originalText = btn.innerText;
+                btn.innerText = "Adding...";
+                btn.classList.add('bg-sb-gold', 'text-sb-black', 'border-sb-gold');
+                btn.classList.remove('bg-sb-black', 'text-sb-cream', 'border-sb-black');
+
+                // Run the Logic
+                if (id && !id.startsWith('YOUR_')) {
+                    const success = await addToCart(id);
+                    if (success) {
+                        btn.innerText = "Added";
+                    } else {
+                        btn.innerText = "Error";
+                    }
+                } else {
+                    console.log("Demo Mode: Button clicked for ID", id);
+                    btn.innerText = "Demo Mode";
+                }
+
+                // Reset Button after delay
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('bg-sb-gold', 'text-sb-black', 'border-sb-gold');
+                    btn.classList.add('bg-sb-black', 'text-sb-cream', 'border-sb-black');
+                }, 2000);
+            });
+        });
+
+        // Redirect to Checkout
+        document.getElementById('cart-icon-btn').addEventListener('click', async () => {
+            const cartId = localStorage.getItem('shopify_cart_id');
+            if (cartId) {
+                 // Fetch latest URL (URLs can expire or change)
+                 const query = `
+                    query($id: ID!) {
+                      cart(id: $id) {
+                        checkoutUrl
+                      }
+                    }
+                `;
+                const result = await shopifyFetch(query, { id: cartId });
+                if (result.data && result.data.cart && result.data.cart.checkoutUrl) {
+                    window.location.href = result.data.cart.checkoutUrl;
+                } else {
+                    alert("Cart is empty.");
+                }
+            } else {
+                console.log("Cart clicked (Empty)");
+                alert("Your cart is empty.");
+            }
+        });
+
+        // -------------------------------------------------------------
+        // UI INTERACTION SCRIPTS (Menu, Animations, etc.)
+        // -------------------------------------------------------------
+
         // Mobile Menu Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const closeMenuBtn = document.getElementById('close-menu-btn');
@@ -756,43 +950,10 @@
             link.addEventListener('click', toggleMenu);
         });
 
-        // Simple Cart Logic with Snipcart Alert
-        let count = 0;
-        const cartBadge = document.getElementById('cart-count');
-
-        document.querySelectorAll('.snipcart-add-item').forEach(button => {
-            button.addEventListener('click', (e) => {
-                // Check if Snipcart is active
-                if (!document.getElementById('snipcart') || document.getElementById('snipcart').getAttribute('data-api-key') === "YOUR_PUBLIC_API_KEY") {
-                    e.preventDefault(); 
-                    alert("To enable real payments:\n1. Sign up for a free account at Snipcart.com\n2. Get your Public API Key\n3. Uncomment the Snipcart script at the bottom of this file\n4. Replace 'YOUR_PUBLIC_API_KEY' with your actual key.");
-                    
-                    count++;
-                    const badge = document.querySelector('.snipcart-items-count');
-                    if(badge) {
-                        badge.innerText = count;
-                        badge.classList.remove('opacity-0');
-                        badge.classList.add('scale-150');
-                        setTimeout(() => badge.classList.remove('scale-150'), 200);
-                    }
-                    
-                    const originalText = button.innerText;
-                    button.innerText = "Added";
-                    button.classList.add('bg-sb-gold');
-                    button.classList.remove('bg-sb-black');
-                    setTimeout(() => {
-                        button.innerText = originalText;
-                        button.classList.remove('bg-sb-gold');
-                        button.classList.add('bg-sb-black');
-                    }, 1000);
-                }
-            });
-        });
-
-        // Scroll Animation Observer (Adjusted threshold for earlier triggering)
+        // Scroll Animation Observer
         const observerOptions = {
             root: null,
-            rootMargin: '100px', // Trigger animation 100px before the element enters the viewport
+            rootMargin: '100px', 
             threshold: 0.1
         };
 
@@ -809,18 +970,14 @@
         });
 
         // IMAGE FADE IN LOGIC
-        // Function to reveal image
         function handleImageLoad(img) {
             img.classList.add('loaded');
         }
 
-        // Initialize all images
         document.querySelectorAll('img').forEach(img => {
             if (img.complete) {
-                // If already loaded (cached), fade in immediately
                 handleImageLoad(img);
             } else {
-                // Wait for load event
                 img.addEventListener('load', () => handleImageLoad(img));
             }
         });
@@ -832,14 +989,16 @@
             localStorage.setItem('cookiesAccepted', 'true');
         }
 
-        // Show cookie banner if not accepted
         window.addEventListener('load', () => {
             if (!localStorage.getItem('cookiesAccepted')) {
                 setTimeout(() => {
                     document.getElementById('cookie-banner').classList.remove('translate-y-full');
                     document.getElementById('cookie-banner').classList.add('translate-y-0');
-                }, 2000); // Show after 2 seconds
+                }, 2000); 
             }
+            
+            // Check for cart on load
+            initCart();
         });
     </script>
 </body>
