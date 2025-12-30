@@ -309,15 +309,14 @@
             <div id="cart-extras" class="px-6 py-6 bg-sb-cream border-t border-gray-100 hidden">
                 <div class="mb-4">
                     <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Gift Message / Note</label>
-                    <!-- UPDATED: Added appearance-none, rounded-none, block, max-w-full -->
                     <textarea id="cart-note" rows="2" class="appearance-none rounded-none block w-full max-w-full bg-white border border-gray-300 p-2 text-base text-sb-black placeholder-gray-400 focus:border-sb-gold outline-none resize-none box-border" placeholder="Write a message for the card..."></textarea>
                 </div>
 
                 <div class="mb-0">
                     <label for="delivery-date" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Requested Delivery Date</label>
-                    <!-- UPDATED: Added appearance-none, rounded-none, block, max-w-full to fix Safari rendering -->
                     <input type="date" id="delivery-date" class="appearance-none rounded-none block w-full max-w-full bg-white border border-gray-300 p-2 text-base text-sb-black focus:border-sb-gold outline-none box-border h-10">
-                    <p id="date-error" class="text-[10px] text-red-500 mt-1 hidden">We do not deliver on Sundays. Please select another date.</p>
+                    <!-- UPDATED: Error message container is now dynamic -->
+                    <p id="date-error" class="text-[10px] text-red-500 mt-1 hidden"></p>
                 </div>
             </div>
         </div>
@@ -937,25 +936,41 @@
             const dateInput = document.getElementById('delivery-date');
             const dateError = document.getElementById('date-error');
             
+            let isValidDate = true;
+
             if (dateInput && dateInput.value) {
                 const selectedDate = new Date(dateInput.value);
                 const day = selectedDate.getDay(); // 0 = Sunday
+                const today = new Date().toISOString().split('T')[0];
                 
-                // Sunday check
-                if (day === 0) {
+                // Reset error
+                dateError.classList.add('hidden');
+                dateError.innerText = "";
+                dateInput.classList.remove('border-red-500');
+
+                // 1. Check if date is in the past
+                if (dateInput.value < today) {
+                    dateError.innerText = "Please select a date in the future.";
                     dateError.classList.remove('hidden');
-                    // We don't clear value here to prevent fighting user input, just show error
-                    return; 
-                } else {
-                    dateError.classList.add('hidden');
+                    dateInput.classList.add('border-red-500');
+                    isValidDate = false;
+                }
+                // 2. Check for Sunday
+                else if (day === 0) {
+                    dateError.innerText = "We do not deliver on Sundays. Please select another date.";
+                    dateError.classList.remove('hidden');
+                    dateInput.classList.add('border-red-500');
+                    isValidDate = false;
                 }
             }
 
-            // Debounce the API call
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                updateCartAttributes(note, dateInput?.value);
-            }, 500); 
+            // Only save to Shopify if date is valid (or empty/cleared)
+            if (isValidDate) {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    updateCartAttributes(note, dateInput?.value);
+                }, 500); 
+            }
         }
 
         // SMART ADD TO CART: Converts Product ID -> Variant ID -> Add to Cart
@@ -1224,14 +1239,26 @@
                             alert("Please select a delivery date to proceed.");
                             dateInput.classList.add('border-red-500');
                             dateInput.focus();
-                            // Remove red border on next input
-                            dateInput.addEventListener('input', () => {
-                                dateInput.classList.remove('border-red-500');
-                            }, { once: true });
                             return;
                         }
 
-                        // 2. Gift Message Reminder (Soft Check)
+                        // 2. Strict Date Validation (Past / Sunday)
+                        const today = new Date().toISOString().split('T')[0];
+                        const selectedDateObj = new Date(date);
+                        
+                        if (date < today) {
+                             alert("The selected delivery date is in the past. Please choose a valid date.");
+                             dateInput.focus();
+                             return;
+                        }
+                        
+                        if (selectedDateObj.getDay() === 0) {
+                             alert("We do not deliver on Sundays. Please choose another date.");
+                             dateInput.focus();
+                             return;
+                        }
+
+                        // 3. Gift Message Reminder (Soft Check)
                         if (!note) {
                             const confirmNoMessage = confirm("You haven't written a gift message. Are you sure you want to proceed without one?");
                             if (!confirmNoMessage) {
