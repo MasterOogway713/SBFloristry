@@ -1211,14 +1211,42 @@
                      };
                 } else if (cart.checkoutUrl) {
                     newBtn.innerText = "Proceed to Checkout";
+                    
                     newBtn.onclick = async () => {
+                        const noteInput = document.getElementById('cart-note');
+                        const dateInput = document.getElementById('delivery-date');
+                        const note = noteInput?.value.trim();
+                        const date = dateInput?.value;
+
+                        // 1. Mandatory Date Check
+                        if (!date) {
+                            alert("Please select a delivery date to proceed.");
+                            dateInput.classList.add('border-red-500');
+                            dateInput.focus();
+                            // Remove red border on next input
+                            dateInput.addEventListener('input', () => {
+                                dateInput.classList.remove('border-red-500');
+                            }, { once: true });
+                            return;
+                        }
+
+                        // 2. Gift Message Reminder (Soft Check)
+                        if (!note) {
+                            const confirmNoMessage = confirm("You haven't written a gift message. Are you sure you want to proceed without one?");
+                            if (!confirmNoMessage) {
+                                noteInput.focus();
+                                return;
+                            }
+                        }
+
+                        // Proceed if checks pass
                         const originalText = newBtn.innerText;
                         newBtn.innerText = "Processing...";
                         
-                        const note = document.getElementById('cart-note')?.value;
-                        const date = document.getElementById('delivery-date')?.value;
-                        
+                        // Force update of Note and Date before redirecting
                         await updateCartAttributes(note, date);
+                        
+                        // Redirect
                         window.location.href = cart.checkoutUrl;
                     };
                 }
