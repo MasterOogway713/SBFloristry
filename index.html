@@ -99,7 +99,7 @@
             animation: subtleShimmer 6s linear infinite;
         }
         
-        /* Staggered Reveal Animation */
+        /* Staggered Reveal Animation for SECTIONS */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -110,22 +110,22 @@
             transform: translateY(0);
         }
 
-        /* Image Fade In */
+        /* IMAGE FADE IN LOGIC */
         img {
             opacity: 0; 
-            transition: opacity 1.2s ease-out; 
+            transition: opacity 1.2s ease-out; /* Slower, luxurious fade */
         }
         img.loaded {
             opacity: 1;
         }
 
-        /* Selection Color */
+        /* 2. CUSTOM TEXT SELECTION COLOR */
         ::selection {
-            background: #E0C35D; 
-            color: #0a0a0a; 
+            background: #E0C35D; /* sb-gold */
+            color: #0a0a0a; /* sb-black */
         }
 
-        /* Luxury Button Hover Effect */
+        /* NEW: Luxury Button Hover Effect */
         .btn-luxury {
             position: relative;
             overflow: hidden;
@@ -152,7 +152,7 @@
             color: #0a0a0a !important; /* sb-black */
             border-color: #E0C35D;
         }
-        
+
         /* Side Cart Styles */
         .cart-overlay {
             background-color: rgba(0,0,0,0.5);
@@ -258,7 +258,6 @@
     </div>
 
     <!-- SIDE CART DRAWER -->
-    <!-- UPDATED STRUCTURE FOR MOBILE SCROLLING -->
     <div id="side-cart-overlay" class="fixed inset-0 cart-overlay z-[150] hidden opacity-0 transition-opacity duration-300"></div>
     <div id="side-cart" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[160] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
         
@@ -310,12 +309,14 @@
             <div id="cart-extras" class="px-6 py-6 bg-sb-cream border-t border-gray-100 hidden">
                 <div class="mb-4">
                     <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Gift Message / Note</label>
-                    <textarea id="cart-note" rows="2" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black placeholder-gray-400 focus:border-sb-gold outline-none resize-none" placeholder="Write a message for the card..."></textarea>
+                    <!-- UPDATED: text-base to prevent zoom -->
+                    <textarea id="cart-note" rows="2" class="w-full bg-white border border-gray-300 p-2 text-base text-sb-black placeholder-gray-400 focus:border-sb-gold outline-none resize-none box-border" placeholder="Write a message for the card..."></textarea>
                 </div>
 
                 <div class="mb-0">
                     <label for="delivery-date" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Requested Delivery Date</label>
-                    <input type="date" id="delivery-date" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black focus:border-sb-gold outline-none">
+                    <!-- UPDATED: text-base to prevent zoom, identical styling to textarea -->
+                    <input type="date" id="delivery-date" class="w-full bg-white border border-gray-300 p-2 text-base text-sb-black focus:border-sb-gold outline-none box-border h-10">
                     <p id="date-error" class="text-[10px] text-red-500 mt-1 hidden">We do not deliver on Sundays. Please select another date.</p>
                 </div>
             </div>
@@ -936,15 +937,15 @@
             const dateInput = document.getElementById('delivery-date');
             const dateError = document.getElementById('date-error');
             
-            if (dateInput) {
+            if (dateInput && dateInput.value) {
                 const selectedDate = new Date(dateInput.value);
                 const day = selectedDate.getDay(); // 0 = Sunday
                 
                 // Sunday check
                 if (day === 0) {
                     dateError.classList.remove('hidden');
-                    dateInput.value = ''; // Clear input
-                    return; // Stop update
+                    // We don't clear value here to prevent fighting user input, just show error
+                    return; 
                 } else {
                     dateError.classList.add('hidden');
                 }
