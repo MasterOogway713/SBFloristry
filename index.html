@@ -244,7 +244,7 @@
         </div>
     </div>
 
-    <!-- SIDE CART DRAWER (NEW) -->
+    <!-- SIDE CART DRAWER -->
     <div id="side-cart-overlay" class="fixed inset-0 cart-overlay z-[150] hidden opacity-0 transition-opacity duration-300"></div>
     <div id="side-cart" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[160] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
         <!-- Cart Header -->
@@ -264,8 +264,21 @@
             </div>
         </div>
 
-        <!-- Cart Footer -->
+        <!-- Cart Footer with Gift Message & Date -->
         <div class="p-6 border-t border-gray-100 bg-sb-cream">
+            
+            <!-- Gift Message Input -->
+            <div class="mb-4">
+                <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Gift Message / Note</label>
+                <textarea id="cart-note" rows="2" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black placeholder-gray-400 focus:border-sb-gold outline-none resize-none" placeholder="Write a message for the card..."></textarea>
+            </div>
+
+            <!-- Date Picker -->
+            <div class="mb-6">
+                <label for="delivery-date" class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-1">Requested Delivery Date</label>
+                <input type="date" id="delivery-date" class="w-full bg-white border border-gray-300 p-2 text-sm text-sb-black focus:border-sb-gold outline-none">
+            </div>
+
             <div class="flex justify-between items-center mb-4">
                 <span class="text-sm font-bold tracking-luxury uppercase text-gray-500">Subtotal</span>
                 <span id="cart-subtotal" class="font-serif text-2xl text-sb-black">£0.00</span>
@@ -744,6 +757,8 @@
             storefrontAccessToken: '35527e42586bf1abcce2dda69206eec9' 
         };
         
+        let debounceTimer;
+
         // Helper to fetch directly from Storefront API
         async function shopifyFetch(query, variables = {}) {
             try {
@@ -773,6 +788,8 @@
                     id
                     checkoutUrl
                     totalQuantity
+                    note
+                    attributes { key value }
                     cost {
                         subtotalAmount { amount currencyCode }
                     }
@@ -801,6 +818,19 @@
             
             if (result.data && result.data.cart) {
                 updateCartUI(result.data.cart);
+                // Pre-fill inputs from saved cart data
+                const noteInput = document.getElementById('cart-note');
+                const dateInput = document.getElementById('delivery-date');
+                
+                if (noteInput && result.data.cart.note) {
+                    noteInput.value = result.data.cart.note;
+                }
+                
+                if (dateInput && result.data.cart.attributes) {
+                    const dateAttr = result.data.cart.attributes.find(a => a.key === 'Requested Delivery Date');
+                    if (dateAttr) dateInput.value = dateAttr.value;
+                }
+                
                 return result.data.cart;
             } else {
                 localStorage.removeItem('shopify_cart_id');
@@ -810,17 +840,7 @@
         
         // Create a new cart
         async function createCart() {
-            const query = `
-                mutation {
-                  cartCreate {
-                    cart {
-                      id
-                      checkoutUrl
-                    }
-                  }
-                }
-            `;
-            
+            const query = `mutation { cartCreate { cart { id checkoutUrl } } }`;
             const result = await shopifyFetch(query);
             if (result.data && result.data.cartCreate && result.data.cartCreate.cart) {
                 const cart = result.data.cartCreate.cart;
@@ -828,6 +848,46 @@
                 return cart;
             }
             throw new Error("Failed to create cart");
+        }
+
+        // Update Cart Attributes (Note & Date)
+        async function updateCartAttributes(note, date) {
+            const cartId = localStorage.getItem('shopify_cart_id');
+            if (!cartId) return;
+
+            const query = `
+                mutation cartNoteUpdate($cartId: ID!, $note: String, $attributes: [AttributeInput!]) {
+                    cartNoteUpdate(cartId: $cartId, note: $note) {
+                        cart { id }
+                    }
+                    cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+                        cart { id }
+                    }
+                }
+            `;
+
+            // Prepare attributes array. Only add date if it exists.
+            const attributes = [];
+            if (date) {
+                attributes.push({ key: "Requested Delivery Date", value: date });
+            }
+
+            await shopifyFetch(query, {
+                cartId: cartId,
+                note: note || "", // Send empty string if note is deleted
+                attributes: attributes
+            });
+            console.log("Cart updated with note/date");
+        }
+
+        // Debounce function to wait for typing to stop
+        function handleCartInputUpdate() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const note = document.getElementById('cart-note')?.value;
+                const date = document.getElementById('delivery-date')?.value;
+                updateCartAttributes(note, date);
+            }, 500); // Wait 500ms after last keystroke
         }
 
         // SMART ADD TO CART: Converts Product ID -> Variant ID -> Add to Cart
@@ -1088,6 +1148,11 @@
             const sideCartOverlay = document.getElementById('side-cart-overlay');
             const closeCartBtn = document.getElementById('close-cart-btn');
             const cartIconBtn = document.getElementById('cart-icon-btn');
+            const cartNote = document.getElementById('cart-note');
+            const deliveryDate = document.getElementById('delivery-date');
+
+            if (cartNote) cartNote.addEventListener('input', handleCartInputUpdate);
+            if (deliveryDate) deliveryDate.addEventListener('change', handleCartInputUpdate);
 
             window.openCart = function() {
                 if (sideCartOverlay && sideCart) {
