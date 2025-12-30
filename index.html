@@ -154,6 +154,23 @@
             color: #0a0a0a !important; /* sb-black */
             border-color: #E0C35D;
         }
+        
+        /* Side Cart Styles */
+        .cart-overlay {
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+        }
+        /* Hide scrollbar in cart */
+        .cart-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .cart-scroll::-webkit-scrollbar-track {
+            background: #F2F0EB; 
+        }
+        .cart-scroll::-webkit-scrollbar-thumb {
+            background: #E0C35D; 
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body class="font-sans text-sb-dark antialiased bg-sb-cream">
@@ -224,6 +241,39 @@
         <div class="mt-auto mb-10 text-center text-gray-400 text-sm tracking-widest uppercase">
             <p class="mb-2">Mother & Daughter Team</p>
             <p class="text-sb-gold">Essex & London</p>
+        </div>
+    </div>
+
+    <!-- SIDE CART DRAWER (NEW) -->
+    <div id="side-cart-overlay" class="fixed inset-0 cart-overlay z-[150] hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="side-cart" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[160] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-sb-black text-sb-cream">
+            <h2 class="font-serif text-2xl">Your Selection</h2>
+            <button id="close-cart-btn" class="text-sb-gold hover:text-white transition-colors text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Cart Items Area -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 cart-scroll bg-white">
+            <!-- Loading State -->
+            <div class="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
+                <i class="fas fa-spinner fa-spin text-3xl text-sb-gold"></i>
+                <p>Loading your blooms...</p>
+            </div>
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="p-6 border-t border-gray-100 bg-sb-cream">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-sm font-bold tracking-luxury uppercase text-gray-500">Subtotal</span>
+                <span id="cart-subtotal" class="font-serif text-2xl text-sb-black">£0.00</span>
+            </div>
+            <p class="text-xs text-gray-400 mb-6 text-center">Shipping & taxes calculated at checkout.</p>
+            <button id="checkout-btn" class="w-full btn-luxury bg-sb-black text-sb-cream py-4 uppercase tracking-luxury text-xs font-bold border border-sb-black">
+                Proceed to Checkout
+            </button>
         </div>
     </div>
 
@@ -690,8 +740,8 @@
         // -------------------------------------------------------------
         
         const shopifyConfig = {
-            domain: 'sb-floristry.myshopify.com', // Replace with your actual domain
-            storefrontAccessToken: '35527e42586bf1abcce2dda69206eec9' // Replace with your actual token
+            domain: 'sb-floristry.myshopify.com', 
+            storefrontAccessToken: '35527e42586bf1abcce2dda69206eec9' 
         };
         
         // Helper to fetch directly from Storefront API
@@ -715,18 +765,34 @@
         // Initialize Cart
         async function initCart() {
             let cartId = localStorage.getItem('shopify_cart_id');
-            if (!cartId) {
-                // We'll create cart on first add to avoid empty carts
-                return null;
-            }
+            if (!cartId) return null;
             
-            // If we have a cart ID, check if it's still valid/completed
             const query = `
                 query($id: ID!) {
                   cart(id: $id) {
                     id
                     checkoutUrl
                     totalQuantity
+                    cost {
+                        subtotalAmount { amount currencyCode }
+                    }
+                    lines(first: 10) {
+                        edges {
+                            node {
+                                id
+                                quantity
+                                merchandise {
+                                    ... on ProductVariant {
+                                        id
+                                        title
+                                        price { amount currencyCode }
+                                        image { url }
+                                        product { title }
+                                    }
+                                }
+                            }
+                        }
+                    }
                   }
                 }
             `;
@@ -734,10 +800,9 @@
             const result = await shopifyFetch(query, { id: cartId });
             
             if (result.data && result.data.cart) {
-                updateCartCount(result.data.cart.totalQuantity);
+                updateCartUI(result.data.cart);
                 return result.data.cart;
             } else {
-                // Cart invalid or completed, clear it
                 localStorage.removeItem('shopify_cart_id');
                 return null;
             }
@@ -768,28 +833,11 @@
         // SMART ADD TO CART: Converts Product ID -> Variant ID -> Add to Cart
         async function addToCart(rawProductId) {
             try {
-                // 1. Convert raw ID (12345) to Shopify Global ID if not already
-                let globalProductId = rawProductId;
-                if (!rawProductId.startsWith('gid://')) {
-                    globalProductId = `gid://shopify/Product/${rawProductId}`;
-                    // Some browsers/contexts might need btoa, but standard GID string usually works 
-                    // or we can use base64 if needed. Let's try raw GID string first as modern API often accepts it
-                    // actually Storefront API expects base64 encoded ID often, let's ensure:
-                    // If we need to, we can use btoa, but let's first try just querying.
-                }
+                // 1. Convert raw ID (12345) to Shopify Global ID (gid://shopify/Product/12345)
+                // We use btoa() to encode it to Base64 as required by the SDK
+                const globalProductId = btoa(`gid://shopify/Product/${rawProductId}`);
 
-                // 2. Fetch Product to get Variant
-                // We need to support both legacy IDs and GIDs. 
-                // Best way: use a search query or just try to fetch node.
-                
-                // Let's assume we need to encode it if it's just a number
-                // Actually, the simplest robust way is to use the `product` query with a GID.
-                // If it fails, we catch it.
-                // NOTE: `btoa` on `gid://shopify/Product/12345` is safe.
-                
-                // Let's try to just assume the user put the number.
-                const b64Id = btoa(`gid://shopify/Product/${rawProductId}`);
-                
+                // 2. Fetch the product to get the correct Variant ID
                 const productQuery = `
                     query($id: ID!) {
                       product(id: $id) {
@@ -802,13 +850,22 @@
                     }
                 `;
                 
-                let productResult = await shopifyFetch(productQuery, { id: b64Id });
+                let productResult = await shopifyFetch(productQuery, { id: globalProductId }); // Fixed to use globalProductId
                 
-                // If null, maybe try without base64 (sometimes IDs change format)
                 if (!productResult.data || !productResult.data.product) {
-                     console.warn("Retrying with raw ID...");
-                     // Some setups might work differently, but typically b64 GID is standard.
-                     throw new Error("Product not found");
+                     // Fallback: Try encoded GID if btoa resulted in mismatched format or raw ID
+                     // Or check if user provided raw ID that needs 'gid://shopify/Product/' prefix but NOT base64 encoded for search.
+                     // Actually, Storefront API `node(id: ...)` usually expects Base64 GID.
+                     // But `product(id: ...)` input expects GID string? Let's check documentation pattern.
+                     // Modern API often takes "gid://shopify/Product/12345" directly without Base64.
+                     // Let's try raw GID string if base64 failed.
+                     
+                     const rawGid = `gid://shopify/Product/${rawProductId}`;
+                     productResult = await shopifyFetch(productQuery, { id: rawGid });
+                     
+                     if (!productResult.data || !productResult.data.product) {
+                        throw new Error("Product not found");
+                     }
                 }
                 
                 const variantId = productResult.data.product.variants.nodes[0].id;
@@ -827,6 +884,24 @@
                           id
                           totalQuantity
                           checkoutUrl
+                          cost { subtotalAmount { amount currencyCode } }
+                          lines(first: 10) {
+                            edges {
+                                node {
+                                    id
+                                    quantity
+                                    merchandise {
+                                        ... on ProductVariant {
+                                            id
+                                            title
+                                            price { amount currencyCode }
+                                            image { url }
+                                            product { title }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         }
                       }
                     }
@@ -838,13 +913,10 @@
                 });
                 
                 if (addResult.data && addResult.data.cartLinesAdd && addResult.data.cartLinesAdd.cart) {
-                    const updatedCart = addResult.data.cartLinesAdd.cart;
-                    updateCartCount(updatedCart.totalQuantity);
-                    // Update stored URL just in case
-                    // We don't need to store URL if we just fetch cart by ID later, but good for redirect
+                    updateCartUI(addResult.data.cartLinesAdd.cart);
+                    if (window.openCart) window.openCart();
                     return true;
                 }
-                
                 return false;
 
             } catch (e) {
@@ -854,150 +926,273 @@
             }
         }
 
-        function updateCartCount(count) {
-            const badge = document.getElementById('cart-count');
-            
-            if (badge) {
-                badge.innerText = count;
-                badge.classList.remove('opacity-0');
-                badge.classList.add('scale-150');
-                setTimeout(() => badge.classList.remove('scale-150'), 200);
-            }
-        }
-        
-        // Event Listeners for Buttons
-        document.querySelectorAll('.shopify-add-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const id = btn.getAttribute('data-shopify-id');
-                
-                // Visual Feedback Immediately
-                const originalText = btn.innerText;
-                btn.innerText = "Adding...";
-                btn.classList.add('bg-sb-gold', 'text-sb-black', 'border-sb-gold');
-                btn.classList.remove('bg-sb-black', 'text-sb-cream', 'border-sb-black');
-
-                // Run the Logic
-                if (id && !id.startsWith('YOUR_')) {
-                    const success = await addToCart(id);
-                    if (success) {
-                        btn.innerText = "Added";
-                    } else {
-                        btn.innerText = "Error";
-                    }
-                } else {
-                    console.log("Demo Mode: Button clicked for ID", id);
-                    btn.innerText = "Demo Mode";
-                }
-
-                // Reset Button after delay
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.remove('bg-sb-gold', 'text-sb-black', 'border-sb-gold');
-                    btn.classList.add('bg-sb-black', 'text-sb-cream', 'border-sb-black');
-                }, 2000);
-            });
-        });
-
-        // Redirect to Checkout
-        document.getElementById('cart-icon-btn').addEventListener('click', async () => {
+        async function updateLineItem(lineId, quantity) {
             const cartId = localStorage.getItem('shopify_cart_id');
-            if (cartId) {
-                 // Fetch latest URL (URLs can expire or change)
-                 const query = `
-                    query($id: ID!) {
-                      cart(id: $id) {
-                        checkoutUrl
-                      }
+            if(!cartId) return;
+
+            const query = `
+                mutation($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+                    cartLinesUpdate(cartId: $cartId, lines: $lines) {
+                        cart {
+                            id
+                            totalQuantity
+                            checkoutUrl
+                            cost { subtotalAmount { amount currencyCode } }
+                            lines(first: 10) {
+                                edges {
+                                    node {
+                                        id
+                                        quantity
+                                        merchandise {
+                                            ... on ProductVariant {
+                                                id
+                                                title
+                                                price { amount currencyCode }
+                                                image { url }
+                                                product { title }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                `;
-                const result = await shopifyFetch(query, { id: cartId });
-                if (result.data && result.data.cart && result.data.cart.checkoutUrl) {
-                    window.location.href = result.data.cart.checkoutUrl;
-                } else {
-                    alert("Cart is empty.");
                 }
-            } else {
-                console.log("Cart clicked (Empty)");
-                alert("Your cart is empty.");
-            }
-        });
-
-        // -------------------------------------------------------------
-        // UI INTERACTION SCRIPTS (Menu, Animations, etc.)
-        // -------------------------------------------------------------
-
-        // Mobile Menu Logic
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuLinks = mobileMenu.querySelectorAll('a');
-
-        function toggleMenu() {
-            const isClosed = mobileMenu.classList.contains('-translate-x-full');
-            if (isClosed) {
-                mobileMenu.classList.remove('-translate-x-full');
-                document.body.style.overflow = 'hidden'; 
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                document.body.style.overflow = 'auto'; 
-            }
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
-        
-        menuLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Scroll Animation Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '100px', 
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+            `;
+            
+            const result = await shopifyFetch(query, {
+                cartId: cartId,
+                lines: [{ id: lineId, quantity: quantity }]
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach((el) => {
-            observer.observe(el);
-        });
-
-        // IMAGE FADE IN LOGIC
-        function handleImageLoad(img) {
-            img.classList.add('loaded');
-        }
-
-        document.querySelectorAll('img').forEach(img => {
-            if (img.complete) {
-                handleImageLoad(img);
-            } else {
-                img.addEventListener('load', () => handleImageLoad(img));
+            if(result.data && result.data.cartLinesUpdate) {
+                updateCartUI(result.data.cartLinesUpdate.cart);
             }
-        });
-
-        // Cookie Banner Logic
-        function acceptCookies() {
-            document.getElementById('cookie-banner').classList.remove('translate-y-0');
-            document.getElementById('cookie-banner').classList.add('translate-y-full');
-            localStorage.setItem('cookiesAccepted', 'true');
         }
 
-        window.addEventListener('load', () => {
+        async function removeLineItem(lineId) {
+             const cartId = localStorage.getItem('shopify_cart_id');
+            if(!cartId) return;
+
+            const query = `
+                mutation($cartId: ID!, $lineIds: [ID!]!) {
+                    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+                        cart {
+                            id
+                            totalQuantity
+                            checkoutUrl
+                            cost { subtotalAmount { amount currencyCode } }
+                            lines(first: 10) {
+                                edges {
+                                    node {
+                                        id
+                                        quantity
+                                        merchandise {
+                                            ... on ProductVariant {
+                                                id
+                                                title
+                                                price { amount currencyCode }
+                                                image { url }
+                                                product { title }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            `;
+            
+            const result = await shopifyFetch(query, {
+                cartId: cartId,
+                lineIds: [lineId]
+            });
+
+            if(result.data && result.data.cartLinesRemove) {
+                updateCartUI(result.data.cartLinesRemove.cart);
+            }
+        }
+
+        function updateCartUI(cart) {
+            // Update Badge
+            const badge = document.getElementById('cart-count');
+            if (badge) {
+                badge.innerText = cart.totalQuantity;
+                badge.classList.remove('opacity-0');
+                if(cart.totalQuantity > 0) {
+                    badge.classList.add('scale-150');
+                    setTimeout(() => badge.classList.remove('scale-150'), 200);
+                }
+            }
+
+            // Update Side Cart HTML
+            const cartContainer = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            if (cartContainer && cart.cost) {
+                 if (subtotalEl) subtotalEl.innerText = `£${cart.cost.subtotalAmount.amount}`;
+            }
+
+            // Bind Checkout Button
+            if (checkoutBtn && cart.checkoutUrl) {
+                checkoutBtn.onclick = () => window.location.href = cart.checkoutUrl;
+            }
+
+            // Render Items
+            if (cartContainer) {
+                if (cart.lines.edges.length === 0) {
+                    cartContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
+                            <i class="fas fa-shopping-basket text-3xl text-sb-gold opacity-50"></i>
+                            <p>Your cart is empty.</p>
+                        </div>
+                    `;
+                } else {
+                    cartContainer.innerHTML = cart.lines.edges.map(edge => {
+                        const item = edge.node;
+                        return `
+                            <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
+                                <div class="w-20 h-24 flex-shrink-0 bg-gray-50">
+                                    <img src="${item.merchandise.image?.url || ''}" class="w-full h-full object-cover loaded" style="opacity: 1;">
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-serif text-lg text-sb-black leading-tight mb-1">${item.merchandise.product.title}</h4>
+                                    <p class="text-xs text-gray-500 mb-2">£${item.merchandise.price.amount}</p>
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex items-center border border-gray-200">
+                                            <button onclick="updateLineItem('${item.id}', ${item.quantity - 1})" class="px-2 py-1 text-gray-500 hover:text-sb-black">-</button>
+                                            <span class="px-2 text-xs font-bold">${item.quantity}</span>
+                                            <button onclick="updateLineItem('${item.id}', ${item.quantity + 1})" class="px-2 py-1 text-gray-500 hover:text-sb-black">+</button>
+                                        </div>
+                                        <button onclick="removeLineItem('${item.id}')" class="text-xs text-gray-400 hover:text-red-500 underline">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+        }
+
+        // Global function refs for inline HTML onclicks
+        window.updateLineItem = updateLineItem;
+        window.removeLineItem = removeLineItem;
+
+        // DOM Elements & Event Listeners - Wrapped in DOMContentLoaded for safety
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Side Cart Open/Close Logic
+            const sideCart = document.getElementById('side-cart');
+            const sideCartOverlay = document.getElementById('side-cart-overlay');
+            const closeCartBtn = document.getElementById('close-cart-btn');
+            const cartIconBtn = document.getElementById('cart-icon-btn');
+
+            window.openCart = function() {
+                if (sideCartOverlay && sideCart) {
+                    sideCartOverlay.classList.remove('hidden');
+                    setTimeout(() => {
+                        sideCartOverlay.classList.remove('opacity-0');
+                        sideCart.classList.remove('translate-x-full');
+                    }, 10);
+                }
+            };
+
+            window.closeCart = function() {
+                if (sideCart && sideCartOverlay) {
+                    sideCart.classList.add('translate-x-full');
+                    sideCartOverlay.classList.add('opacity-0');
+                    setTimeout(() => {
+                        sideCartOverlay.classList.add('hidden');
+                    }, 300);
+                }
+            };
+
+            if (cartIconBtn) cartIconBtn.addEventListener('click', window.openCart);
+            if (closeCartBtn) closeCartBtn.addEventListener('click', window.closeCart);
+            if (sideCartOverlay) sideCartOverlay.addEventListener('click', window.closeCart);
+            
+            // Event Listeners for Add Buttons
+            document.querySelectorAll('.shopify-add-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = btn.getAttribute('data-shopify-id');
+                    const originalText = btn.innerText;
+                    btn.innerText = "Adding...";
+                    btn.classList.add('bg-sb-gold', 'text-sb-black', 'border-sb-gold');
+                    btn.classList.remove('bg-sb-black', 'text-sb-cream', 'border-sb-black');
+                    
+                    if (id) {
+                        await addToCart(id);
+                        btn.innerText = "Added";
+                    }
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.remove('bg-sb-gold', 'text-sb-black', 'border-sb-gold');
+                        btn.classList.add('bg-sb-black', 'text-sb-cream', 'border-sb-black');
+                    }, 2000);
+                });
+            });
+
+            // Mobile Menu Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+
+            function toggleMenu() {
+                if (!mobileMenu) return;
+                const isClosed = mobileMenu.classList.contains('-translate-x-full');
+                if (isClosed) {
+                    mobileMenu.classList.remove('-translate-x-full');
+                    document.body.style.overflow = 'hidden'; 
+                } else {
+                    mobileMenu.classList.add('-translate-x-full');
+                    document.body.style.overflow = 'auto'; 
+                }
+            }
+
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // Scroll Animation Observer
+            const observerOptions = { root: null, rootMargin: '100px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+            // IMAGE FADE IN LOGIC
+            function handleImageLoad(img) { img.classList.add('loaded'); }
+            document.querySelectorAll('img').forEach(img => {
+                if (img.complete) handleImageLoad(img);
+                else img.addEventListener('load', () => handleImageLoad(img));
+            });
+
+            // Cookie Banner Logic
+            window.acceptCookies = function() {
+                const banner = document.getElementById('cookie-banner');
+                if (banner) {
+                    banner.classList.remove('translate-y-0');
+                    banner.classList.add('translate-y-full');
+                    localStorage.setItem('cookiesAccepted', 'true');
+                }
+            }
+
             if (!localStorage.getItem('cookiesAccepted')) {
                 setTimeout(() => {
-                    document.getElementById('cookie-banner').classList.remove('translate-y-full');
-                    document.getElementById('cookie-banner').classList.add('translate-y-0');
+                    const banner = document.getElementById('cookie-banner');
+                    if (banner) {
+                        banner.classList.remove('translate-y-full');
+                        banner.classList.add('translate-y-0');
+                    }
                 }, 2000); 
             }
-            
-            // Check for cart on load
+
+            // Init Cart
             initCart();
         });
     </script>
