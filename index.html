@@ -6,7 +6,7 @@
     
     <!-- 1. SEO META TAGS -->
     <meta name="description" content="SB Floristry is a premier mother and daughter florist team serving Essex and London. Specializing in luxury seasonal bouquets, weddings, and bespoke floral installations.">
-    <meta name="keywords" content="Florist Essex, Luxury Flowers London, Wedding Florist, Mother Daughter Florist, Bespoke Floral Design">
+    <meta name="keywords" content="Florist Essex, Luxury Flowers London, Wedding Florist, Mother Daughter Florist, Bespoke Floral Design, Flower Subscriptions">
     <meta name="author" content="SB Floristry">
     <meta property="og:title" content="SB Floristry | Essex & London's Premier Florists">
     <meta property="og:description" content="Artistry in every bloom. Hand-tied in Essex, delivered to London.">
@@ -139,7 +139,7 @@
 
     <!-- Announcement Bar -->
     <div class="bg-gold-shimmer text-sb-black text-[10px] py-2.5 px-4 text-center tracking-[0.25em] uppercase font-bold border-b border-sb-cream/20">
-        <p>Family Run • Free Local Delivery (5 Miles) • UK Standard £4.99</p>
+        <p>Family Run • Free delivery over £60 within a 3 mile radius • UK Standard £4.99</p>
     </div>
 
     <!-- Header / Navigation -->
@@ -161,6 +161,7 @@
                             <div class="nav-dropdown absolute top-full left-0 w-48 bg-sb-black border border-white/10 shadow-2xl pt-2 pb-2">
                                 <a href="#seasonal" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Seasonal</a>
                                 <a href="#luxury" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Luxury</a>
+                                <a href="#subscriptions" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Subscriptions</a>
                             </div>
                         </div>
                     </nav>
@@ -195,7 +196,7 @@
                                 <a href="#funerals" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Funerals</a>
                                 <a href="#babyshowers" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Baby Showers</a>
                                 <a href="#genderreveal" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Gender Reveal</a>
-                                <a href="#workevents" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Work Events</a>
+                                <a href="#workevents" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Corporate</a>
                             </div>
                         </div>
                     </nav>
@@ -228,6 +229,7 @@
                 <div class="mobile-accordion-content bg-white/5">
                     <a href="#seasonal" class="block py-3 text-base text-gray-300 hover:text-white">Seasonal</a>
                     <a href="#luxury" class="block py-3 text-base text-gray-300 hover:text-white">Luxury</a>
+                    <a href="#subscriptions" class="block py-3 text-base text-gray-300 hover:text-white">Subscriptions</a>
                 </div>
             </div>
 
@@ -250,7 +252,7 @@
                     <a href="#funerals" class="block py-3 text-base text-gray-300 hover:text-white">Funerals</a>
                     <a href="#babyshowers" class="block py-3 text-base text-gray-300 hover:text-white">Baby Showers</a>
                     <a href="#genderreveal" class="block py-3 text-base text-gray-300 hover:text-white">Gender Reveal</a>
-                    <a href="#workevents" class="block py-3 text-base text-gray-300 hover:text-white">Work Events</a>
+                    <a href="#workevents" class="block py-3 text-base text-gray-300 hover:text-white">Corporate</a>
                 </div>
             </div>
         </nav>
@@ -337,7 +339,7 @@
         </div>
     </div>
 
-    <!-- CONSULTATION MODAL (Updated for functionality) -->
+    <!-- CONSULTATION MODAL -->
     <div id="consultation-modal" class="fixed inset-0 z-[200] hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeConsultationModal()"></div>
@@ -347,7 +349,6 @@
                     <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-2 block">Bespoke Events</span>
                     <h3 class="font-serif text-4xl text-sb-black">Enquire Now</h3>
                 </div>
-                <!-- ADDED ID and NAME attributes for form handling -->
                 <form id="consultation-form" class="space-y-6">
                     <div>
                         <label class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-2">Event Type</label>
@@ -356,13 +357,15 @@
                             <option value="Funeral">Funeral</option>
                             <option value="Baby Shower">Baby Shower</option>
                             <option value="Corporate Event">Corporate Event</option>
+                            <option value="Hotels & Spas">Hotels & Spas</option>
+                            <option value="Subscription">Subscription</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-2">Date</label>
-                            <input type="date" name="date" required class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black focus:border-sb-gold outline-none">
+                            <input type="date" name="date" class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black focus:border-sb-gold outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold tracking-luxury uppercase text-gray-500 mb-2">Guests (Approx)</label>
@@ -428,7 +431,7 @@
                         Welcome to SB Floristry. We are a mother and daughter team bringing bespoke, luxury floral design to weddings, events, and homes across Essex and London. Every arrangement is hand-selected and styled with the care only family can provide.
                     </p>
                     <div class="flex flex-col md:flex-row justify-center gap-12 text-xs font-bold tracking-luxury text-sb-cream uppercase reveal">
-                        <div class="flex items-center justify-center"><i class="fas fa-truck mr-3 text-sb-gold"></i> Free Local Delivery (5m)</div>
+                        <div class="flex items-center justify-center"><i class="fas fa-truck mr-3 text-sb-gold"></i> Free Local Delivery</div>
                         <div class="flex items-center justify-center"><i class="fas fa-heart mr-3 text-sb-gold"></i> Family Owned</div>
                     </div>
                 </div>
@@ -457,20 +460,20 @@
                                 <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
                             </div>
                         </a>
-                        <a href="#gothic" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-150">
-                            <img src="images/prod-velvet-darkness.jpg" alt="Gothic Collection" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
+                        <a href="#subscriptions" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-150">
+                            <img src="images/prod-subscription.jpg" alt="Subscriptions" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
                             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500"></div>
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Gothic</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
+                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Subscriptions</h4>
+                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Plans</span>
                             </div>
                         </a>
-                        <a href="#fairytale" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-200">
-                            <img src="images/prod-bibbidi.jpg" alt="Fairy Tale Collection" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
+                        <a href="#weddings" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-200">
+                            <img src="images/weddings-bg.jpg" alt="Weddings" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Fairy Tale</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
+                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Weddings</h4>
+                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">Discover</span>
                             </div>
                         </a>
                     </div>
@@ -478,57 +481,127 @@
             </section>
         </div>
 
-        <!-- OTHER VIEWS (Fairy Tale, Gothic, etc. - Content kept same) -->
+        <!-- ================= VIEW: FAIRY TALE ================= -->
         <div id="view-fairytale" class="view-section">
             <section class="pt-40 pb-20 bg-sb-cream text-center">
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">The Collection</span>
                 <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-black">Fairy Tale</h1>
+                <p class="text-xl font-light italic text-gray-500 max-w-2xl mx-auto">Whimsical, enchanting arrangements inspired by magic and romance.</p>
             </section>
             <section class="pb-24 bg-sb-cream">
                  <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                         <div class="group relative" data-title="Bibbidi-Bobbidi Boo" data-price="£85.00" data-description="An enchanting mix of Hydrangea and Delphinium." data-image="images/prod-bibbidi.jpg" data-id="prod_bibbidi">
+                         <!-- Product 1: Bibbidi-Bobbidi Boo -->
+                         <div class="group relative" data-title="Bibbidi-Bobbidi Boo" data-price="£85.00" data-description="An enchanting mix of Hydrangea and Delphinium, creating a soft blue dreamscape." data-image="images/prod-bibbidi.jpg" data-id="prod_bibbidi">
                              <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
-                                 <img src="images/prod-bibbidi.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                 <img src="images/prod-bibbidi.jpg" alt="Bibbidi-Bobbidi Boo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                  <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
                                  <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_bibbidi">Add to Cart</button>
                              </div>
                              <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Bibbidi-Bobbidi Boo</h4>
                              <p class="font-medium text-gray-500 text-base">£85.00</p>
                          </div>
+                         <!-- Product 2: Once Upon a Dream -->
+                         <div class="group relative" data-title="Once Upon a Dream" data-price="£80.00" data-description="Soft pinks and creamy whites, featuring Sweet Avalanche roses and seasonal foliage." data-image="images/prod-dream.jpg" data-id="prod_dream">
+                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                 <img src="images/prod-dream.jpg" alt="Once Upon a Dream" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                 <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_dream">Add to Cart</button>
+                             </div>
+                             <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Once Upon a Dream</h4>
+                             <p class="font-medium text-gray-500 text-base">£80.00</p>
+                         </div>
+                         <!-- Product 3: Mother Knows Best -->
+                         <div class="group relative" data-title="Mother Knows Best" data-price="£80.00" data-description="A sophisticated palette of lilacs and purples, designed to impress and express gratitude." data-image="images/prod-mother.jpg" data-id="prod_mother">
+                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                 <img src="images/prod-mother.jpg" alt="Mother knows Best" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                 <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_mother">Add to Cart</button>
+                             </div>
+                             <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Mother Knows Best</h4>
+                             <p class="font-medium text-gray-500 text-base">£80.00</p>
+                         </div>
                     </div>
                  </div>
             </section>
         </div>
         
+        <!-- ================= VIEW: GOTHIC ================= -->
         <div id="view-gothic" class="view-section">
              <section class="pt-40 pb-20 bg-sb-black text-center">
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">The Dark Side</span>
                 <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-cream">Gothic</h1>
+                <p class="text-xl font-light italic text-gray-400 max-w-2xl mx-auto">Dramatic, moody, and undeniably elegant.</p>
             </section>
              <section class="pb-24 bg-sb-black">
                 <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 justify-center">
-                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness">
+                        <!-- Product: Velvet Darkness -->
+                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-description="A masterclass in midnight elegance. Pairing visceral red velvet roses with ink-black dahlias." data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-velvet-darkness.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"><i class="fas fa-eye"></i></button>
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
                                 <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-sb-cream text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase" data-shopify-id="prod_velvet_darkness">Add to Cart</button>
                             </div>
                             <h4 class="font-serif text-2xl text-sb-cream mb-1 font-light">Velvet Darkness</h4>
                             <p class="font-medium text-sb-gold text-base">£75.00</p>
+                        </div>
+                        <!-- Product: The Midnight Rose -->
+                        <div class="group relative" data-title="The Midnight Rose (Florist's Choice)" data-price="£65.00" data-description="Deep purples and darkest reds combine for a mysterious and alluring arrangement." data-image="images/prod-the-noir-romance.jpg" data-id="prod_midnight">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
+                                <img src="images/prod-the-noir-romance.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-sb-cream text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase" data-shopify-id="prod_midnight">Add to Cart</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-cream mb-1 font-light">The Midnight Rose</h4>
+                            <p class="font-medium text-sb-gold text-base">£65.00</p>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
 
+        <!-- ================= VIEW: SEASONAL ================= -->
         <div id="view-seasonal" class="view-section">
             <section class="pt-40 pb-20 bg-sb-cream text-center">
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Signature Blooms</span>
                 <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-black">Seasonal</h1>
             </section>
             <section class="pb-24 bg-sb-cream">
                 <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="group relative" data-title="Winter Delight" data-price="£65.00" data-image="images/prod-winter.jpg" data-id="prod_winter">
+                        <!-- Seasonal 1: Parisian Chic -->
+                        <div class="group relative" data-title="Parisian Chic" data-price="£85.00" data-description="Oozing elegance with Peonies and White O'Hara roses." data-image="images/prod-parisian.jpg" data-id="prod_parisian">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                <img src="images/prod-parisian.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_parisian">Add</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Parisian Chic</h4>
+                            <p class="text-base text-gray-500">£85.00</p>
+                        </div>
+                        <!-- Seasonal 2: Velvet Gala -->
+                        <div class="group relative" data-title="The Velvet Gala" data-price="£45.00" data-description="A vibrant mix of multi-toned carnations, offering long-lasting color and texture." data-image="images/prod-velvet-gala.jpg" data-id="prod_velvetgala">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                <img src="images/prod-velvet-gala.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_velvetgala">Add</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">The Velvet Gala</h4>
+                            <p class="text-base text-gray-500">£45.00</p>
+                        </div>
+                        <!-- Seasonal 3: Serene Blush -->
+                        <div class="group relative" data-title="Serene Blush" data-price="£55.00" data-description="Delicate pink and cream spray roses for a soft, romantic gesture." data-image="images/prod-serene.jpg" data-id="prod_serene">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                <img src="images/prod-serene.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_serene">Add</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Serene Blush</h4>
+                            <p class="text-base text-gray-500">£55.00</p>
+                        </div>
+                         <!-- Seasonal 4: Winter Delight -->
+                        <div class="group relative" data-title="Winter Delight" data-price="£65.00" data-description="Rich seasonal blooms bringing warmth and depth to any room." data-image="images/prod-winter.jpg" data-id="prod_winter">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-winter.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -537,19 +610,53 @@
                             <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Winter Delight</h4>
                             <p class="text-base text-gray-500">£65.00</p>
                         </div>
+                         <!-- Seasonal 5: Single Kiss -->
+                        <div class="group relative" data-title="Single Kiss" data-price="£12.99" data-description="A single, perfect Red Rose. Simple, classic, meaningful." data-image="images/prod-single-kiss.jpg" data-id="prod_singlekiss">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                <img src="images/prod-single-kiss.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_singlekiss">Add</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Single Kiss</h4>
+                            <p class="text-base text-gray-500">£12.99</p>
+                        </div>
+                        <!-- Seasonal 6: Jaded Bloom -->
+                        <div class="group relative" data-title="Jaded Bloom" data-price="£50.00" data-description="A sophisticated, modern arrangement with a touch of mystery." data-image="images/prod-jaded-bloom.jpg" data-id="prod_jaded">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                <img src="images/prod-jaded-bloom.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_jaded">Add to Cart</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Jaded Bloom</h4>
+                            <p class="text-base text-gray-500">£50.00</p>
+                        </div>
+                        <!-- Seasonal 7: Bloom Blossom -->
+                        <div class="group relative" data-title="Bloom Blossom" data-price="£55.00" data-description="Fresh, vibrant, and full of life. A true celebration of the season." data-image="images/prod-bloom-blossom.jpg" data-id="prod_bloom_blossom">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
+                                <img src="images/prod-bloom-blossom.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase hover:bg-sb-black hover:text-white" data-shopify-id="prod_bloom_blossom">Add to Cart</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-black mb-1 font-light">Bloom Blossom</h4>
+                            <p class="text-base text-gray-500">£55.00</p>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
 
+        <!-- ================= VIEW: LUXURY ================= -->
         <div id="view-luxury" class="view-section">
             <section class="pt-40 pb-20 bg-sb-black text-center">
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">The Edition</span>
                 <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-cream">Luxury</h1>
+                <p class="text-xl font-light italic text-gray-400 max-w-2xl mx-auto">Curated for the grandest gestures.</p>
             </section>
             <section class="pb-24 bg-sb-black">
                 <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                        <div class="group relative" data-title="True Love's Kiss" data-price="£350.00" data-image="images/prod-truelove.jpg" data-id="prod_truelove">
+                        <!-- Luxury 1: True Love's Kiss -->
+                        <div class="group relative" data-title="True Love's Kiss" data-price="£350.00" data-description="The ultimate gesture. 100 Grand Prix Red Roses, hand-tied to perfection. A showstopper." data-image="images/prod-truelove.jpg" data-id="prod_truelove">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-truelove.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -558,6 +665,36 @@
                             <h4 class="font-serif text-2xl text-sb-cream mb-1 font-light">True Love's Kiss</h4>
                             <p class="font-medium text-sb-gold text-base">£350.00</p>
                         </div>
+                        <!-- Luxury 2: Velvet Darkness -->
+                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-description="A masterclass in midnight elegance. Pairing visceral red velvet roses with ink-black dahlias." data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
+                                <img src="images/prod-velvet-darkness.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-sb-cream text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase" data-shopify-id="prod_velvet_darkness">Add to Cart</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-cream mb-1 font-light">Velvet Darkness</h4>
+                            <p class="font-medium text-sb-gold text-base">£75.00</p>
+                        </div>
+                        <!-- Luxury 3: Parisian Chic -->
+                        <div class="group relative" data-title="Parisian Chic" data-price="£85.00" data-description="Oozing elegance with Peonies and White O'Hara roses. A timeless classic." data-image="images/prod-parisian.jpg" data-id="prod_parisian">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
+                                <img src="images/prod-parisian.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-sb-cream text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-xs uppercase" data-shopify-id="prod_parisian">Add to Cart</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-cream mb-1 font-light">Parisian Chic</h4>
+                            <p class="font-medium text-sb-gold text-base">£85.00</p>
+                        </div>
+                        <!-- Luxury 4: Ivory Cloud -->
+                        <div class="group relative" data-title="Ivory Cloud" data-price="£70.00" data-description="Massed white roses and delicate Astrantia create a cloud-like texture of pure white." data-image="images/prod-ivory.jpg" data-id="prod_ivory">
+                            <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
+                                <img src="images/prod-ivory.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
+                                <button class="shopify-add-btn absolute bottom-0 left-0 w-full bg-sb-cream text-sb-black py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase" data-shopify-id="prod_ivory">Add to Cart</button>
+                            </div>
+                            <h4 class="font-serif text-2xl text-sb-cream mb-1 font-light">Ivory Cloud</h4>
+                            <p class="font-medium text-sb-gold text-base">£70.00</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -565,56 +702,258 @@
 
         <!-- EVENTS VIEWS -->
         <div id="view-weddings" class="view-section">
-            <section class="relative h-[70vh] overflow-hidden">
+            <section class="relative h-[60vh] overflow-hidden">
                 <div class="absolute inset-0">
                     <img src="images/weddings-bg.jpg" alt="Weddings Banner" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/60"></div>
+                    <div class="absolute inset-0 bg-black/50"></div>
                 </div>
                 <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream">
                     <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light">Weddings</h1>
-                    <button onclick="openConsultationModal('Wedding')" class="btn-luxury border border-sb-black text-sb-black bg-white px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block">Enquire</button>
+                </div>
+            </section>
+            <section class="py-24 bg-sb-cream">
+                <div class="container mx-auto px-6 max-w-4xl text-center">
+                    <h2 class="font-serif text-4xl text-sb-black mb-8 font-light italic">Your Love Story, In Bloom</h2>
+                    <p class="text-xl text-gray-600 font-light leading-relaxed mb-12">
+                        From charming Essex countryside weddings to glamorous London ballroom celebrations, we design with heart and precision. We believe your wedding flowers should be as unique as your relationship, setting the tone for a day you will never forget.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
+                        <div class="text-center">
+                            <div class="h-64 overflow-hidden mb-6">
+                                <img src="images/wedding-bridal.jpg" alt="Bridal Party" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                            </div>
+                            <h3 class="font-serif text-2xl text-sb-black mb-2">Bridal Party</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">Exquisite bouquets and buttonholes tailored to your palette.</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="h-64 overflow-hidden mb-6">
+                                <img src="images/wedding-ceremony.jpg" alt="Ceremony" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                            </div>
+                            <h3 class="font-serif text-2xl text-sb-black mb-2">Ceremony</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">Aisle markers, archways, and pew ends that create a magical setting.</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="h-64 overflow-hidden mb-6">
+                                <img src="images/wedding-reception.jpg" alt="Reception" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                            </div>
+                            <h3 class="font-serif text-2xl text-sb-black mb-2">Reception</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">Breathtaking centrepieces and installations for the perfect celebration.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-16">
+                         <button onclick="openConsultationModal('Wedding')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block">Book Consultation</button>
+                    </div>
                 </div>
             </section>
         </div>
         
         <div id="view-funerals" class="view-section">
             <section class="pt-40 pb-20 bg-sb-cream text-center">
-                <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-black">Funerals</h1>
-                <button onclick="openConsultationModal('Funeral')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block mt-8">Enquire Now</button>
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Sympathy & Remembrance</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6 font-light text-sb-black">Farewell with Grace</h1>
+            </section>
+            <section class="pb-24 bg-sb-cream">
+                <div class="container mx-auto px-6 max-w-4xl">
+                     <div class="text-center mb-16">
+                        <p class="text-xl text-gray-600 font-light leading-relaxed">
+                            We understand the importance of saying goodbye beautifully. Sympathy arrangements created with care using seasonal blooms. Let us help you express your condolences when words are not enough.
+                        </p>
+                     </div>
+                     
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                         <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                             <h3 class="font-serif text-2xl text-sb-black mb-4">Casket Sprays</h3>
+                             <p class="text-gray-500 font-light mb-4">Elegant, double-ended sprays that sit perfectly atop the casket. Available in various sizes and color palettes to honor your loved one.</p>
+                             <span class="text-sb-gold text-xs tracking-widest uppercase font-bold">From £150</span>
+                         </div>
+                         <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                             <h3 class="font-serif text-2xl text-sb-black mb-4">Wreaths & Hearts</h3>
+                             <p class="text-gray-500 font-light mb-4">Traditional circular wreaths or heart-shaped tributes symbolizing eternal love. Hand-made with fresh moss bases.</p>
+                             <span class="text-sb-gold text-xs tracking-widest uppercase font-bold">From £65</span>
+                         </div>
+                         <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                             <h3 class="font-serif text-2xl text-sb-black mb-4">Posies & Baskets</h3>
+                             <p class="text-gray-500 font-light mb-4">Smaller, thoughtful arrangements perfect for family members to contribute or for grave-side placement.</p>
+                             <span class="text-sb-gold text-xs tracking-widest uppercase font-bold">From £45</span>
+                         </div>
+                         <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                             <h3 class="font-serif text-2xl text-sb-black mb-4">Bespoke Tributes</h3>
+                             <p class="text-gray-500 font-light mb-4">Letters (MUM, DAD), religious symbols, or custom shapes that reflect the personality and hobbies of the departed.</p>
+                             <span class="text-sb-gold text-xs tracking-widest uppercase font-bold">POA</span>
+                         </div>
+                     </div>
+
+                    <div class="text-center">
+                         <button onclick="openConsultationModal('Funeral')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block">Contact Us</button>
+                    </div>
+                </div>
             </section>
         </div>
         
         <div id="view-babyshowers" class="view-section">
             <section class="pt-40 pb-20 bg-sb-cream text-center">
                 <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-black">Baby Showers</h1>
-                <button onclick="openConsultationModal('Baby Shower')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block mt-8">Enquire Now</button>
+            </section>
+            <section class="pb-24 bg-sb-cream">
+                <div class="container mx-auto px-6 max-w-5xl">
+                    <div class="text-center mb-16">
+                        <p class="text-xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto">
+                            From flower arches to delicate table centres, we create the perfect backdrop for celebrating the upcoming arrival. Whether you desire soft pastels, neutral creams, or vibrant themes, we bring the vision to life.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div class="h-[500px] overflow-hidden">
+                             <img src="images/babyshower-arch.jpg" alt="Baby Shower Arch" class="w-full h-full object-cover">
+                        </div>
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="font-serif text-3xl text-sb-black mb-3">"Oh Baby" Backdrops</h3>
+                                <p class="text-gray-500 font-light">The ultimate photo opportunity. We combine lush foliage, fresh blooms, and optional neon signage or balloons to create a focal point for your event.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-3xl text-sb-black mb-3">Table Scapes</h3>
+                                <p class="text-gray-500 font-light">Bud vases running down long tables or grand centrepieces for round tables. We style the flowers to complement your favors and cake.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-3xl text-sb-black mb-3">Flower Crowns</h3>
+                                <p class="text-gray-500 font-light">Make the mum-to-be feel extra special with a bespoke fresh flower crown, or host a crown-making workshop as an activity!</p>
+                            </div>
+                            <button onclick="openConsultationModal('Baby Shower')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block mt-4">Enquire Now</button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
         
         <div id="view-genderreveal" class="view-section">
              <section class="pt-40 pb-20 bg-sb-cream text-center">
                 <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-black">Gender Reveal</h1>
+                <p class="text-xl text-gray-600 font-light max-w-2xl mx-auto mb-8">Pink or Blue? Build the anticipation with our stunning reveal boxes and floral arrangements.</p>
                 <button onclick="openConsultationModal('Gender Reveal')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block mt-8">Enquire Now</button>
             </section>
         </div>
         
         <div id="view-workevents" class="view-section">
-             <section class="pt-40 pb-20 bg-sb-cream text-center">
-                <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light text-sb-black">Corporate</h1>
-                <button onclick="openConsultationModal('Corporate Event')" class="btn-luxury border border-sb-black text-sb-black px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block mt-8">Enquire Now</button>
+             <section class="pt-40 pb-20 bg-sb-black text-center text-sb-cream">
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Corporate Services</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6 font-light">Hotels, Spas & Events</h1>
+            </section>
+            <section class="pb-24 bg-sb-black text-sb-cream">
+                <div class="container mx-auto px-6 max-w-5xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                        <div>
+                             <h3 class="font-serif text-3xl text-sb-gold mb-6">Hotels & Lobbies</h3>
+                             <p class="text-gray-400 font-light leading-relaxed mb-6">
+                                 First impressions matter. We provide weekly contract flowers for hotel lobbies, receptions, and restaurants across London and Essex. Our designs are architectural, long-lasting, and tailored to your brand's interior aesthetic.
+                             </p>
+                             <ul class="text-sm tracking-widest uppercase space-y-3 text-gray-500">
+                                 <li><i class="fas fa-check text-sb-gold mr-2"></i> Weekly Installation & Maintenance</li>
+                                 <li><i class="fas fa-check text-sb-gold mr-2"></i> Vase Hire Included</li>
+                                 <li><i class="fas fa-check text-sb-gold mr-2"></i> Dedicated Account Manager</li>
+                             </ul>
+                        </div>
+                        <div>
+                             <h3 class="font-serif text-3xl text-sb-gold mb-6">Luxury Spas</h3>
+                             <p class="text-gray-400 font-light leading-relaxed mb-6">
+                                 Enhance the serenity of your spa environment with biophilic design. We create calming arrangements using eucalyptus, orchids, and tropical foliage that thrive in humid environments and promote relaxation.
+                             </p>
+                             <ul class="text-sm tracking-widest uppercase space-y-3 text-gray-500">
+                                 <li><i class="fas fa-check text-sb-gold mr-2"></i> Long-lasting tropicals</li>
+                                 <li><i class="fas fa-check text-sb-gold mr-2"></i> Aromatherapy-complementary blooms</li>
+                             </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-20 border-t border-white/10 pt-16 text-center">
+                        <h3 class="font-serif text-3xl text-white mb-6">Client Gifting & Events</h3>
+                        <p class="text-gray-400 font-light max-w-2xl mx-auto mb-10">From product launches to employee appreciation bouquets, we handle all your corporate floral needs.</p>
+                        <button onclick="openConsultationModal('Corporate Event')" class="btn-luxury border border-sb-cream text-sb-cream px-10 py-3 uppercase tracking-luxury text-xs font-bold inline-block">Request a Proposal</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SUBSCRIPTIONS VIEW (NEW) -->
+        <div id="view-subscriptions" class="view-section">
+            <section class="relative h-[60vh] overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="images/prod-subscription.jpg" alt="Flower Subscription" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40"></div>
+                </div>
+                <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream">
+                    <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 animate-fade-in">Join the Club</span>
+                    <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light animate-fade-in-up">Flower Subscriptions</h1>
+                    <p class="text-lg font-light tracking-wide max-w-xl mx-auto animate-fade-in">Fresh blooms delivered to your door, on your schedule.</p>
+                </div>
+            </section>
+            
+            <section class="py-24 bg-sb-cream">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="font-serif text-4xl text-sb-black mb-4">Choose Your Plan</h2>
+                        <div class="w-16 h-px bg-sb-gold mx-auto mt-6"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                        <!-- Plan 1 -->
+                        <div class="bg-white p-8 border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300">
+                            <h3 class="font-serif text-2xl text-sb-black mb-2">The Seasonal</h3>
+                            <p class="text-xs tracking-widest text-gray-400 uppercase mb-6">Monthly Joy</p>
+                            <div class="text-4xl font-serif text-sb-gold mb-6">£45<span class="text-sm text-gray-400 font-sans">/mo</span></div>
+                            <ul class="text-sm text-gray-500 space-y-4 mb-8 flex-grow">
+                                <li>Seasonal hand-tied bouquet</li>
+                                <li>Delivered once a month</li>
+                                <li>Cancel anytime</li>
+                                <li>Free Vase with first order</li>
+                            </ul>
+                            <button onclick="addToCart('sub_seasonal')" class="w-full btn-luxury bg-sb-black text-sb-cream py-3 uppercase tracking-luxury text-xs font-bold">Subscribe</button>
+                        </div>
+                        
+                        <!-- Plan 2 -->
+                        <div class="bg-sb-black text-sb-cream p-8 border border-sb-gold transform scale-105 shadow-2xl flex flex-col items-center text-center relative">
+                            <span class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-gold text-sb-black text-[10px] uppercase font-bold px-3 py-1 tracking-widest">Most Popular</span>
+                            <h3 class="font-serif text-2xl mb-2">The Luxury</h3>
+                            <p class="text-xs tracking-widest text-gray-400 uppercase mb-6">Bi-Weekly Indulgence</p>
+                            <div class="text-4xl font-serif text-sb-gold mb-6">£85<span class="text-sm text-gray-400 font-sans">/mo</span></div>
+                            <ul class="text-sm text-gray-300 space-y-4 mb-8 flex-grow">
+                                <li>Premium stems & larger arrangement</li>
+                                <li>Delivered every 2 weeks</li>
+                                <li>Priority Delivery slots</li>
+                                <li>Luxury Vase included</li>
+                            </ul>
+                            <button onclick="addToCart('sub_luxury')" class="w-full btn-luxury bg-sb-gold text-sb-black border-sb-gold py-3 uppercase tracking-luxury text-xs font-bold">Subscribe</button>
+                        </div>
+                        
+                        <!-- Plan 3 -->
+                        <div class="bg-white p-8 border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300">
+                            <h3 class="font-serif text-2xl text-sb-black mb-2">The Weekly</h3>
+                            <p class="text-xs tracking-widest text-gray-400 uppercase mb-6">Ultimate Freshness</p>
+                            <div class="text-4xl font-serif text-sb-gold mb-6">£150<span class="text-sm text-gray-400 font-sans">/mo</span></div>
+                            <ul class="text-sm text-gray-500 space-y-4 mb-8 flex-grow">
+                                <li>Fresh flowers every week</li>
+                                <li>Rotates between styles</li>
+                                <li>Perfect for home styling</li>
+                                <li>Complimentary workshop ticket</li>
+                            </ul>
+                            <button onclick="addToCart('sub_weekly')" class="w-full btn-luxury bg-sb-black text-sb-cream py-3 uppercase tracking-luxury text-xs font-bold">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
 
     </main>
 
-    <!-- CONTACT SECTION (Updated for functionality) -->
+    <!-- CONTACT SECTION -->
     <section class="py-24 bg-sb-black text-sb-cream" id="contact-section">
         <div class="container mx-auto px-6 max-w-4xl">
             <div class="text-center mb-12 reveal">
                 <h3 class="font-serif text-5xl md:text-6xl text-sb-cream mb-4 font-light">Start Your Floral Journey</h3>
                 <p class="font-light text-gray-400 text-lg">Tell us about your event or custom request.</p>
             </div>
-            <!-- ADDED ID and NAME attributes for form handling -->
             <form id="contact-form" class="space-y-8 reveal">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-1">
@@ -637,6 +976,7 @@
                             <option value="Weddings" class="bg-sb-black">Weddings</option>
                             <option value="Events" class="bg-sb-black">Events</option>
                             <option value="Subscription" class="bg-sb-black">Subscription</option>
+                            <option value="Hotels" class="bg-sb-black">Hotels & Spas</option>
                             <option value="Bespoke Order" class="bg-sb-black">Bespoke Order</option>
                         </select>
                     </div>
@@ -665,9 +1005,11 @@
                     <div class="flex flex-col items-center"><i class="fas fa-leaf text-xl mb-2 text-sb-gold"></i><span class="text-xs uppercase tracking-widest">Freshness Guaranteed</span></div>
                 </div>
             </div>
-            <div class="flex justify-center space-x-8 mb-10 text-xs tracking-luxury uppercase font-bold text-sb-gold">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-10 text-xs tracking-luxury uppercase font-bold text-sb-gold">
                 <a href="#home">Home</a>
                 <a href="#seasonal">Shop</a>
+                <a href="#subscriptions">Subscriptions</a>
+                <a href="#funerals">Funerals</a>
                 <a href="#contact-section">Contact</a>
                 <button onclick="document.getElementById('care-modal').classList.remove('hidden')">Flower Care</button>
             </div>
@@ -712,7 +1054,8 @@
                 'funerals': 'view-funerals',
                 'babyshowers': 'view-babyshowers',
                 'genderreveal': 'view-genderreveal',
-                'workevents': 'view-workevents'
+                'workevents': 'view-workevents',
+                'subscriptions': 'view-subscriptions'
             };
 
             const activeViewId = viewMap[hash] || 'view-home';
