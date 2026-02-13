@@ -687,9 +687,9 @@
             },
             // Get these from https://emailjs.com/
             emailJS: {
-                publicKey: "YOUR_PUBLIC_KEY", // e.g. "user_123456"
-                serviceID: "YOUR_SERVICE_ID", // e.g. "service_gmail"
-                templateID: "YOUR_TEMPLATE_ID" // e.g. "template_contact"
+                publicKey: "Oaw-LoMGaOOjSh2GO",
+                serviceID: "service_jnmsvja",
+                templateID: "template_9u9b45v"
             }
         };
 
@@ -867,16 +867,7 @@
                     btn.innerText = "Sending...";
                     btn.disabled = true;
 
-                    // SIMULATED SEND (Replace with actual emailjs.sendForm line below when keys are ready)
-                    setTimeout(() => {
-                        alert(formConfig.successMsg);
-                        btn.innerText = originalText;
-                        btn.disabled = false;
-                        this.reset();
-                        if(formConfig.modalClose) closeConsultationModal();
-                    }, 1000);
-
-                    /* --- UNCOMMENT THIS BLOCK WHEN YOU HAVE EMAILJS KEYS ---
+                    // REAL SEND
                     emailjs.sendForm(CONFIG.emailJS.serviceID, CONFIG.emailJS.templateID, this)
                         .then(() => {
                             alert(formConfig.successMsg);
@@ -890,7 +881,6 @@
                             btn.innerText = originalText;
                             btn.disabled = false;
                         });
-                    ------------------------------------------------------ */
                 });
             });
         }
