@@ -443,7 +443,8 @@
                         <h3 class="font-serif text-5xl text-sb-black mb-4 font-light">Explore Our Collections</h3>
                         <div class="w-16 h-px bg-sb-gold mx-auto mt-6"></div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Collections Grid (4 in a row) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <a href="#seasonal" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal">
                             <img src="images/prod-winter.jpg" alt="Seasonal Collection" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
@@ -460,22 +461,47 @@
                                 <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
                             </div>
                         </a>
-                        <a href="#subscriptions" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-150">
-                            <img src="images/prod-subscription.jpg" alt="Subscriptions" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
+                        <a href="#gothic" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-100">
+                            <img src="images/prod-velvet-darkness.jpg" alt="Gothic Collection" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
                             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500"></div>
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Subscriptions</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Plans</span>
+                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Gothic</h4>
+                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
                             </div>
                         </a>
-                        <a href="#weddings" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-200">
-                            <img src="images/weddings-bg.jpg" alt="Weddings" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
+                        <a href="#fairytale" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal delay-125">
+                            <img src="images/prod-bibbidi.jpg" alt="Fairy Tale Collection" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Weddings</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">Discover</span>
+                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Fairy Tale</h4>
+                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
                             </div>
                         </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dedicated Subscription Section -->
+            <section class="py-24 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                        <div class="w-full lg:w-1/2 h-[600px] reveal relative group overflow-hidden">
+                             <img src="images/prod-subscription.jpg" alt="Subscriptions" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
+                             <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500"></div>
+                        </div>
+                        <div class="w-full lg:w-1/2 text-center lg:text-left reveal delay-100">
+                            <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Effortless Beauty</span>
+                            <h2 class="font-serif text-4xl md:text-6xl text-sb-black mb-6 font-light">The Flower Subscription</h2>
+                            <div class="w-16 h-px bg-sb-gold mx-auto lg:mx-0 mb-8"></div>
+                            <p class="text-gray-600 font-light leading-relaxed mb-8 text-lg">
+                                Enjoy the luxury of fresh, seasonal stems delivered directly to your door. Choose from weekly, bi-weekly, or monthly plans designed to bring life and fragrance to your home.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                                <a href="#subscriptions" class="btn-luxury border border-sb-black text-sb-black px-12 py-4 uppercase tracking-luxury text-xs font-bold inline-block hover:bg-sb-black hover:text-white transition-all">
+                                    View Plans
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -492,7 +518,7 @@
                  <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                          <!-- Product 1: Bibbidi-Bobbidi Boo -->
-                         <div class="group relative" data-title="Bibbidi-Bobbidi Boo" data-price="£85.00" data-description="An enchanting mix of Hydrangea and Delphinium, creating a soft blue dreamscape." data-image="images/prod-bibbidi.jpg" data-id="prod_bibbidi">
+                         <div class="group relative" data-title="Bibbidi-Bobbidi Boo" data-price="£85.00" data-description="An enchanting mix of Hydrangea and Delphinium, creating a soft blue dreamscape." data-image="images/prod-bibbidi.jpg" data-id="prod_bibbidi" data-handle="bibbidi-bobbidi-boo">
                              <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                  <img src="images/prod-bibbidi.jpg" alt="Bibbidi-Bobbidi Boo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                  <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -502,7 +528,7 @@
                              <p class="font-medium text-gray-500 text-base">£85.00</p>
                          </div>
                          <!-- Product 2: Once Upon a Dream -->
-                         <div class="group relative" data-title="Once Upon a Dream" data-price="£80.00" data-description="Soft pinks and creamy whites, featuring Sweet Avalanche roses and seasonal foliage." data-image="images/prod-dream.jpg" data-id="prod_dream">
+                         <div class="group relative" data-title="Once Upon a Dream" data-price="£80.00" data-description="Soft pinks and creamy whites, featuring Sweet Avalanche roses and seasonal foliage." data-image="images/prod-dream.jpg" data-id="prod_dream" data-handle="once-upon-a-dream">
                              <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                  <img src="images/prod-dream.jpg" alt="Once Upon a Dream" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                  <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -512,7 +538,7 @@
                              <p class="font-medium text-gray-500 text-base">£80.00</p>
                          </div>
                          <!-- Product 3: Mother Knows Best -->
-                         <div class="group relative" data-title="Mother Knows Best" data-price="£80.00" data-description="A sophisticated palette of lilacs and purples, designed to impress and express gratitude." data-image="images/prod-mother.jpg" data-id="prod_mother">
+                         <div class="group relative" data-title="Mother Knows Best" data-price="£80.00" data-description="A sophisticated palette of lilacs and purples, designed to impress and express gratitude." data-image="images/prod-mother.jpg" data-id="prod_mother" data-handle="mother-knows-best">
                              <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                  <img src="images/prod-mother.jpg" alt="Mother knows Best" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                  <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -537,7 +563,7 @@
                 <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 justify-center">
                         <!-- Product: Velvet Darkness -->
-                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-description="A masterclass in midnight elegance. Pairing visceral red velvet roses with ink-black dahlias." data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness">
+                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-description="A masterclass in midnight elegance. Pairing visceral red velvet roses with ink-black dahlias." data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness" data-handle="velvet-darkness">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-velvet-darkness.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -547,7 +573,7 @@
                             <p class="font-medium text-sb-gold text-base">£75.00</p>
                         </div>
                         <!-- Product: The Midnight Rose -->
-                        <div class="group relative" data-title="The Midnight Rose (Florist's Choice)" data-price="£65.00" data-description="Deep purples and darkest reds combine for a mysterious and alluring arrangement." data-image="images/prod-the-noir-romance.jpg" data-id="prod_midnight">
+                        <div class="group relative" data-title="The Midnight Rose (Florist's Choice)" data-price="£65.00" data-description="Deep purples and darkest reds combine for a mysterious and alluring arrangement." data-image="images/prod-the-noir-romance.jpg" data-id="prod_midnight" data-handle="the-midnight-rose">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-the-noir-romance.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -571,7 +597,7 @@
                 <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         <!-- Seasonal 1: Parisian Chic -->
-                        <div class="group relative" data-title="Parisian Chic" data-price="£85.00" data-description="Oozing elegance with Peonies and White O'Hara roses." data-image="images/prod-parisian.jpg" data-id="prod_parisian">
+                        <div class="group relative" data-title="Parisian Chic" data-price="£85.00" data-description="Oozing elegance with Peonies and White O'Hara roses." data-image="images/prod-parisian.jpg" data-id="prod_parisian" data-handle="parisian-chic">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-parisian.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -581,7 +607,7 @@
                             <p class="text-base text-gray-500">£85.00</p>
                         </div>
                         <!-- Seasonal 2: Velvet Gala -->
-                        <div class="group relative" data-title="The Velvet Gala" data-price="£45.00" data-description="A vibrant mix of multi-toned carnations, offering long-lasting color and texture." data-image="images/prod-velvet-gala.jpg" data-id="prod_velvetgala">
+                        <div class="group relative" data-title="The Velvet Gala" data-price="£45.00" data-description="A vibrant mix of multi-toned carnations, offering long-lasting color and texture." data-image="images/prod-velvet-gala.jpg" data-id="prod_velvetgala" data-handle="the-velvet-gala">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-velvet-gala.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -591,7 +617,7 @@
                             <p class="text-base text-gray-500">£45.00</p>
                         </div>
                         <!-- Seasonal 3: Serene Blush -->
-                        <div class="group relative" data-title="Serene Blush" data-price="£55.00" data-description="Delicate pink and cream spray roses for a soft, romantic gesture." data-image="images/prod-serene.jpg" data-id="prod_serene">
+                        <div class="group relative" data-title="Serene Blush" data-price="£55.00" data-description="Delicate pink and cream spray roses for a soft, romantic gesture." data-image="images/prod-serene.jpg" data-id="prod_serene" data-handle="serene-blush">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-serene.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -601,7 +627,7 @@
                             <p class="text-base text-gray-500">£55.00</p>
                         </div>
                          <!-- Seasonal 4: Winter Delight -->
-                        <div class="group relative" data-title="Winter Delight" data-price="£65.00" data-description="Rich seasonal blooms bringing warmth and depth to any room." data-image="images/prod-winter.jpg" data-id="prod_winter">
+                        <div class="group relative" data-title="Winter Delight" data-price="£65.00" data-description="Rich seasonal blooms bringing warmth and depth to any room." data-image="images/prod-winter.jpg" data-id="prod_winter" data-handle="winter-delight">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-winter.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -611,7 +637,7 @@
                             <p class="text-base text-gray-500">£65.00</p>
                         </div>
                          <!-- Seasonal 5: Single Kiss -->
-                        <div class="group relative" data-title="Single Kiss" data-price="£12.99" data-description="A single, perfect Red Rose. Simple, classic, meaningful." data-image="images/prod-single-kiss.jpg" data-id="prod_singlekiss">
+                        <div class="group relative" data-title="Single Kiss" data-price="£12.99" data-description="A single, perfect Red Rose. Simple, classic, meaningful." data-image="images/prod-single-kiss.jpg" data-id="prod_singlekiss" data-handle="single-kiss">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-single-kiss.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -621,7 +647,7 @@
                             <p class="text-base text-gray-500">£12.99</p>
                         </div>
                         <!-- Seasonal 6: Jaded Bloom -->
-                        <div class="group relative" data-title="Jaded Bloom" data-price="£50.00" data-description="A sophisticated, modern arrangement with a touch of mystery." data-image="images/prod-jaded-bloom.jpg" data-id="prod_jaded">
+                        <div class="group relative" data-title="Jaded Bloom" data-price="£50.00" data-description="A sophisticated, modern arrangement with a touch of mystery." data-image="images/prod-jaded-bloom.jpg" data-id="prod_jaded" data-handle="jaded-bloom">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-jaded-bloom.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -631,7 +657,7 @@
                             <p class="text-base text-gray-500">£50.00</p>
                         </div>
                         <!-- Seasonal 7: Bloom Blossom -->
-                        <div class="group relative" data-title="Bloom Blossom" data-price="£55.00" data-description="Fresh, vibrant, and full of life. A true celebration of the season." data-image="images/prod-bloom-blossom.jpg" data-id="prod_bloom_blossom">
+                        <div class="group relative" data-title="Bloom Blossom" data-price="£55.00" data-description="Fresh, vibrant, and full of life. A true celebration of the season." data-image="images/prod-bloom-blossom.jpg" data-id="prod_bloom_blossom" data-handle="bloom-blossom">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container">
                                 <img src="images/prod-bloom-blossom.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
@@ -656,7 +682,7 @@
                 <div class="container mx-auto px-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                         <!-- Luxury 1: True Love's Kiss -->
-                        <div class="group relative" data-title="True Love's Kiss" data-price="£350.00" data-description="The ultimate gesture. 100 Grand Prix Red Roses, hand-tied to perfection. A showstopper." data-image="images/prod-truelove.jpg" data-id="prod_truelove">
+                        <div class="group relative" data-title="True Love's Kiss" data-price="£350.00" data-description="The ultimate gesture. 100 Grand Prix Red Roses, hand-tied to perfection. A showstopper." data-image="images/prod-truelove.jpg" data-id="prod_truelove" data-handle="true-loves-kiss">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-truelove.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -666,7 +692,7 @@
                             <p class="font-medium text-sb-gold text-base">£350.00</p>
                         </div>
                         <!-- Luxury 2: Velvet Darkness -->
-                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-description="A masterclass in midnight elegance. Pairing visceral red velvet roses with ink-black dahlias." data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness">
+                        <div class="group relative" data-title="Velvet Darkness" data-price="£75.00" data-description="A masterclass in midnight elegance. Pairing visceral red velvet roses with ink-black dahlias." data-image="images/prod-velvet-darkness.jpg" data-id="prod_velvet_darkness" data-handle="velvet-darkness">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-velvet-darkness.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -676,7 +702,7 @@
                             <p class="font-medium text-sb-gold text-base">£75.00</p>
                         </div>
                         <!-- Luxury 3: Parisian Chic -->
-                        <div class="group relative" data-title="Parisian Chic" data-price="£85.00" data-description="Oozing elegance with Peonies and White O'Hara roses. A timeless classic." data-image="images/prod-parisian.jpg" data-id="prod_parisian">
+                        <div class="group relative" data-title="Parisian Chic" data-price="£85.00" data-description="Oozing elegance with Peonies and White O'Hara roses. A timeless classic." data-image="images/prod-parisian.jpg" data-id="prod_parisian" data-handle="parisian-chic">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-parisian.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -686,7 +712,7 @@
                             <p class="font-medium text-sb-gold text-base">£85.00</p>
                         </div>
                         <!-- Luxury 4: Ivory Cloud -->
-                        <div class="group relative" data-title="Ivory Cloud" data-price="£70.00" data-description="Massed white roses and delicate Astrantia create a cloud-like texture of pure white." data-image="images/prod-ivory.jpg" data-id="prod_ivory">
+                        <div class="group relative" data-title="Ivory Cloud" data-price="£70.00" data-description="Massed white roses and delicate Astrantia create a cloud-like texture of pure white." data-image="images/prod-ivory.jpg" data-id="prod_ivory" data-handle="ivory-cloud">
                             <div class="relative overflow-hidden mb-4 aspect-[4/5] border border-white/10 group-image-container">
                                 <img src="images/prod-ivory.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-cream text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-white"><i class="fas fa-eye"></i></button>
@@ -1173,6 +1199,109 @@
             }
         }
 
+        // Fetch Product Data by Handles and Update DOM
+        async function updateProductsFromShopify() {
+            const productElements = document.querySelectorAll('.group[data-handle]');
+            if (productElements.length === 0) return;
+
+            const handles = Array.from(productElements).map(el => el.getAttribute('data-handle'));
+            const uniqueHandles = [...new Set(handles)];
+
+            // Build GraphQL Query dynamically
+            // We use aliases (p0, p1, etc.) because we can't query 'product' multiple times with different args easily
+            let queryBody = '';
+            uniqueHandles.forEach((handle, index) => {
+                // normalize handle string for alias
+                const alias = `product_${index}`; 
+                queryBody += `
+                    ${alias}: productByHandle(handle: "${handle}") {
+                        handle
+                        title
+                        description
+                        variants(first: 1) {
+                            edges {
+                                node {
+                                    id
+                                    price {
+                                        amount
+                                        currencyCode
+                                    }
+                                }
+                            }
+                        }
+                        images(first: 1) {
+                            edges {
+                                node {
+                                    url
+                                    altText
+                                }
+                            }
+                        }
+                    }
+                `;
+            });
+
+            const query = `{ ${queryBody} }`;
+
+            try {
+                const result = await shopifyFetch(query);
+                if (!result.data) return;
+
+                // Map data back to handles
+                const dataMap = {};
+                uniqueHandles.forEach((handle, index) => {
+                    const alias = `product_${index}`;
+                    if (result.data[alias]) {
+                        dataMap[handle] = result.data[alias];
+                    }
+                });
+
+                // Update DOM
+                productElements.forEach(el => {
+                    const handle = el.getAttribute('data-handle');
+                    const productData = dataMap[handle];
+
+                    if (productData) {
+                        // Update Image
+                        const imgEl = el.querySelector('img');
+                        if (imgEl && productData.images.edges.length > 0) {
+                            imgEl.src = productData.images.edges[0].node.url;
+                            imgEl.alt = productData.images.edges[0].node.altText || productData.title;
+                        }
+
+                        // Update Title
+                        const titleEl = el.querySelector('h4');
+                        if (titleEl) titleEl.innerText = productData.title;
+
+                        // Update Price
+                        const priceEl = el.querySelector('p.font-medium, p.text-base'); // Selects price paragraph
+                        if (priceEl && productData.variants.edges.length > 0) {
+                            const price = productData.variants.edges[0].node.price;
+                            // Format price
+                            const symbol = price.currencyCode === 'GBP' ? '£' : price.currencyCode + ' ';
+                            priceEl.innerText = `${symbol}${price.amount}`;
+                        }
+
+                        // Update Data Attributes for Quick View
+                        el.setAttribute('data-title', productData.title);
+                        if (productData.variants.edges.length > 0) {
+                            el.setAttribute('data-price', `£${productData.variants.edges[0].node.price.amount}`);
+                            el.setAttribute('data-variant-id', productData.variants.edges[0].node.id);
+                        }
+                        if (productData.description) {
+                            el.setAttribute('data-description', productData.description);
+                        }
+                        if (productData.images.edges.length > 0) {
+                            el.setAttribute('data-image', productData.images.edges[0].node.url);
+                        }
+                    }
+                });
+
+            } catch (err) {
+                console.warn("Could not fetch live Shopify data. Using hardcoded fallbacks.", err);
+            }
+        }
+
         // ... (Cart Logic condensed for brevity, keeping core functionality)
         async function addToCart(idOrVariantId, isVariantId = false) {
             // Simplified simulated add for brevity, assuming SDK structure remains similar
@@ -1277,6 +1406,9 @@
             document.querySelectorAll('.shopify-add-btn').forEach(btn => {
                 btn.addEventListener('click', () => addToCart(btn.getAttribute('data-shopify-id')));
             });
+
+            // 8. Shopify Live Update
+            updateProductsFromShopify();
         });
 
     </script>
