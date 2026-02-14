@@ -314,33 +314,9 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                         <h3 class="font-serif text-5xl text-sb-black mb-4 font-light">Explore Our Collections</h3>
                         <div class="w-16 h-px bg-sb-gold mx-auto mt-6"></div>
                     </div>
-                    <!-- Collections Preview - Links to first 3 tags -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="home-collections-grid">
-                        <!-- Populated dynamically or static fallbacks -->
-                         <a href="#collection-seasonal" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal">
-                            <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1780" alt="Seasonal" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Seasonal</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
-                            </div>
-                        </a>
-                        <a href="#collection-luxury" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal">
-                            <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=1898" alt="Luxury" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Luxury</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
-                            </div>
-                        </a>
-                         <a href="#collection-gothic" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal">
-                            <img src="https://images.unsplash.com/photo-1599739055986-4e1c28f3224b?q=80&w=1888" alt="Gothic" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500"></div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">Gothic</h4>
-                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
-                            </div>
-                        </a>
+                    <!-- Collections Preview - Populated dynamically via JS -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="home-collections-grid">
+                        <div class="col-span-full text-center py-10"><div class="loader"></div></div>
                     </div>
                 </div>
             </section>
@@ -835,6 +811,90 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             } catch (error) {
                 console.error("Shopify Fetch Error:", error);
                 throw error;
+            }
+        }
+
+        // --- NEW: FETCH HOME CONTENT (Collections & Random Hero) ---
+        async function fetchHomeContent() {
+            const collectionsGrid = document.getElementById('home-collections-grid');
+            const subImage = document.getElementById('subscription-hero-image');
+            
+            // The specific collections requested
+            const targetTags = ['seasonal', 'luxury', 'gothic', 'fairytale'];
+            
+            // Build a single efficient query with aliases
+            let queryBody = targetTags.map(tag => `
+                ${tag}: products(first: 10, query: "tag:${tag} AND available_for_sale:true") {
+                    edges {
+                        node {
+                            images(first: 1) { edges { node { url } } }
+                        }
+                    }
+                }
+            `).join('\n');
+            
+            // Add a general query to get a random image for subscriptions
+            queryBody += `
+                allProducts: products(first: 50, query: "available_for_sale:true") {
+                    edges {
+                        node {
+                            images(first: 1) { edges { node { url } } }
+                        }
+                    }
+                }
+            `;
+
+            const query = `{ ${queryBody} }`;
+
+            try {
+                const data = await shopifyFetch(query);
+                const results = data?.data;
+                
+                if (!results) return;
+
+                // 1. Render Collections Grid
+                if (collectionsGrid) {
+                    let html = '';
+                    targetTags.forEach(tag => {
+                        const products = results[tag]?.edges || [];
+                        let imgSrc = 'https://via.placeholder.com/600x800?text=Coming+Soon';
+                        
+                        // Pick a random product that actually has an image
+                        const validProducts = products.filter(p => p.node.images.edges.length > 0);
+                        if (validProducts.length > 0) {
+                            const randomProduct = validProducts[Math.floor(Math.random() * validProducts.length)].node;
+                            imgSrc = randomProduct.images.edges[0].node.url;
+                        }
+
+                        // Format Title (e.g. "fairytale" -> "Fairytale")
+                        const title = tag.charAt(0).toUpperCase() + tag.slice(1);
+                        
+                        html += `
+                        <a href="#collection-${tag}" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal active">
+                            <img src="${imgSrc}" alt="${title}" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 loaded" style="opacity: 1;">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                                <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">${title}</h4>
+                                <span class="text-sb-cream text-xs tracking-luxury uppercase border-b border-transparent group-hover:border-sb-cream pb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">View Collection</span>
+                            </div>
+                        </a>`;
+                    });
+                    collectionsGrid.innerHTML = html;
+                }
+
+                // 2. Random Subscription Image
+                if (subImage) {
+                    const all = results.allProducts?.edges || [];
+                    const valid = all.filter(p => p.node.images.edges.length > 0);
+                    if (valid.length > 0) {
+                        const randomP = valid[Math.floor(Math.random() * valid.length)].node;
+                        subImage.src = randomP.images.edges[0].node.url;
+                    }
+                }
+
+            } catch (e) {
+                console.error("Error fetching home content:", e);
+                if(collectionsGrid) collectionsGrid.innerHTML = '<p class="col-span-full text-center text-gray-400">Unable to load collections.</p>';
             }
         }
 
@@ -1336,6 +1396,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             
             // Build Dynamic Navigation First
             buildDynamicNavFromShopify();
+            fetchHomeContent(); // Call the new function here
             initCart();
             window.addEventListener('hashchange', handleRoute);
             handleRoute();
