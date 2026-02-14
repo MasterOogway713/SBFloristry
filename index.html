@@ -81,6 +81,12 @@
             width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Custom Datepicker Styles */
+        .calendar-day { transition: all 0.2s; }
+        .calendar-day:not(.disabled):hover { background-color: #F9F8F6; color: #D4AF37; border: 1px solid #D4AF37; }
+        .calendar-day.selected { background-color: #D4AF37; color: #0a0a0a; border: 1px solid #D4AF37; font-weight: bold; }
+        .calendar-day.disabled { color: #d1d5db; pointer-events: none; background-color: #f9fafb; text-decoration: line-through; }
     </style>
 </head>
 <body class="font-sans text-sb-dark antialiased bg-sb-cream flex flex-col min-h-screen">
@@ -201,15 +207,41 @@
             <div id="cart-items-container" class="p-6 pb-2">
                 <p class="text-sm tracking-luxury uppercase text-gray-400 text-center mt-10">Your cart is empty</p>
             </div>
-            <!-- CART EXTRAS -->
-            <div id="cart-extras" class="px-6 py-6 bg-sb-cream border-t border-gray-100 hidden">
-                <div class="mb-4">
+            <div class="px-6 py-6 bg-sb-cream border-t border-gray-100">
+                <div class="mb-6">
                     <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-400 mb-2">Gift Message</label>
                     <textarea id="cart-note" rows="3" class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black placeholder-gray-300 focus:border-sb-gold outline-none resize-none" placeholder="Card message..."></textarea>
                 </div>
-                <div class="mb-2">
-                    <label for="delivery-date" class="block text-xs font-bold tracking-luxury uppercase text-gray-400 mb-2">Delivery Date</label>
-                    <input type="date" id="delivery-date" class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black focus:border-sb-gold outline-none">
+                
+                <!-- CUSTOM BRANDED DATE PICKER -->
+                <div class="mb-4 relative">
+                    <label for="delivery-date-display" class="block text-xs font-bold tracking-luxury uppercase text-gray-400 mb-2">Requested Delivery Date</label>
+                    <div class="relative">
+                        <input type="text" id="delivery-date-display" readonly placeholder="Select a delivery date..." 
+                               class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black focus:border-sb-gold outline-none cursor-pointer">
+                        <input type="hidden" id="delivery-date" name="delivery-date">
+                        <i class="fas fa-calendar-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                    <!-- Custom Calendar UI -->
+                    <div id="custom-datepicker" class="hidden absolute bottom-full left-0 w-full bg-white border border-gray-200 shadow-2xl z-50 mb-2 rounded-sm">
+                        <div class="flex justify-between items-center bg-sb-black p-3">
+                            <button id="prev-month" class="text-sb-gold hover:text-white px-2"><i class="fas fa-chevron-left"></i></button>
+                            <span id="current-month-year" class="text-sb-cream font-serif tracking-widest text-sm uppercase"></span>
+                            <button id="next-month" class="text-sb-gold hover:text-white px-2"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="grid grid-cols-7 text-center p-2 bg-gray-50 border-b border-gray-100">
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Su</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Mo</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Tu</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">We</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Th</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Fr</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Sa</span>
+                        </div>
+                        <div id="calendar-days" class="grid grid-cols-7 text-center p-2 gap-1 text-sm text-sb-black">
+                            <!-- Days injected via JS -->
+                        </div>
+                    </div>
                     <p id="date-error" class="text-xs text-red-500 mt-1 hidden"></p>
                 </div>
             </div>
@@ -219,8 +251,7 @@
                 <span class="text-xs font-bold tracking-luxury uppercase text-gray-400">Total</span>
                 <span id="cart-subtotal" class="font-serif text-2xl text-sb-black">£0.00</span>
             </div>
-            <!-- CHECKOUT BUTTON -->
-            <button id="checkout-btn" class="w-full btn-luxury bg-sb-black text-sb-cream py-4 uppercase tracking-luxury text-xs font-bold border border-sb-black">Proceed to Checkout</button>
+            <button id="checkout-btn" onclick="proceedToCheckout()" class="w-full btn-luxury bg-sb-black text-sb-cream py-4 uppercase tracking-luxury text-xs font-bold border border-sb-black">Proceed to Checkout</button>
         </div>
     </div>
 
@@ -553,11 +584,7 @@
             <section class="py-24 bg-sb-cream">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
-                        <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Effortless Beauty</span>
-                        <h2 class="font-serif text-4xl text-sb-black mb-6">How It Works</h2>
-                        <p class="text-gray-600 font-light leading-relaxed max-w-2xl mx-auto text-lg mb-12">
-                            Select your preferred plan and let us handle the rest. We curate the finest seasonal stems, condition them, and deliver them ready to arrange. Perfect for keeping your home vibrant or as a thoughtful, recurring gift.
-                        </p>
+                        <h2 class="font-serif text-4xl text-sb-black mb-4">Choose Your Plan</h2>
                         <div class="w-16 h-px bg-sb-gold mx-auto mt-6"></div>
                     </div>
                     
@@ -873,6 +900,7 @@
                 // Pre-fill inputs from saved cart data
                 const noteInput = document.getElementById('cart-note');
                 const dateInput = document.getElementById('delivery-date');
+                const displayDate = document.getElementById('delivery-date-display');
                 
                 if (noteInput && result.data.cart.note) {
                     noteInput.value = result.data.cart.note;
@@ -880,7 +908,10 @@
                 
                 if (dateInput && result.data.cart.attributes) {
                     const dateAttr = result.data.cart.attributes.find(a => a.key === 'Requested Delivery Date');
-                    if (dateAttr) dateInput.value = dateAttr.value;
+                    if (dateAttr) {
+                        dateInput.value = dateAttr.value;
+                        if(displayDate) displayDate.value = new Date(dateAttr.value).toDateString();
+                    }
                 }
                 
                 return result.data.cart;
@@ -938,48 +969,119 @@
             }
         }
 
+        // CUSTOM DATE PICKER LOGIC
+        function initCustomDatePicker() {
+            const dateInput = document.getElementById('delivery-date');
+            const displayInput = document.getElementById('delivery-date-display');
+            const picker = document.getElementById('custom-datepicker');
+            const calendarDays = document.getElementById('calendar-days');
+            const monthYear = document.getElementById('current-month-year');
+            const prevBtn = document.getElementById('prev-month');
+            const nextBtn = document.getElementById('next-month');
+            const errorMsg = document.getElementById('date-error');
+
+            if (!dateInput || !picker) return;
+
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+
+            // Calculate Min Date (Today + 2 days)
+            const minDate = new Date();
+            minDate.setDate(minDate.getDate() + 2);
+            minDate.setHours(0,0,0,0);
+
+            function renderCalendar(month, year) {
+                calendarDays.innerHTML = '';
+                monthYear.innerText = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                // Empty slots
+                for (let i = 0; i < firstDay; i++) {
+                    const empty = document.createElement('div');
+                    calendarDays.appendChild(empty);
+                }
+
+                // Days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayEl = document.createElement('div');
+                    dayEl.innerText = day;
+                    dayEl.className = "calendar-day p-2 cursor-pointer rounded-sm hover:bg-gray-100 text-sm";
+                    
+                    const dateObj = new Date(year, month, day);
+                    
+                    // Disable Logic
+                    if (dateObj < minDate || dateObj.getDay() === 0) {
+                        dayEl.classList.add('disabled');
+                        dayEl.classList.add('opacity-30');
+                        dayEl.classList.remove('cursor-pointer', 'hover:bg-gray-100');
+                    } else {
+                        dayEl.onclick = () => selectDate(dateObj);
+                    }
+
+                    // Highlight Selected
+                    if (dateInput.value && new Date(dateInput.value).toDateString() === dateObj.toDateString()) {
+                        dayEl.classList.add('selected');
+                    }
+
+                    calendarDays.appendChild(dayEl);
+                }
+            }
+
+            function selectDate(date) {
+                const yyyy = date.getFullYear();
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const dd = String(date.getDate()).padStart(2, '0');
+                
+                dateInput.value = `${yyyy}-${mm}-${dd}`;
+                displayInput.value = date.toDateString();
+                picker.classList.add('hidden');
+                errorMsg.classList.add('hidden');
+                
+                // Trigger Cart Update
+                handleCartInputUpdate();
+            }
+
+            // Events
+            displayInput.addEventListener('click', () => picker.classList.toggle('hidden'));
+            
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentMonth--;
+                if(currentMonth < 0) { currentMonth = 11; currentYear--; }
+                renderCalendar(currentMonth, currentYear);
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentMonth++;
+                if(currentMonth > 11) { currentMonth = 0; currentYear++; }
+                renderCalendar(currentMonth, currentYear);
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!displayInput.contains(e.target) && !picker.contains(e.target)) {
+                    picker.classList.add('hidden');
+                }
+            });
+
+            renderCalendar(currentMonth, currentYear);
+        }
+
         // Handle Date/Note input changes with validation
         function handleCartInputUpdate() {
             const note = document.getElementById('cart-note')?.value;
             const dateInput = document.getElementById('delivery-date');
-            const dateError = document.getElementById('date-error');
             
-            let isValidDate = true;
-
-            if (dateInput && dateInput.value) {
-                const selectedDate = new Date(dateInput.value);
-                const day = selectedDate.getDay(); // 0 = Sunday
-                const today = new Date();
-                today.setHours(0,0,0,0);
-                
-                // Reset error
-                dateError.classList.add('hidden');
-                dateError.innerText = "";
-                dateInput.classList.remove('border-red-500');
-
-                // 1. Check if date is in the past
-                if (selectedDate < today) {
-                    dateError.innerText = "Please select a date in the future.";
-                    dateError.classList.remove('hidden');
-                    dateInput.classList.add('border-red-500');
-                    isValidDate = false;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                if (dateInput?.value) {
+                    updateCartAttributes(note, dateInput.value);
                 }
-                // 2. Check for Sunday
-                else if (day === 0) {
-                    dateError.innerText = "We do not deliver on Sundays. Please select another date.";
-                    dateError.classList.remove('hidden');
-                    dateInput.classList.add('border-red-500');
-                    isValidDate = false;
-                }
-            }
-
-            // Only save to Shopify if date is valid (or empty/cleared)
-            if (isValidDate) {
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    updateCartAttributes(note, dateInput?.value);
-                }, 500); 
-            }
+            }, 500); 
         }
 
         // SMART ADD TO CART: Converts Product ID -> Variant ID -> Add to Cart
@@ -993,7 +1095,6 @@
                 }
 
                 // 1. Convert raw ID (12345) to Shopify Global ID (gid://shopify/Product/12345)
-                // We use btoa() to encode it to Base64 as required by the SDK
                 const globalProductId = btoa(`gid://shopify/Product/${rawProductId}`);
 
                 // 2. Fetch the product to get the correct Variant ID
@@ -1017,7 +1118,6 @@
                      productResult = await shopifyFetch(productQuery, { id: rawGid });
                      
                      if (!productResult.data || !productResult.data.product) {
-                        // TRY FETCHING BY HANDLE IF ID FAILS (For subscription hardcoded strings)
                         if (typeof rawProductId === 'string' && rawProductId.startsWith('sub_')) {
                              alert("Please contact us to set up this subscription directly.");
                              if(btn) { btn.innerText = originalText; btn.disabled = false; }
@@ -1192,7 +1292,6 @@
             const cartContainer = document.getElementById('cart-items-container');
             const subtotalEl = document.getElementById('cart-subtotal');
             const checkoutBtn = document.getElementById('checkout-btn');
-            const upsellSection = document.getElementById('upsell-section');
             const shippingBar = document.getElementById('shipping-bar');
             const shippingMessage = document.getElementById('shipping-message');
             const cartExtras = document.getElementById('cart-extras');
@@ -1233,18 +1332,15 @@
 
             // Bind Checkout Button - UPDATED LOGIC
             if (checkoutBtn) {
-                // Clone button to remove old listeners if any
                 const newBtn = checkoutBtn.cloneNode(true);
                 checkoutBtn.parentNode.replaceChild(newBtn, checkoutBtn);
                 
-                // If cart empty, redirect to shop. Else checkout.
                 if (cart.lines.edges.length === 0) {
                      newBtn.innerText = "Browse Seasonal Collection";
                      newBtn.onclick = () => {
                          window.closeCart();
                          const shopEl = document.getElementById('view-dynamic-collection');
                          if(shopEl) {
-                             // Route to shop
                              window.location.hash = "#collection-seasonal";
                          }
                      };
@@ -1260,32 +1356,8 @@
                         // 1. Mandatory Date Check
                         if (!date) {
                             alert("Please select a delivery date to proceed.");
-                            dateInput.classList.add('border-red-500');
-                            dateInput.focus();
+                            document.getElementById('delivery-date-display').focus();
                             return;
-                        }
-
-                        // 2. Strict Date Validation (Past / Sunday / 48hr)
-                        const today = new Date();
-                        today.setHours(0,0,0,0);
-                        
-                        // 48 Hour Rule
-                        const minDate = new Date();
-                        minDate.setDate(minDate.getDate() + 2);
-                        minDate.setHours(0,0,0,0);
-
-                        const selectedDateObj = new Date(date);
-                        
-                        if (selectedDateObj < minDate) {
-                             alert("Minimum 48 hours notice required. Please choose a later date.");
-                             dateInput.focus();
-                             return;
-                        }
-                        
-                        if (selectedDateObj.getDay() === 0) {
-                             alert("We do not deliver on Sundays. Please choose another date.");
-                             dateInput.focus();
-                             return;
                         }
 
                         // 3. Gift Message Reminder (Soft Check)
@@ -1350,7 +1422,7 @@
         window.updateLineItem = updateLineItem;
         window.removeLineItem = removeLineItem;
 
-        // DOM Elements & Event Listeners - Wrapped in DOMContentLoaded for safety
+        // DOM Elements & Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             
             // Side Cart Open/Close Logic
@@ -1359,20 +1431,9 @@
             const closeCartBtn = document.getElementById('close-cart-btn');
             const cartIconBtn = document.getElementById('cart-icon-btn');
             const cartNote = document.getElementById('cart-note');
-            const deliveryDate = document.getElementById('delivery-date');
 
-            // Date Picker Init with 48h restriction
-            if (deliveryDate) {
-                const minDate = new Date();
-                minDate.setDate(minDate.getDate() + 2); // +2 Days
-                
-                const yyyy = minDate.getFullYear();
-                const mm = String(minDate.getMonth() + 1).padStart(2, '0');
-                const dd = String(minDate.getDate()).padStart(2, '0');
-                
-                deliveryDate.setAttribute('min', `${yyyy}-${mm}-${dd}`);
-                deliveryDate.addEventListener('change', handleCartInputUpdate);
-            }
+            // Initialize custom date picker
+            initCustomDatePicker();
 
             if (cartNote) cartNote.addEventListener('input', handleCartInputUpdate);
             
@@ -1400,9 +1461,7 @@
             if (closeCartBtn) closeCartBtn.addEventListener('click', window.closeCart);
             if (sideCartOverlay) sideCartOverlay.addEventListener('click', window.closeCart);
             
-            // Event Listeners for Add Buttons (Generic class)
-            // Note: Dynamic products rendered by JS will have their own onclick events in the HTML string
-            // This is for static buttons on Home Page if any
+            // Event Listeners for Add Buttons
             document.querySelectorAll('.shopify-add-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const id = btn.getAttribute('data-shopify-id');
