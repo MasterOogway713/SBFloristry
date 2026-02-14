@@ -141,12 +141,11 @@
                                 <a href="#workevents" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors">Corporate</a>
                             </div>
                         </div>
-                        <a href="#contact-section" class="hover:text-sb-gold transition-colors duration-300">Contact</a>
+                        <a href="#contact" class="hover:text-sb-gold transition-colors duration-300">Contact</a>
                     </nav>
 
-                    <!-- Icons -->
+                    <!-- Icons (Removed Search) -->
                     <div class="flex items-center space-x-6 text-sb-cream/80">
-                        <button class="hidden lg:block hover:text-sb-gold transition-colors"><i class="fas fa-search text-sm"></i></button>
                         <button id="cart-icon-btn" class="relative hover:text-sb-gold transition-colors group p-1">
                             <i class="fas fa-shopping-bag text-sm"></i>
                             <span id="cart-count" class="absolute -top-2 -right-2 text-sb-gold font-serif text-[10px] w-4 h-4 flex items-center justify-center opacity-0 transition-opacity duration-300">0</span>
@@ -189,7 +188,7 @@
                 </div>
             </div>
             
-             <a href="#contact-section" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block">Contact</a>
+             <a href="#contact" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block">Contact</a>
         </nav>
     </div>
 
@@ -402,27 +401,54 @@
             </section>
         </div>
 
-    </main>
+        <!-- 5. VIEW: CONTACT -->
+        <div id="view-contact" class="view-section">
+            <section class="pt-40 pb-20 bg-sb-black text-center text-sb-cream">
+                <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Get in Touch</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-12 font-light">Contact Us</h1>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-12 mb-16 text-lg font-light tracking-wide">
+                    <div>
+                        <i class="fas fa-phone text-sb-gold mb-4 text-2xl block"></i>
+                        <p class="text-xs uppercase tracking-luxury text-gray-500 mb-2">Telephone</p>
+                        <a href="tel:01708956609" class="hover:text-sb-gold transition-colors">01708 956609</a>
+                    </div>
+                    <div>
+                        <i class="fas fa-envelope text-sb-gold mb-4 text-2xl block"></i>
+                        <p class="text-xs uppercase tracking-luxury text-gray-500 mb-2">Email</p>
+                        <a href="mailto:info@sbfloristry.co.uk" class="hover:text-sb-gold transition-colors">info@sbfloristry.co.uk</a>
+                    </div>
+                </div>
+            </section>
 
-    <!-- CONTACT -->
-    <section class="py-24 bg-sb-black text-sb-cream" id="contact-section">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="text-center mb-12 reveal">
-                <h3 class="font-serif text-5xl md:text-6xl text-sb-cream mb-4 font-light">Start Your Floral Journey</h3>
-                <p class="font-light text-gray-400 text-lg">Tell us about your event or custom request.</p>
-            </div>
-            <form id="contact-form" class="space-y-8 reveal">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <input type="text" name="name" required placeholder="NAME" class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 text-sb-cream">
-                    <input type="email" name="email" required placeholder="EMAIL" class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 text-sb-cream">
+            <section class="pb-24 bg-sb-black text-sb-cream border-t border-white/5">
+                <div class="container mx-auto px-6 max-w-4xl">
+                    <form id="contact-form" class="space-y-8 reveal">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold tracking-luxury uppercase text-sb-gold">Name</label>
+                                <input type="text" name="name" required class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 transition-colors text-sb-cream placeholder-gray-600 text-base">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold tracking-luxury uppercase text-sb-gold">Email</label>
+                                <input type="email" name="email" required class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 transition-colors text-sb-cream placeholder-gray-600 text-base">
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold tracking-luxury uppercase text-sb-gold">Message</label>
+                            <textarea name="message" rows="4" required class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 transition-colors text-sb-cream placeholder-gray-600 text-base"></textarea>
+                        </div>
+                        <div class="text-center pt-8">
+                            <button type="submit" class="btn-luxury border border-sb-cream text-sb-cream px-16 py-4 uppercase tracking-luxury text-xs font-bold inline-block">
+                                Send Inquiry
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <textarea name="message" rows="4" required placeholder="MESSAGE" class="w-full bg-transparent border-b border-gray-700 focus:border-sb-gold outline-none py-2 text-sb-cream"></textarea>
-                <div class="text-center pt-8">
-                    <button type="submit" class="btn-luxury border border-sb-cream text-sb-cream px-16 py-4 uppercase tracking-luxury text-xs font-bold inline-block">Send Inquiry</button>
-                </div>
-            </form>
+            </section>
         </div>
-    </section>
+
+    </main>
 
     <footer class="bg-sb-black text-gray-500 pt-16 pb-8 border-t border-white/5 text-center">
         <div class="container mx-auto px-6">
@@ -465,9 +491,10 @@
 
         function handleRoute() {
             let hash = window.location.hash.substring(1) || 'home';
-            if (hash === 'contact-section') {
-                setTimeout(() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' }), 500);
-                hash = 'home'; 
+            // REMOVED special scroll behavior for contact, as it is now a view
+            if (hash === 'contact') {
+                switchView('view-contact');
+                return;
             }
 
             if (hash.startsWith('collection-')) {
