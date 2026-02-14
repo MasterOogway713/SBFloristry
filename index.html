@@ -571,7 +571,8 @@
         <div id="view-subscriptions" class="view-section">
             <section class="relative h-[60vh] overflow-hidden">
                 <div class="absolute inset-0">
-                    <img src="images/prod-subscription.jpg" alt="Flower Subscription" class="w-full h-full object-cover">
+                    <!-- Updated Image ID for Random Fetch -->
+                    <img id="subscription-hero-image" src="images/prod-subscription.jpg" alt="Flower Subscription" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/40"></div>
                 </div>
                 <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream">
@@ -1435,6 +1436,9 @@
             // Initialize custom date picker
             initCustomDatePicker();
 
+            // Random Subscription Image
+            updateSubscriptionImage();
+
             if (cartNote) cartNote.addEventListener('input', handleCartInputUpdate);
             
             window.openCart = function() {
@@ -1665,11 +1669,51 @@
             }
         }
 
+        // Random Subscription Image Fetcher
+        async function updateSubscriptionImage() {
+            const imgEl = document.getElementById('subscription-hero-image');
+            if (!imgEl) return;
+
+            // Fetch a batch of products to pick from
+            const query = `{
+              products(first: 20, query: "tag:seasonal OR tag:luxury") {
+                edges {
+                  node {
+                    images(first: 1) {
+                      edges {
+                        node { url }
+                      }
+                    }
+                  }
+                }
+              }
+            }`;
+
+            try {
+                const data = await shopifyFetch(query);
+                const products = data?.data?.products?.edges || [];
+                // Filter products that actually have images
+                const validProducts = products.filter(p => p.node.images.edges.length > 0);
+                
+                if (validProducts.length > 0) {
+                    const randomProduct = validProducts[Math.floor(Math.random() * validProducts.length)];
+                    const newSrc = randomProduct.node.images.edges[0].node.url;
+                    imgEl.src = newSrc;
+                }
+            } catch (err) {
+                console.warn("Could not fetch random subscription image", err);
+            }
+        }
+
         function createProductCard(product, isDarkTheme) {
             const price = product.variants.edges[0]?.node?.price;
             const priceText = price ? `£${price.amount}` : '£0.00';
             const img = product.images.edges[0]?.node?.url || 'images/placeholder.jpg';
-            const rawId = product.id.split('/').pop(); // Extract numeric ID for consistency
+            const rawId = product.id.split('/').pop(); 
+            
+            // SANITIZE STRINGS
+            const safeTitle = product.title.replace(/"/g, '&quot;');
+            const safeDesc = (product.description || "").replace(/"/g, '&quot;');
             
             const textClass = isDarkTheme ? "text-sb-cream" : "text-sb-black";
             const subText = isDarkTheme ? "text-sb-gold" : "text-gray-500";
@@ -1677,9 +1721,9 @@
             const border = isDarkTheme ? "border border-white/10" : "";
 
             return `
-             <div class="group relative reveal active" data-title="${product.title}" data-price="${priceText}" data-image="${img}" data-description="${product.description}" data-shopify-id="${rawId}">
+             <div class="group relative reveal active" data-title="${safeTitle}" data-price="${priceText}" data-image="${img}" data-description="${safeDesc}" data-shopify-id="${rawId}">
                  <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container ${border}">
-                     <img src="${img}" alt="${product.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.style.opacity=1; this.src='images/placeholder.jpg'">
+                     <img src="${img}" alt="${safeTitle}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.style.opacity=1; this.src='images/placeholder.jpg'">
                      <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
                      <button class="absolute bottom-0 left-0 w-full ${btnBg} py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase" onclick="addToCart(this, '${rawId}')">Add to Cart</button>
                  </div>
