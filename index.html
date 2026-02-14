@@ -1120,19 +1120,41 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             const cartId = localStorage.getItem('shopify_cart_id');
             if (!cartId) return;
 
-            const query = `
-                mutation updateCart($cartId: ID!, $note: String, $attributes: [AttributeInput!]) {
-                    cartNoteUpdate(cartId: $cartId, note: $note) { cart { id } }
-                    cartAttributesUpdate(cartId: $cartId, attributes: $attributes) { cart { id } }
+            // 1. Explicitly update the Note (Gift Message)
+            const noteQuery = `
+                mutation updateNote($cartId: ID!, $note: String) {
+                    cartNoteUpdate(cartId: $cartId, note: $note) {
+                        cart { id note }
+                        userErrors { field message }
+                    }
                 }
             `;
+
+            // 2. Explicitly update the Attributes (Delivery Date)
+            const attrQuery = `
+                mutation updateAttributes($cartId: ID!, $attributes: [AttributeInput!]) {
+                    cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+                        cart { id }
+                        userErrors { field message }
+                    }
+                }
+            `;
+
             const attributes = [];
             if (date) attributes.push({ key: "Requested Delivery Date", value: date });
 
             try {
-                await shopifyFetch(query, { cartId: cartId, note: note || "", attributes: attributes });
+                // Run sequentially to ensure persistence
+                await shopifyFetch(noteQuery, { cartId: cartId, note: note || "" });
+                
+                if (attributes.length > 0) {
+                    await shopifyFetch(attrQuery, { cartId: cartId, attributes: attributes });
+                }
                 return true;
-            } catch (e) { console.error(e); return false; }
+            } catch (e) { 
+                console.error("Cart Update Error:", e); 
+                return false; 
+            }
         }
 
         function initCustomDatePicker() {
@@ -1314,9 +1336,19 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     newBtn.onclick = async () => {
                         const noteInput = document.getElementById('cart-note');
                         const dateInput = document.getElementById('delivery-date');
-                        if (!dateInput?.value) { alert("Please select a delivery date."); return; }
-                        newBtn.innerText = "Processing..."; newBtn.disabled = true;
-                        await updateCartAttributes(noteInput?.value, dateInput.value);
+                        
+                        if (!dateInput?.value) { 
+                            alert("Please select a delivery date."); 
+                            return; 
+                        }
+                        
+                        newBtn.innerText = "Processing..."; 
+                        newBtn.disabled = true;
+                        
+                        // Force update of note and date right before checkout
+                        const currentNote = noteInput ? noteInput.value : "";
+                        await updateCartAttributes(currentNote, dateInput.value);
+                        
                         window.location.href = cart.checkoutUrl;
                     };
                 }
