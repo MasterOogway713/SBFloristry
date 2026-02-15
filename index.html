@@ -167,7 +167,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             <i class="fas fa-times"></i>
         </button>
         <nav class="flex flex-col space-y-4 text-lg font-serif text-sb-cream text-center mt-6 font-light">
-            <a href="#home" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block">Home</a>
+            <a href="#home" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block mobile-link">Home</a>
             <div>
                 <button class="mobile-accordion-btn w-full flex justify-between items-center text-sb-gold text-sm tracking-widest uppercase py-3 border-b border-white/5 focus:outline-none">
                     Shop Collections <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
@@ -176,20 +176,20 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     <!-- Populated JS -->
                 </div>
             </div>
-            <a href="#subscriptions" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block">Subscriptions</a>
+            <a href="#subscriptions" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block mobile-link">Subscriptions</a>
             <div>
                 <button class="mobile-accordion-btn w-full flex justify-between items-center text-sb-gold text-sm tracking-widest uppercase py-3 border-b border-white/5 focus:outline-none">
                     Events <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
                 </button>
                 <div class="mobile-accordion-content bg-white/5">
-                    <a href="#weddings" class="block py-3 text-base text-gray-300 hover:text-white">Weddings</a>
-                    <a href="#funerals" class="block py-3 text-base text-gray-300 hover:text-white">Funerals</a>
-                    <a href="#babyshowers" class="block py-3 text-base text-gray-300 hover:text-white">Baby Showers</a>
-                    <a href="#genderreveal" class="block py-3 text-base text-gray-300 hover:text-white">Gender Reveal</a>
-                    <a href="#workevents" class="block py-3 text-base text-gray-300 hover:text-white">Corporate</a>
+                    <a href="#weddings" class="block py-3 text-base text-gray-300 hover:text-white mobile-link">Weddings</a>
+                    <a href="#funerals" class="block py-3 text-base text-gray-300 hover:text-white mobile-link">Funerals</a>
+                    <a href="#babyshowers" class="block py-3 text-base text-gray-300 hover:text-white mobile-link">Baby Showers</a>
+                    <a href="#genderreveal" class="block py-3 text-base text-gray-300 hover:text-white mobile-link">Gender Reveal</a>
+                    <a href="#workevents" class="block py-3 text-base text-gray-300 hover:text-white mobile-link">Corporate</a>
                 </div>
             </div>
-             <a href="#contact" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block">Contact</a>
+             <a href="#contact" class="border-b border-white/5 pb-3 hover:text-sb-gold transition-colors block mobile-link">Contact</a>
         </nav>
     </div>
 
@@ -947,7 +947,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     const displayTitle = tag.charAt(0).toUpperCase() + tag.slice(1);
                     
                     deskHTML += `<a href="${link}" class="block px-6 py-3 hover:bg-white/5 hover:text-sb-gold text-[10px] tracking-luxury transition-colors uppercase">${displayTitle}</a>`;
-                    mobHTML += `<a href="${link}" class="block py-3 text-base text-gray-300 hover:text-white">${displayTitle}</a>`;
+                    mobHTML += `<a href="${link}" class="block py-3 text-base text-gray-300 hover:text-white mobile-link">${displayTitle}</a>`;
                 });
 
                 if(deskContainer) deskContainer.innerHTML = deskHTML;
@@ -1443,6 +1443,21 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             function toggleMenu() { if (!mobileMenu) return; mobileMenu.classList.toggle('-translate-x-full'); }
             if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
+
+            // --- FIXED: MOBILE ACCORDION LOGIC ---
+            const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
+            accordionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+
+            // --- FIXED: CLOSE MOBILE MENU ON LINK CLICK ---
+            document.addEventListener('click', (e) => {
+                if(e.target.matches('.mobile-link') && mobileMenu) {
+                     mobileMenu.classList.add('-translate-x-full');
+                }
+            });
 
             const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { rootMargin: '100px', threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
