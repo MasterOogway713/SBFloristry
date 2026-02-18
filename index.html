@@ -259,26 +259,31 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     <div id="quick-view-modal" class="fixed inset-0 z-[200] overflow-y-auto hidden">
         <div class="flex min-h-screen items-center justify-center p-4">
             <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeQuickView()"></div>
-            <div class="relative w-full max-w-4xl bg-white shadow-2xl overflow-hidden animate-fade-in-up flex flex-col md:flex-row max-h-[90vh]">
-                <button onclick="closeQuickView()" class="absolute top-4 right-4 text-gray-400 hover:text-sb-black z-10 p-2"><i class="fas fa-times text-2xl"></i></button>
+            <!-- Updated Modal Container -->
+            <div class="relative w-full max-w-4xl bg-white shadow-2xl overflow-hidden animate-fade-in-up flex flex-col md:flex-row h-[85vh] md:h-auto md:max-h-[90vh]">
+                <!-- Close Button with Background for visibility on images -->
+                <button onclick="closeQuickView()" class="absolute top-4 right-4 text-sb-black bg-white/80 hover:bg-white rounded-full w-10 h-10 flex items-center justify-center z-20 shadow-sm transition-all"><i class="fas fa-times text-xl"></i></button>
                 
                 <!-- Image Section with Thumbnails -->
-                <div class="w-full md:w-1/2 bg-gray-100 relative flex flex-col h-64 md:h-auto">
+                <!-- Mobile: Fixed 55% height. Desktop: Auto height (full column) -->
+                <div class="w-full md:w-1/2 bg-gray-100 relative flex flex-col h-[55%] md:h-auto shrink-0 border-b md:border-b-0 md:border-r border-gray-100">
                     <div class="flex-grow relative overflow-hidden">
                         <img id="qv-image" src="" alt="" class="w-full h-full object-cover absolute inset-0 !opacity-100">
                     </div>
                     <!-- Thumbnails Container -->
-                    <div id="qv-thumbnails" class="hidden p-3 gap-3 overflow-x-auto bg-white border-t border-gray-100 flex-shrink-0 h-24 snap-x items-center">
+                    <div id="qv-thumbnails" class="hidden p-3 gap-3 overflow-x-auto bg-white border-t border-gray-100 flex-shrink-0 h-20 md:h-24 snap-x items-center">
                         <!-- JS injected thumbnails -->
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-sb-cream overflow-y-auto">
-                    <h3 id="qv-title" class="font-serif text-4xl md:text-5xl text-sb-black mb-2 font-normal"></h3>
-                    <p id="qv-price" class="text-2xl text-sb-gold font-bold mb-6"></p>
-                    <div class="w-12 h-px bg-gray-300 mb-6"></div>
-                    <p id="qv-description" class="text-gray-600 font-light text-lg leading-relaxed mb-8"></p>
-                    <button id="qv-add-btn" class="w-full btn-luxury bg-sb-black text-white py-4 uppercase tracking-luxury text-xs font-bold" onclick="addToCart(this, this.getAttribute('data-shopify-id'))">Add to Cart</button>
+                <!-- Content Section -->
+                <!-- Mobile: Scrolls within remaining height. Desktop: Scrolls if needed -->
+                <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-start md:justify-center bg-sb-cream overflow-y-auto">
+                    <h3 id="qv-title" class="font-serif text-3xl md:text-5xl text-sb-black mb-2 font-normal mt-2 md:mt-0"></h3>
+                    <p id="qv-price" class="text-xl md:text-2xl text-sb-gold font-bold mb-4 md:mb-6"></p>
+                    <div class="w-12 h-px bg-gray-300 mb-4 md:mb-6"></div>
+                    <p id="qv-description" class="text-gray-600 font-light text-base md:text-lg leading-relaxed mb-8"></p>
+                    <button id="qv-add-btn" class="w-full btn-luxury bg-sb-black text-white py-4 uppercase tracking-luxury text-xs font-bold mt-auto md:mt-0 mb-4 md:mb-0 shrink-0" onclick="addToCart(this, this.getAttribute('data-shopify-id'))">Add to Cart</button>
                 </div>
             </div>
         </div>
