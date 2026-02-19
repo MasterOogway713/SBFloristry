@@ -1132,11 +1132,11 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             throw new Error("Failed to create cart");
         }
 
-        async function updateCartAttributes(note, date) {
+async function updateCartAttributes(note, date) {
             const cartId = localStorage.getItem('shopify_cart_id');
             if (!cartId) return;
 
-            // 1. Explicitly update the Note (Gift Message)
+            // 1. Explicitly update the Note (Standard Shopify Field - Backup)
             const noteQuery = `
                 mutation updateNote($cartId: ID!, $note: String) {
                     cartNoteUpdate(cartId: $cartId, note: $note) {
@@ -1156,6 +1156,30 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 }
             `;
 
+            // 3. NEW: Update Metafield (AI Instruction - For Checkout UI Extension)
+            const sanitizedNote = note ? note.replace(/(\r\n|\n|\r)/gm, " ") : "";
+            
+            const metafieldQuery = `
+                mutation SetGiftMessage($cartId: ID!, $message: String!) {
+                  cartMetafieldsSet(
+                    metafields: [
+                      {
+                        ownerId: $cartId
+                        key: "gift_message"
+                        type: "single_line_text_field"
+                        value: $message
+                        namespace: "$app"
+                      }
+                    ]
+                  ) {
+                    userErrors {
+                      field
+                      message
+                    }
+                  }
+                }
+            `;
+
             const attributes = [];
             if (date) attributes.push({ key: "Requested Delivery Date", value: date });
 
@@ -1166,6 +1190,21 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 if (attributes.length > 0) {
                     await shopifyFetch(attrQuery, { cartId: cartId, attributes: attributes });
                 }
+
+                // C. Save to Metafield (New AI Implementation)
+                if (sanitizedNote) {
+                    try {
+                        const metaResult = await shopifyFetch(metafieldQuery, { cartId: cartId, message: sanitizedNote });
+                        if(metaResult.data?.cartMetafieldsSet?.userErrors?.length > 0) {
+                            console.warn("Metafield Error:", metaResult.data.cartMetafieldsSet.userErrors);
+                        } else {
+                            console.log("Gift Message Metafield Saved");
+                        }
+                    } catch (metaError) {
+                        console.warn("Could not save metafield:", metaError);
+                    }
+                }
+
                 return true;
             } catch (e) { 
                 console.error("Cart Update Error:", e); 
