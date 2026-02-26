@@ -89,6 +89,10 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         .calendar-day:not(.disabled):hover { background-color: #F9F8F6; color: #D4AF37; border: 1px solid #D4AF37; }
         .calendar-day.selected { background-color: #D4AF37; color: #0a0a0a; border: 1px solid #D4AF37; font-weight: bold; }
         .calendar-day.disabled { color: #d1d5db; pointer-events: none; background-color: #f9fafb; text-decoration: line-through; }
+        
+        /* Saving Indicator */
+        .saving-indicator { opacity: 0; transition: opacity 0.3s ease; }
+        .saving-indicator.active { opacity: 1; }
     </style>
 </head>
 <body class="font-sans text-sb-dark antialiased bg-sb-cream flex flex-col min-h-screen">
@@ -212,13 +216,19 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             </div>
             <div id="cart-extras" class="px-6 py-6 bg-sb-cream border-t border-gray-100 hidden">
                 <div class="mb-6">
-                    <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-400 mb-2">Gift Message</label>
+                    <div class="flex justify-between items-end mb-2">
+                        <label for="cart-note" class="block text-xs font-bold tracking-luxury uppercase text-gray-400">Gift Message</label>
+                        <span id="note-saving" class="saving-indicator text-[10px] text-sb-gold uppercase tracking-widest font-bold">Saving...</span>
+                    </div>
                     <textarea id="cart-note" rows="3" class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black placeholder-gray-300 focus:border-sb-gold outline-none resize-none" placeholder="Card message..."></textarea>
                 </div>
                 
                 <!-- CUSTOM BRANDED DATE PICKER -->
                 <div class="mb-4 relative">
-                    <label for="delivery-date-display" class="block text-xs font-bold tracking-luxury uppercase text-gray-400 mb-2">Requested Delivery Date</label>
+                    <div class="flex justify-between items-end mb-2">
+                        <label for="delivery-date-display" class="block text-xs font-bold tracking-luxury uppercase text-gray-400">Requested Delivery Date</label>
+                        <span id="date-saving" class="saving-indicator text-[10px] text-sb-gold uppercase tracking-widest font-bold">Saving...</span>
+                    </div>
                     <div class="relative">
                         <input type="text" id="delivery-date-display" readonly="" placeholder="Select a delivery date..." class="w-full bg-white border border-gray-200 p-3 text-base text-sb-black focus:border-sb-gold outline-none cursor-pointer">
                         <input type="hidden" id="delivery-date" name="delivery-date">
@@ -1182,6 +1192,7 @@ async function updateCartAttributes(note, date) {
 
             const attributes = [];
             if (date) attributes.push({ key: "Requested Delivery Date", value: date });
+            if (note) attributes.push({ key: "Gift Message", value: note }); // Forces note into the "Additional Details" admin section
 
             try {
                 // Run sequentially to ensure persistence
@@ -1277,8 +1288,20 @@ async function updateCartAttributes(note, date) {
         function handleCartInputUpdate() {
             const note = document.getElementById('cart-note')?.value;
             const dateInput = document.getElementById('delivery-date');
+            const noteSaving = document.getElementById('note-saving');
+            const dateSaving = document.getElementById('date-saving');
+            
+            if (noteSaving) noteSaving.classList.add('active');
+            if (dateSaving) dateSaving.classList.add('active');
+
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => { if (dateInput?.value) updateCartAttributes(note, dateInput.value); }, 500); 
+            debounceTimer = setTimeout(async () => { 
+                if (dateInput?.value || note !== undefined) {
+                    await updateCartAttributes(note, dateInput?.value); 
+                }
+                if (noteSaving) noteSaving.classList.remove('active');
+                if (dateSaving) dateSaving.classList.remove('active');
+            }, 800); 
         }
 
         async function addToCart(btn, rawProductId) {
