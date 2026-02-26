@@ -1142,84 +1142,56 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             throw new Error("Failed to create cart");
         }
 
-async function updateCartAttributes(note, date) {
+        async function updateCartAttributes(note, date) {
             const cartId = localStorage.getItem('shopify_cart_id');
-            if (!cartId) return;
+            if (!cartId) return null;
 
-            // 1. Explicitly update the Note (Standard Shopify Field - Backup)
+            let latestCheckoutUrl = null;
+
+            // GraphQL fixes: ensure strict types (added '!' where required by Shopify schema)
             const noteQuery = `
                 mutation updateNote($cartId: ID!, $note: String) {
                     cartNoteUpdate(cartId: $cartId, note: $note) {
-                        cart { id note }
+                        cart { id checkoutUrl note }
                         userErrors { field message }
                     }
                 }
             `;
 
-            // 2. Explicitly update the Attributes (Delivery Date)
             const attrQuery = `
-                mutation updateAttributes($cartId: ID!, $attributes: [AttributeInput!]) {
+                mutation updateAttributes($cartId: ID!, $attributes: [AttributeInput!]!) {
                     cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
-                        cart { id }
+                        cart { id checkoutUrl attributes { key value } }
                         userErrors { field message }
                     }
-                }
-            `;
-
-            // 3. NEW: Update Metafield (AI Instruction - For Checkout UI Extension)
-            const sanitizedNote = note ? note.replace(/(\r\n|\n|\r)/gm, " ") : "";
-            
-            const metafieldQuery = `
-                mutation SetGiftMessage($cartId: ID!, $message: String!) {
-                  cartMetafieldsSet(
-                    metafields: [
-                      {
-                        ownerId: $cartId
-                        key: "gift_message"
-                        type: "single_line_text_field"
-                        value: $message
-                        namespace: "$app"
-                      }
-                    ]
-                  ) {
-                    userErrors {
-                      field
-                      message
-                    }
-                  }
                 }
             `;
 
             const attributes = [];
             if (date) attributes.push({ key: "Requested Delivery Date", value: date });
-            if (note) attributes.push({ key: "Gift Message", value: note }); // Forces note into the "Additional Details" admin section
+            if (note) attributes.push({ key: "Gift Message", value: note });
 
             try {
-                // Run sequentially to ensure persistence
-                await shopifyFetch(noteQuery, { cartId: cartId, note: note || "" });
-                
-                if (attributes.length > 0) {
-                    await shopifyFetch(attrQuery, { cartId: cartId, attributes: attributes });
+                // 1. Update Note
+                const noteRes = await shopifyFetch(noteQuery, { cartId: cartId, note: note || "" });
+                if (noteRes.errors) console.error("GraphQL Errors (Note):", noteRes.errors);
+                if (noteRes.data?.cartNoteUpdate?.cart?.checkoutUrl) {
+                    latestCheckoutUrl = noteRes.data.cartNoteUpdate.cart.checkoutUrl;
                 }
 
-                // C. Save to Metafield (New AI Implementation)
-                if (sanitizedNote) {
-                    try {
-                        const metaResult = await shopifyFetch(metafieldQuery, { cartId: cartId, message: sanitizedNote });
-                        if(metaResult.data?.cartMetafieldsSet?.userErrors?.length > 0) {
-                            console.warn("Metafield Error:", metaResult.data.cartMetafieldsSet.userErrors);
-                        } else {
-                            console.log("Gift Message Metafield Saved");
-                        }
-                    } catch (metaError) {
-                        console.warn("Could not save metafield:", metaError);
+                // 2. Update Attributes
+                if (attributes.length > 0) {
+                    const attrRes = await shopifyFetch(attrQuery, { cartId: cartId, attributes: attributes });
+                    if (attrRes.errors) console.error("GraphQL Errors (Attr):", attrRes.errors);
+                    if (attrRes.data?.cartAttributesUpdate?.cart?.checkoutUrl) {
+                        latestCheckoutUrl = attrRes.data.cartAttributesUpdate.cart.checkoutUrl;
                     }
                 }
 
-                return true;
+                return latestCheckoutUrl;
             } catch (e) { 
                 console.error("Cart Update Error:", e); 
-                return false; 
+                return null; 
             }
         }
 
@@ -1423,11 +1395,18 @@ async function updateCartAttributes(note, date) {
                         newBtn.innerText = "Processing..."; 
                         newBtn.disabled = true;
                         
-                        // Force update of note and date right before checkout
                         const currentNote = noteInput ? noteInput.value : "";
-                        await updateCartAttributes(currentNote, dateInput.value);
                         
-                        window.location.href = cart.checkoutUrl;
+                        // Force update of note and date, and grab the freshest checkout URL
+                        const freshCheckoutUrl = await updateCartAttributes(currentNote, dateInput.value);
+                        
+                        // Redirecting to the URL returned directly from the mutation guarantees 
+                        // Shopify's checkout session has synced the new attributes.
+                        if (freshCheckoutUrl) {
+                            window.location.href = freshCheckoutUrl;
+                        } else {
+                            window.location.href = cart.checkoutUrl; // Fallback
+                        }
                     };
                 }
             }
