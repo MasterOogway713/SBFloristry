@@ -1002,6 +1002,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                             <p class="text-sm text-gray-400">We couldn't find any products tagged with <strong>#${tag}</strong>.</p>
                         </div>`;
                 } else {
+                    const isDark = tag.includes('gothic') || tag.includes('dark') || tag.includes('halloween');
                     gridEl.innerHTML = products.map(edge => createProductCard(edge.node, isDark)).join('');
                     
                     setTimeout(() => {
