@@ -6,8 +6,54 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta name="description" content="SB Floristry is a premier mother and daughter florist team serving Essex and London.">
+    <meta name="description" content="SB Floristry is a premier mother and daughter florist team serving Essex and London. Specializing in bespoke luxury floral designs for weddings, events, and everyday beauty.">
     <title>SB Floristry | Essex & London's Premier Mother-Daughter Florists</title>
+    
+    <!-- Open Graph Tags for SEO and Social Sharing -->
+    <meta property="og:title" content="SB Floristry | Essex & London's Premier Florists">
+    <meta property="og:description" content="Mother and daughter florist team creating bespoke, luxury floral designs for weddings, events, and homes across Essex, Romford, Chelmsford, and London.">
+    <meta property="og:image" content="https://sbfloristry.co.uk/images/hero.jpg">
+    <meta property="og:url" content="https://sbfloristry.co.uk/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SB Floristry">
+
+    <!-- JSON-LD Structured Data for Local SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Florist",
+      "name": "SB Floristry",
+      "image": "https://sbfloristry.co.uk/images/logo.png",
+      "@id": "https://sbfloristry.co.uk/",
+      "url": "https://sbfloristry.co.uk/",
+      "telephone": "01708956609",
+      "email": "info@sbfloristry.co.uk",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Romford",
+        "addressRegion": "Essex",
+        "addressCountry": "UK"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.575,
+        "longitude": 0.180
+      },
+      "areaServed": [
+        "Essex",
+        "London",
+        "Romford",
+        "Chelmsford",
+        "Brentwood"
+      ],
+      "priceRange": "$$",
+      "description": "Bespoke luxury floristry services for weddings, corporate events, and everyday delivery across Essex and London.",
+      "sameAs": [
+        "https://www.instagram.com/sbfloristry",
+        "https://www.facebook.com/sbfloristry"
+      ]
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -109,7 +155,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 
                 <!-- Left Nav -->
                 <div class="flex items-center justify-start lg:justify-end h-full">
-                    <button id="mobile-menu-btn" class="lg:hidden text-xl text-sb-cream focus:outline-none hover:text-sb-gold transition-colors mr-auto p-2">
+                    <button id="mobile-menu-btn" class="lg:hidden text-xl text-sb-cream focus:outline-none hover:text-sb-gold transition-colors mr-auto p-2" aria-label="Open mobile menu">
                         <i class="fas fa-bars"></i>
                     </button>
                     <nav class="hidden lg:flex space-x-8 xl:space-x-10 text-[11px] font-medium tracking-luxury text-gray-300 uppercase items-center">
@@ -131,14 +177,13 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 <!-- Center Logo -->
                 <div class="flex justify-center h-full items-center px-8">
                     <a href="#home" class="group block text-center">
-                        <img src="images/logo.png" alt="SB Floristry" class="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity">
+                        <img src="images/logo.png" alt="SB Floristry Logo" class="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity">
                     </a>
                 </div>
 
                 <!-- Right Nav -->
                 <div class="flex items-center justify-end lg:justify-between h-full w-full">
                     <nav class="hidden lg:flex space-x-8 xl:space-x-10 text-[11px] font-medium tracking-luxury text-gray-300 uppercase items-center">
-                        <!-- <a href="#subscriptions" class="hover:text-sb-gold transition-colors duration-300">Subscriptions</a> -->
                         <!-- EVENTS MENU -->
                         <div class="relative group h-full flex items-center">
                             <button class="hover:text-sb-gold transition-colors duration-300 focus:outline-none py-4 uppercase tracking-luxury flex items-center gap-1">
@@ -155,7 +200,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     </nav>
 
                     <div class="flex items-center space-x-6 text-sb-cream/80">
-                        <button id="cart-icon-btn" class="relative hover:text-sb-gold transition-colors group p-1">
+                        <button id="cart-icon-btn" class="relative hover:text-sb-gold transition-colors group p-1" aria-label="Open Cart">
                             <i class="fas fa-shopping-bag text-sm"></i>
                             <span id="cart-count" class="absolute -top-2 -right-2 text-sb-gold font-bold font-serif text-xs w-5 h-5 flex items-center justify-center transition-opacity duration-300 bg-sb-black rounded-full border border-sb-gold opacity-0">0</span>
                         </button>
@@ -167,7 +212,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-sb-black z-[100] transform -translate-x-full transition-transform duration-500 ease-in-out lg:hidden flex flex-col pt-20 px-8 overflow-y-auto">
-        <button id="close-menu-btn" class="absolute top-6 right-6 text-2xl text-sb-cream hover:text-sb-gold transition-colors p-2">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-2xl text-sb-cream hover:text-sb-gold transition-colors p-2" aria-label="Close mobile menu">
             <i class="fas fa-times"></i>
         </button>
         <nav class="flex flex-col mt-6">
@@ -192,7 +237,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     <a href="#workevents" class="block py-3 pl-4 text-sm text-gray-300 hover:text-white mobile-link">Corporate</a>
                 </div>
             </div>
-            <!-- <a href="#subscriptions" class="block w-full text-left text-sb-gold text-sm tracking-widest uppercase py-3 border-b border-white/5 hover:text-white transition-colors mobile-link">Subscriptions</a> -->
              <a href="#contact" class="block w-full text-left text-sb-gold text-sm tracking-widest uppercase py-3 border-b border-white/5 hover:text-white transition-colors mobile-link">Contact</a>
         </nav>
     </div>
@@ -275,10 +319,9 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 <button onclick="closeQuickView()" class="absolute top-4 right-4 text-sb-black bg-white/80 hover:bg-white rounded-full w-10 h-10 flex items-center justify-center z-20 shadow-sm transition-all"><i class="fas fa-times text-xl"></i></button>
                 
                 <!-- Image Section with Thumbnails -->
-                <!-- Mobile: Fixed 55% height. Desktop: Auto height (full column) -->
                 <div class="w-full md:w-1/2 bg-gray-100 relative flex flex-col h-[55%] md:h-auto shrink-0 border-b md:border-b-0 md:border-r border-gray-100">
                     <div class="flex-grow relative overflow-hidden">
-                        <img id="qv-image" src="" alt="" class="w-full h-full object-cover absolute inset-0 !opacity-100">
+                        <img id="qv-image" src="" alt="Product Quick View Main Image" class="w-full h-full object-cover absolute inset-0 !opacity-100">
                     </div>
                     <!-- Thumbnails Container -->
                     <div id="qv-thumbnails" class="hidden p-3 gap-3 overflow-x-auto bg-white border-t border-gray-100 flex-shrink-0 h-20 md:h-24 snap-x items-center">
@@ -287,7 +330,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 </div>
 
                 <!-- Content Section -->
-                <!-- Mobile: Scrolls within remaining height. Desktop: Scrolls if needed -->
                 <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-start md:justify-center bg-sb-cream overflow-y-auto">
                     <h3 id="qv-title" class="font-serif text-3xl md:text-5xl text-sb-black mb-2 font-normal mt-2 md:mt-0"></h3>
                     <p id="qv-price" class="text-xl md:text-2xl text-sb-gold font-bold mb-4 md:mb-6"></p>
@@ -306,11 +348,11 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         <div id="view-home" class="view-section">
             <section class="relative h-[90vh] overflow-hidden">
                 <div class="absolute inset-0">
-                    <img src="images/hero.jpg" alt="Luxury Bouquet" class="w-full h-full object-cover hero-zoom opacity-90" style="object-position: center 60%;">
+                    <img src="images/hero.jpg" alt="Luxury Hand-Tied Bouquet by SB Floristry" class="w-full h-full object-cover hero-zoom opacity-90" style="object-position: center 60%;">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30"></div>
                 </div>
                 <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream pt-20">
-                    <h2 class="text-xs md:text-sm tracking-[0.3em] uppercase mb-8 font-medium text-sb-gold animate-fade-in">Hand-Tied in Essex • Delivered to London</h2>
+                    <h2 class="text-xs md:text-sm tracking-[0.3em] uppercase mb-8 font-medium text-sb-gold animate-fade-in">Hand-Tied in Romford • Delivered to London</h2>
                     <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl mb-10 leading-none animate-fade-in-up font-normal">
                         Artistry in <br><span class="italic font-light text-gold-metallic">Every Bloom</span>
                     </h1>
@@ -328,7 +370,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                         Welcome to SB Floristry. We are a mother and daughter team bringing bespoke, luxury floral design to weddings, events, and homes across Essex and London. Every arrangement is hand-selected and styled with the care only family can provide.
                     </p>
                     <div class="flex flex-col md:flex-row justify-center gap-12 text-xs font-bold tracking-luxury text-sb-cream uppercase reveal">
-                        <div class="flex items-center justify-center"><i class="fas fa-truck mr-3 text-sb-gold"></i> Free Local Delivery</div>
+                        <div class="flex items-center justify-center"><i class="fas fa-truck mr-3 text-sb-gold"></i> Free Local Delivery (Romford & Essex)</div>
                         <div class="flex items-center justify-center"><i class="fas fa-heart mr-3 text-sb-gold"></i> Family Owned</div>
                     </div>
                 </div>
@@ -346,33 +388,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     </div>
                 </div>
             </section>
-
-            <!-- SUBSCRIPTION PROMO -->
-            <!-- 
-            <section class="py-24 bg-white">
-                <div class="container mx-auto px-6">
-                    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-                        <div class="w-full lg:w-1/2 h-[600px] reveal relative group overflow-hidden">
-                             <img id="home-subscription-image" src="https://images.unsplash.com/photo-1507290439931-a861b5a38200?q=80&w=1932" alt="Subscriptions" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 loaded" style="opacity:1">
-                             <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500"></div>
-                        </div>
-                        <div class="w-full lg:w-1/2 text-center lg:text-left reveal delay-100">
-                            <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 block">Effortless Beauty</span>
-                            <h2 class="font-serif text-4xl md:text-6xl text-sb-black mb-6 font-light">The Flower Subscription</h2>
-                            <div class="w-16 h-px bg-sb-gold mx-auto lg:mx-0 mb-8"></div>
-                            <p class="text-gray-600 font-light leading-relaxed mb-8 text-lg">
-                                Enjoy the luxury of fresh, seasonal stems delivered directly to your door. Choose from weekly, bi-weekly, or monthly plans designed to bring life and fragrance to your home.
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                <a href="#subscriptions" class="btn-luxury border border-sb-black text-sb-black px-12 py-4 uppercase tracking-luxury text-xs font-bold inline-block hover:bg-sb-black hover:text-white transition-all">
-                                    View Plans
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            -->
         </div>
 
         <!-- 2. VIEW: DYNAMIC COLLECTION -->
@@ -395,7 +410,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         <div id="view-weddings" class="view-section">
             <section class="relative h-[60vh] overflow-hidden">
                 <div class="absolute inset-0">
-                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070" alt="Weddings Banner" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070" alt="Beautiful Wedding Floral Arrangements" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/50"></div>
                 </div>
                 <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream">
@@ -406,27 +421,27 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 <div class="container mx-auto px-6 max-w-4xl text-center">
                     <h2 class="font-serif text-4xl text-sb-black mb-8 font-light italic">Your Love Story, In Bloom</h2>
                     <p class="text-xl text-gray-600 font-light leading-relaxed mb-12">
-                        From charming Essex countryside weddings to glamorous London ballroom celebrations, we design with heart and precision. We believe your wedding flowers should be as unique as your relationship, setting the tone for a day you will never forget.
+                        From charming Essex countryside weddings in Chelmsford and Brentwood to glamorous Central London ballroom celebrations, we design with heart and precision. We believe your wedding flowers should be as unique as your relationship, setting the tone for a day you will never forget.
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 mb-16 text-left">
                         <div class="text-center">
                             <div class="h-64 overflow-hidden mb-6">
-                                <img src="https://images.unsplash.com/photo-1522673607200-1645062cd4d1?q=80&w=2070" alt="Bridal Party" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 loaded" style="opacity:1">
+                                <img src="https://images.unsplash.com/photo-1522673607200-1645062cd4d1?q=80&w=2070" alt="Bridal Party Bouquets" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 loaded" style="opacity:1">
                             </div>
                             <h3 class="font-serif text-2xl text-sb-black mb-2">Bridal Party</h3>
                             <p class="text-sm text-gray-500 leading-relaxed">Exquisite bouquets and buttonholes tailored to your palette.</p>
                         </div>
                         <div class="text-center">
                             <div class="h-64 overflow-hidden mb-6">
-                                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069" alt="Ceremony" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 loaded" style="opacity:1">
+                                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069" alt="Wedding Ceremony Floral Archway" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 loaded" style="opacity:1">
                             </div>
                             <h3 class="font-serif text-2xl text-sb-black mb-2">Ceremony</h3>
                             <p class="text-sm text-gray-500 leading-relaxed">Aisle markers, archways, and pew ends that create a magical setting.</p>
                         </div>
                         <div class="text-center">
                             <div class="h-64 overflow-hidden mb-6">
-                                <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=2070" alt="Reception" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 loaded" style="opacity:1">
+                                <img src="https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=2070" alt="Wedding Reception Centerpieces" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700 loaded" style="opacity:1">
                             </div>
                             <h3 class="font-serif text-2xl text-sb-black mb-2">Reception</h3>
                             <p class="text-sm text-gray-500 leading-relaxed">Breathtaking centrepieces and installations for the perfect celebration.</p>
@@ -447,7 +462,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 <div class="container mx-auto px-6 max-w-4xl">
                      <div class="text-center mb-16">
                         <p class="text-xl text-gray-600 font-light leading-relaxed">
-                            We understand the importance of saying goodbye beautifully. Sympathy arrangements created with care using seasonal blooms. Let us help you express your condolences when words are not enough.
+                            We understand the importance of saying goodbye beautifully. Sympathy arrangements created with care using seasonal blooms. Let us help you express your condolences when words are not enough. We serve funeral homes and families across Essex and East London.
                         </p>
                      </div>
                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
@@ -492,7 +507,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div class="h-[500px] overflow-hidden">
-                             <img src="https://images.unsplash.com/photo-1543886476-80db61db7e0e?q=80&w=1887" alt="Baby Shower Arch" class="w-full h-full object-cover loaded" style="opacity:1">
+                             <img src="https://images.unsplash.com/photo-1543886476-80db61db7e0e?q=80&w=1887" alt="Baby Shower Floral Arch" class="w-full h-full object-cover loaded" style="opacity:1">
                         </div>
                         <div class="space-y-8">
                             <div>
@@ -561,71 +576,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 </div>
             </section>
         </div>
-
-        <!-- 4. VIEW: SUBSCRIPTIONS (Commented out) -->
-        <!-- 
-        <div id="view-subscriptions" class="view-section">
-            <section class="relative h-[60vh] overflow-hidden">
-                <div class="absolute inset-0">
-                    <img id="subscription-hero-image" src="https://images.unsplash.com/photo-1599859942525-460d37e28320?q=80&w=2070" alt="Flower Subscription" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40"></div>
-                </div>
-                <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-sb-cream">
-                    <span class="text-sb-gold text-xs tracking-super-wide uppercase font-bold mb-4 animate-fade-in">Join the Club</span>
-                    <h1 class="font-serif text-6xl md:text-8xl mb-6 font-light animate-fade-in-up">Flower Subscriptions</h1>
-                    <p class="text-lg font-light tracking-wide max-w-xl mx-auto animate-fade-in">Fresh blooms delivered to your door, on your schedule.</p>
-                </div>
-            </section>
-            
-            <section class="py-24 bg-sb-cream">
-                <div class="container mx-auto px-6">
-                    <div class="text-center mb-16">
-                        <h2 class="font-serif text-4xl text-sb-black mb-4">Choose Your Plan</h2>
-                        <div class="w-16 h-px bg-sb-gold mx-auto mt-6"></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                        <div class="bg-white p-8 border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300 group" data-title="The Seasonal Subscription" data-price="£45.00" data-image="images/prod-subscription.jpg">
-                            <h3 class="font-serif text-2xl text-sb-black mb-2">The Seasonal</h3>
-                            <p class="text-xs tracking-widest text-gray-400 uppercase mb-6">Monthly Joy</p>
-                            <div class="text-4xl font-serif text-sb-gold mb-6">£45<span class="text-sm text-gray-400 font-sans">/mo</span></div>
-                            <ul class="text-sm text-gray-500 space-y-4 mb-8 flex-grow">
-                                <li>Seasonal hand-tied bouquet</li>
-                                <li>Delivered once a month</li>
-                                <li>Cancel anytime</li>
-                            </ul>
-                            <button onclick="addToCart(this, 'sub_seasonal')" class="w-full btn-luxury bg-sb-black text-sb-cream py-3 uppercase tracking-luxury text-xs font-bold">Subscribe</button>
-                        </div>
-                        
-                        <div class="bg-sb-black text-sb-cream p-8 border border-sb-gold transform scale-105 shadow-2xl flex flex-col items-center text-center relative group" data-title="The Luxury Subscription" data-price="£85.00" data-image="images/prod-subscription.jpg">
-                            <span class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sb-gold text-sb-black text-[10px] uppercase font-bold px-3 py-1 tracking-widest">Most Popular</span>
-                            <h3 class="font-serif text-2xl mb-2">The Luxury</h3>
-                            <p class="text-xs tracking-widest text-gray-400 uppercase mb-6">Bi-Weekly Indulgence</p>
-                            <div class="text-4xl font-serif text-sb-gold mb-6">£85<span class="text-sm text-gray-400 font-sans">/mo</span></div>
-                            <ul class="text-sm text-gray-300 space-y-4 mb-8 flex-grow">
-                                <li>Premium stems & larger arrangement</li>
-                                <li>Delivered every 2 weeks</li>
-                                <li>Luxury Vase included</li>
-                            </ul>
-                            <button onclick="addToCart(this, 'sub_luxury')" class="w-full btn-luxury bg-sb-gold text-sb-black border-sb-gold py-3 uppercase tracking-luxury text-xs font-bold">Subscribe</button>
-                        </div>
-                        
-                        <div class="bg-white p-8 border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300 group" data-title="The Weekly Subscription" data-price="£150.00" data-image="images/prod-subscription.jpg">
-                            <h3 class="font-serif text-2xl text-sb-black mb-2">The Weekly</h3>
-                            <p class="text-xs tracking-widest text-gray-400 uppercase mb-6">Ultimate Freshness</p>
-                            <div class="text-4xl font-serif text-sb-gold mb-6">£150<span class="text-sm text-gray-400 font-sans">/mo</span></div>
-                            <ul class="text-sm text-gray-500 space-y-4 mb-8 flex-grow">
-                                <li>Fresh flowers every week</li>
-                                <li>Rotates between styles</li>
-                                <li>Perfect for home styling</li>
-                            </ul>
-                            <button onclick="addToCart(this, 'sub_weekly')" class="w-full btn-luxury bg-sb-black text-sb-cream py-3 uppercase tracking-luxury text-xs font-bold">Subscribe</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        -->
 
         <!-- 5. VIEW: CONTACT -->
         <div id="view-contact" class="view-section">
@@ -733,9 +683,9 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     <h3 class="font-serif text-2xl text-sb-cream mb-6 tracking-widest">SB FLORISTRY</h3>
                     <p class="text-sm font-light leading-relaxed mb-6 text-gray-400">Artistry in every bloom. Mother and daughter team creating bespoke floral designs for Essex and London.</p>
                     <div class="flex justify-center md:justify-start space-x-6 text-sb-gold">
-                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram text-lg"></i></a>
-                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-facebook-f text-lg"></i></a>
-                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-pinterest-p text-lg"></i></a>
+                        <a href="#" class="hover:text-white transition-colors" aria-label="Instagram"><i class="fab fa-instagram text-lg"></i></a>
+                        <a href="#" class="hover:text-white transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f text-lg"></i></a>
+                        <a href="#" class="hover:text-white transition-colors" aria-label="Pinterest"><i class="fab fa-pinterest-p text-lg"></i></a>
                     </div>
                 </div>
 
@@ -745,7 +695,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                     <ul class="space-y-4 text-sm font-light">
                         <li><a href="#home" class="hover:text-sb-gold transition-colors">Home</a></li>
                         <li><a href="#collection-seasonal" class="hover:text-sb-gold transition-colors">Shop Collections</a></li>
-                        <!-- <li><a href="#subscriptions" class="hover:text-sb-gold transition-colors">Subscriptions</a></li> -->
                         <li><a href="#weddings" class="hover:text-sb-gold transition-colors">Weddings & Events</a></li>
                     </ul>
                 </div>
@@ -898,7 +847,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                         
                         html += `
                         <a href="#collection-${tag}" class="group relative block h-[500px] overflow-hidden cursor-pointer reveal active">
-                            <img src="${imgSrc}" alt="${title}" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 loaded" style="opacity: 1;">
+                            <img src="${imgSrc}" alt="${title} Floral Collection" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 loaded" style="opacity: 1;">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500"></div>
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
                                 <h4 class="font-serif text-4xl text-sb-cream mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 font-light">${title}</h4>
@@ -1053,7 +1002,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                             <p class="text-sm text-gray-400">We couldn't find any products tagged with <strong>#${tag}</strong>.</p>
                         </div>`;
                 } else {
-                    const isDark = tag.includes('gothic') || tag.includes('dark') || tag.includes('halloween');
                     gridEl.innerHTML = products.map(edge => createProductCard(edge.node, isDark)).join('');
                     
                     setTimeout(() => {
@@ -1095,7 +1043,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                                         id
                                         title
                                         price { amount currencyCode }
-                                        image { url }
+                                        image { url altText }
                                         product { title }
                                     }
                                 }
@@ -1148,7 +1096,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
             let latestCheckoutUrl = null;
 
-            // GraphQL fixes: ensure strict types (added '!' where required by Shopify schema)
             const noteQuery = `
                 mutation updateNote($cartId: ID!, $note: String) {
                     cartNoteUpdate(cartId: $cartId, note: $note) {
@@ -1396,16 +1343,12 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                         newBtn.disabled = true;
                         
                         const currentNote = noteInput ? noteInput.value : "";
-                        
-                        // Force update of note and date, and grab the freshest checkout URL
                         const freshCheckoutUrl = await updateCartAttributes(currentNote, dateInput.value);
                         
-                        // Redirecting to the URL returned directly from the mutation guarantees 
-                        // Shopify's checkout session has synced the new attributes.
                         if (freshCheckoutUrl) {
                             window.location.href = freshCheckoutUrl;
                         } else {
-                            window.location.href = cart.checkoutUrl; // Fallback
+                            window.location.href = cart.checkoutUrl;
                         }
                     };
                 }
@@ -1417,7 +1360,8 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 } else {
                     cartContainer.innerHTML = cart.lines.edges.map(edge => {
                         const item = edge.node;
-                        return `<div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4"><div class="w-20 h-24 flex-shrink-0 bg-gray-50"><img src="${item.merchandise.image?.url || ''}" class="w-full h-full object-cover loaded" style="opacity: 1;"></div><div class="flex-1"><h4 class="font-serif text-lg text-sb-black leading-tight mb-1">${item.merchandise.product.title}</h4><p class="text-xs text-gray-500 mb-2">£${item.merchandise.price.amount}</p><div class="flex items-center gap-4"><div class="flex items-center border border-gray-200"><button onclick="updateLineItem('${item.id}', ${item.quantity - 1})" class="px-2 py-1 text-gray-500 hover:text-sb-black">-</button><span class="px-2 text-xs font-bold">${item.quantity}</span><button onclick="updateLineItem('${item.id}', ${item.quantity + 1})" class="px-2 py-1 text-gray-500 hover:text-sb-black">+</button></div><button onclick="removeLineItem('${item.id}')" class="text-xs text-gray-400 hover:text-red-500 underline">Remove</button></div></div></div>`;
+                        const altText = item.merchandise.image?.altText || item.merchandise.product.title;
+                        return `<div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4"><div class="w-20 h-24 flex-shrink-0 bg-gray-50"><img src="${item.merchandise.image?.url || ''}" alt="${altText}" class="w-full h-full object-cover loaded" style="opacity: 1;"></div><div class="flex-1"><h4 class="font-serif text-lg text-sb-black leading-tight mb-1">${item.merchandise.product.title}</h4><p class="text-xs text-gray-500 mb-2">£${item.merchandise.price.amount}</p><div class="flex items-center gap-4"><div class="flex items-center border border-gray-200"><button onclick="updateLineItem('${item.id}', ${item.quantity - 1})" class="px-2 py-1 text-gray-500 hover:text-sb-black">-</button><span class="px-2 text-xs font-bold">${item.quantity}</span><button onclick="updateLineItem('${item.id}', ${item.quantity + 1})" class="px-2 py-1 text-gray-500 hover:text-sb-black">+</button></div><button onclick="removeLineItem('${item.id}')" class="text-xs text-gray-400 hover:text-red-500 underline">Remove</button></div></div></div>`;
                     }).join('');
                 }
             }
@@ -1430,13 +1374,19 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             const price = product.variants.edges[0]?.node?.price;
             const priceText = price ? `£${price.amount}` : '£0.00';
             
-            // Get all images
-            const images = product.images.edges.map(e => e.node.url);
-            const img1 = images[0] || '';
-            const img2 = images[1] || null; // Second image for hover effect
+            // Extract Alt Text for Images dynamically via Shopify
+            const imageData = product.images.edges.map(e => ({
+                url: e.node.url,
+                alt: e.node.altText || product.title // Fallback to product title if alt is missing
+            }));
+
+            const img1 = imageData[0]?.url || '';
+            const img1Alt = imageData[0]?.alt || 'Product Image';
+            const img2 = imageData[1]?.url || null; 
+            const img2Alt = imageData[1]?.alt || 'Product Alternate View';
             
-            // Serialize images for Quick View
-            const imagesJson = JSON.stringify(images).replace(/"/g, '&quot;');
+            // Serialize just the image URLs for Quick View parsing
+            const imagesJson = JSON.stringify(imageData.map(img => img.url)).replace(/"/g, '&quot;');
 
             const rawId = product.id.split('/').pop(); 
             const safeTitle = product.title.replace(/"/g, '&quot;');
@@ -1449,13 +1399,13 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             return `
              <div class="group relative reveal active" data-title="${safeTitle}" data-price="${priceText}" data-images="${imagesJson}" data-description="${safeDesc}" data-shopify-id="${rawId}">
                  <div class="relative overflow-hidden mb-4 aspect-[4/5] group-image-container ${border}">
-                     <!-- Main Image (fades out on hover if 2nd exists) -->
-                     <img src="${img1}" alt="${safeTitle}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-700 z-10 ${img2 ? 'group-hover:opacity-0' : ''}" onerror="this.src='https://via.placeholder.com/400x500'">
+                     <!-- Main Image using dynamic alt text -->
+                     <img src="${img1}" alt="${img1Alt}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-700 z-10 ${img2 ? 'group-hover:opacity-0' : ''}" onerror="this.src='https://via.placeholder.com/400x500'">
                      
-                     <!-- Second Image (revealed on hover) -->
-                     ${img2 ? `<img src="${img2}" alt="${safeTitle}" class="w-full h-full object-cover absolute inset-0 z-0 !opacity-100">` : ''}
+                     <!-- Second Image -->
+                     ${img2 ? `<img src="${img2}" alt="${img2Alt}" class="w-full h-full object-cover absolute inset-0 z-0 !opacity-100">` : ''}
 
-                     <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 z-20 hover:bg-sb-gold"><i class="fas fa-eye"></i></button>
+                     <button onclick="openQuickView(this)" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/90 text-sb-black w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 z-20 hover:bg-sb-gold" aria-label="Quick view product"><i class="fas fa-eye"></i></button>
                      <button class="absolute bottom-0 left-0 w-full ${btnBg} py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-bold tracking-luxury text-[10px] uppercase z-30" onclick="addToCart(this, '${rawId}')">Add to Cart</button>
                  </div>
                  <h4 class="font-serif text-2xl ${textClass} mb-1 font-light">${product.title}</h4>
@@ -1477,8 +1427,9 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             // Image Logic
             const images = JSON.parse(p.dataset.images || '[]');
             
-            // Set Initial Main Image
+            // Set Initial Main Image and inherit alt text roughly based on title
             mainImg.src = images.length > 0 ? images[0] : 'https://via.placeholder.com/600x800';
+            mainImg.alt = `${p.dataset.title} - Main Image`;
             
             // Build Thumbnails
             thumbContainer.innerHTML = '';
@@ -1490,12 +1441,11 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 images.forEach((url, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = url;
+                    thumb.alt = `${p.dataset.title} - View ${index + 1}`;
                     thumb.className = `w-16 h-16 object-cover cursor-pointer border shadow-sm flex-shrink-0 transition-all ${index === 0 ? 'border-sb-gold opacity-100' : 'border-transparent opacity-60 hover:opacity-100'}`;
                     
                     thumb.onclick = () => {
-                        // Swap Main Image
                         mainImg.src = url;
-                        // Update Active State
                         Array.from(thumbContainer.children).forEach(t => {
                             t.classList.remove('border-sb-gold', 'opacity-100');
                             t.classList.add('border-transparent', 'opacity-60');
@@ -1554,7 +1504,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
             if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
 
-            // --- FIXED: MOBILE ACCORDION LOGIC ---
             const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
             accordionBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1562,7 +1511,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
                 });
             });
 
-            // --- FIXED: CLOSE MOBILE MENU ON LINK CLICK ---
             document.addEventListener('click', (e) => {
                 if(e.target.matches('.mobile-link') && mobileMenu) {
                      mobileMenu.classList.add('-translate-x-full');
